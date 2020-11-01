@@ -2,5 +2,7 @@
     height: var(--field-size);
     border-radius: 5px;
     padding: 5px;
+    width: 100%;
+    margin: 5px 10px;
 }
 
