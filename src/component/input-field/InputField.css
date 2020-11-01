@@ -1,0 +1,6 @@
+.InputField{
+    height: var(--field-size);
+    border-radius: 5px;
+    padding: 5px;
+}
+
