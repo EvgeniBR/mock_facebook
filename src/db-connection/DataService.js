@@ -6,7 +6,7 @@ const get = (id) => {
 }
 
 //create or update new sheet 
-const create = (data,path)  => {
+const create = (path,data)  => {
   return http.post(`/${path}`, data);
 };
 

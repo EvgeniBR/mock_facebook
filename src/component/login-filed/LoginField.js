@@ -24,7 +24,7 @@ const LoginField = ({ handleClick }) => {
       <ButtonField
         btnText="Create New Account"
         btnColor="#229d20"
-        handleClick={() => console.log("yo")}
+        handleClick={() => handleClick()}
       />
     </div>
   );
