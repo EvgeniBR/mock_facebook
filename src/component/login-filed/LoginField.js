@@ -3,15 +3,21 @@ import InputField from "../input-field/InputField";
 import ButtonField from "../button-field/ButtonField";
 import "./LoginField.css";
 import Seperator from "../seperator/Seperator";
+import DataService from '../../db-connection/DataService'
 
 const LoginField = ({ handleClick }) => {
   const [email , setEmail ] = useState('')
   const [password , setPassword ] = useState('')
 
-  const checkForMatchUser = () => {
+  const checkForMatchUser = async () => {
+    const data = {
+      email,
+      password,
+    }
     //validation
-    console.log("here");
-    console.log(email, password);
+    const validate = await DataService.create('users/login', data);
+    console.log(validate);
+    //console.log(validate);
   }
 
   return (
