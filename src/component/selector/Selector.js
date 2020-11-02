@@ -26,7 +26,7 @@ const getMonths = [
 const getDays = counter(1, 31);
 const getYears = counter(1905, 2020);
 
-const Selector = ({ id }) => {
+const Selector = ({ id , handleChange}) => {
   const optionSelector = (info) => {
     if (info === "months") {
       return getMonths;
@@ -39,10 +39,10 @@ const Selector = ({ id }) => {
     }
   };
 
-  const options = optionSelector(id).map((option) => {
-    return <option value={option}>{option}</option>;
+  const options = optionSelector(id).map((option, index) => {
+    return <option key={index} value={option}>{option}</option>;
   });
-  return <select id={id}>{options}</select>;
+  return <select onChange={(e) => handleChange(e.target.value)} id={id}>{options}</select>;
 };
 
 export default Selector;

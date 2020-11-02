@@ -66,16 +66,18 @@ const userSchema = new mongoose.Schema({
     timestamps: true,
   });
 
+
+// costume function to generate token for user  
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, "facebookmock");
+  const token = jwt.sign({ _id: user._id.toString() }, 'facebookmock');
 
   user.tokens = user.tokens.concat({ token });
   await user.save();
 
   return token;
 };
-
+// costume function to validate user be email and password
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
 
@@ -92,6 +94,8 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
+
+// hash the password before saving
 userSchema.pre("save", async function (next) {
   const user = this;
 
