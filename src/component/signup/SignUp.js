@@ -26,7 +26,7 @@ const SignUp = () => {
       last_name:lastName,
       password,
       email,
-      gender,
+      // gender,
       birthday:{
         day,
         month,
@@ -34,11 +34,11 @@ const SignUp = () => {
       }
     }
     try{
-      await DataService.create('user', data);
+      await DataService.create('users', data);
       console.log("user created");
     }
-    catch{
-      console.log("something wrong");
+    catch(e){
+      console.log("something wrong" , e);
     }
       
   }
