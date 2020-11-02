@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./InputField.css";
 
-const InputField = ({ Inputtype, textOfPlaceholder }) => {
+const InputField = ({ Inputtype, textOfPlaceholder , handleChange}) => {
   const [inputValue, setInputValue] = useState("");
   return (
     <input
@@ -11,7 +11,7 @@ const InputField = ({ Inputtype, textOfPlaceholder }) => {
       value={inputValue}
       onChange={(e) => {
         setInputValue(e.target.value);
-        //לשרשר את הvalue
+        handleChange(e.target.value);
       }}
     />
   );
