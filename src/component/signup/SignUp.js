@@ -34,7 +34,7 @@ const SignUp = () => {
       }
     }
     try{
-      await DataService.create('user', data);
+      await DataService.create('users', data);
       console.log("user created");
     }
     catch{
