@@ -1,5 +1,6 @@
 
 import Facebook from "./Facebook";
+import "./App.css"
 
 function App() {
   return (

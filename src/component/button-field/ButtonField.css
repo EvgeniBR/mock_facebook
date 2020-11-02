@@ -1,0 +1,8 @@
+.BtnField{
+    border: none;
+    height: var(--field-size);
+    color: white;
+    font-weight: bold;
+    padding: 0 10px;
+    border-radius: 5px;
+}

@@ -1,0 +1,31 @@
+.Login{
+    
+}
+
+.Login-main{
+    padding: 0 20%;
+    padding-top: 15%;
+    display: flex;
+    height:80vh;
+
+}
+
+.Login-title{
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.Login-title > img{
+    object-fit: cover;
+    position: relative;
+    left: -20px;
+    width: 50%;
+}
+
+.Login-login-form{
+    width: 200px;
+    height: 300px;
+}
+
