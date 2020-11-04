@@ -70,6 +70,17 @@ const userSchema = new mongoose.Schema({
     timestamps: true,
   });
 
+  // function that prevents sendind tue password and tokents back to the user side
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 
 // costume function to generate token for user  
 userSchema.methods.generateAuthToken = async function () {
