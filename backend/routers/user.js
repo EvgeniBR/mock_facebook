@@ -25,7 +25,7 @@ router.post('/users/login', async (req, res) => {
         res.send({ user, token })
     } catch (e) {
         res.status(200).send( {'error': 'Invalid mail or password' })
-        console.log('i');
+        console.log(e);
     }
 })
 

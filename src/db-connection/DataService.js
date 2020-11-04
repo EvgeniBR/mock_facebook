@@ -1,8 +1,8 @@
 import http from "./PathConnect";
 
 
-const get = (id) => {
-  return http.get(`/${id}`);
+const get = (path) => {
+  return http.get(`/${path}`);
 }
 
 //create or update new sheet 

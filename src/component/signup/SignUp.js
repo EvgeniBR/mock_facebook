@@ -19,7 +19,7 @@ const SignUp = () => {
   const [password , setPassword] = useState('');
   const [gender , setGender] = useState('');
 
-  //create new user - need to add empty field
+  //create new user - need to add empty field --  require
   const handleCreateNewUser = async () => {
     const data = {
       first_name:firstName,
