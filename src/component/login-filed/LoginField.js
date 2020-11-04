@@ -4,10 +4,21 @@ import ButtonField from "../button-field/ButtonField";
 import "./LoginField.css";
 import Seperator from "../seperator/Seperator";
 import DataService from '../../db-connection/DataService'
+import Cookies from 'universal-cookie';
+import { useHistory } from "react-router-dom";
+
 
 const LoginField = ({ handleClick }) => {
   const [email , setEmail ] = useState('')
   const [password , setPassword ] = useState('')
+
+  const cookies = new Cookies();
+  let history = useHistory();
+
+  const coociesAccess = {
+    path : '/',
+    sameSite: 'strict',
+};
 
   const checkForMatchUser = async () => {
     const data = {
@@ -16,8 +27,8 @@ const LoginField = ({ handleClick }) => {
     }
     //validation
     const validate = await DataService.create('users/login', data);
-    console.log(validate);
-    //console.log(validate);
+    cookies.set('mockFacebookToken', validate.data.token , coociesAccess);
+    history.push('/');
   }
 
   return (

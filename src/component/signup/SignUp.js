@@ -6,6 +6,9 @@ import MiniInfo from "../mini-info/MiniInfo";
 import Selector from "../selector/Selector";
 import ButtonField from "../button-field/ButtonField";
 import DataService from '../../db-connection/DataService';
+import Cookies from 'universal-cookie';
+import { useHistory } from "react-router-dom";
+
 
 const SignUp = () => {
   //birthsday
@@ -19,6 +22,25 @@ const SignUp = () => {
   const [password , setPassword] = useState('');
   const [gender , setGender] = useState('');
 
+  
+  const cookies = new Cookies();
+  let history = useHistory();
+
+  const coociesAccess = {
+    path : '/',
+    sameSite: 'strict',
+};
+
+
+  //check if some of the values are empty
+  const checkIfEmpty = () =>{
+    const dataField = [day,month,year,email,firstName,lastName,password,gender];
+    const checkForMissingInfo = dataField.some(option =>{
+      return option === '' || option === -1
+    })
+    return checkForMissingInfo;
+  } 
+
   //create new user - need to add empty field --  require
   const handleCreateNewUser = async () => {
     const data = {
@@ -26,20 +48,27 @@ const SignUp = () => {
       last_name:lastName,
       password,
       email,
-      // gender,
+      gender,
       birthday:{
         day,
         month,
         year
       }
     }
-    try{
-      await DataService.create('users', data);
-      console.log("user created");
+    if(!checkIfEmpty()){
+      try{
+        const user = await DataService.create('users', data);
+        cookies.set('mockFacebookToken', user.data.token , coociesAccess);
+        history.push('/');
+      }
+      catch{
+        console.log("something wrong");
+      }
     }
-    catch(e){
-      console.log("something wrong" , e);
+    else{
+      console.log("some of the data are missing");
     }
+
       
   }
 
