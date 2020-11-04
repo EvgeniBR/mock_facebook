@@ -8,23 +8,23 @@ const SearchBar = (props) => {
   const [searchTitles, setSearchTitles] = useState([]);
 
   useEffect(() => {
-    const searchFacebook = async () => {
-      const data = await DataService.get(``);
-      const searchList = data.data.results.slice(0 ,5).map((item) => {
-        return (
-          <div className="search-container" key={item._id}>
-            <div className="search-result" onClick={()=>handleClickOnTitle(item.id)}>
-             <span className="poster-span">{item.first_Name}</span> 
-             <span className="title-span">{item.last_Name}</span>  
-              </div>
-          </div>
-        );
-      });
+    // const searchFacebook = async () => {
+    //   const data = await DataService.get(``);
+    //   const searchList = data.data.results.slice(0 ,5).map((item) => {
+    //     return (
+    //       <div className="search-container" key={item._id}>
+    //         <div className="search-result" onClick={()=>handleClickOnTitle(item.id)}>
+    //          <span className="poster-span">{item.first_Name}</span> 
+    //          <span className="title-span">{item.last_Name}</span>  
+    //           </div>
+    //       </div>
+    //     );
+    //   });
 
-      setSearchTitles(searchList);
-    };
+    //   setSearchTitles(searchList);
+    // };
 
-    searchFacebook();
+    // searchFacebook();
     // eslint-disable-next-line
   }, [searchResults ]);
 
