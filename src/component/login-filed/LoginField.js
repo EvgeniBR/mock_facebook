@@ -25,7 +25,7 @@ const LoginField = ({ handleClick }) => {
       <InputField Inputtype="text" textOfPlaceholder="Email" handleChange={(value) => setEmail(value)}/>
       <InputField Inputtype="password" textOfPlaceholder="Password" handleChange={(value) => setPassword(value)}/>
       <ButtonField btnText="Log In" btnWidth="100%" btnColor="#504ddb" handleClick={checkForMatchUser}/>
-      <a href="">Forgot Password?</a>
+       <a href="">Forgot Password?</a>
       <Seperator />
       <ButtonField
         btnText="Create New Account"
