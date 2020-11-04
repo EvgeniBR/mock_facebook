@@ -4,6 +4,8 @@ const router = new express.Router()
 const date = require('../util/date');
 
 // CRUD POST
+//need to add -> update post and delete post , update comment and delete comment
+//neef to add -> nested comment to post comment.
 
 //get user posts (all posts)
 router.get('/facebook-post/:owner', async (req, res) => {
