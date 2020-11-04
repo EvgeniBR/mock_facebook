@@ -20,8 +20,6 @@ const getCurrentDate = () => {
 const getFullDate = () => {
     return `${getCurrentDate()} ${getCurrentTime()}`
 }
-console.log(getCurrentDate());
-
 
 module.exports = {
     getCurrentTime,

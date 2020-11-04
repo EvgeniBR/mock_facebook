@@ -4,18 +4,16 @@ const router = new express.Router()
 const date = require('../util/date');
 
 // CRUD POST
+//need to add -> update post and delete post , update comment and delete comment
+//neef to add -> nested comment to post comment.
 
 //get user posts (all posts)
-router.get('/facebook-post/:id', async (req, res) => {
-    const myData = req.body;
-    myData['createdDate'] = date.getFullDate();
-    myData['updateDate'] = date.getFullDate();
-    const post = new Post(myData)
+router.get('/facebook-post/:owner', async (req, res) => {
     try {
-        await post.save()
-        res.status(201).send({ post})
+        const usersPost = await Post.find({owner:req.params.owner})
+        res.send(usersPost)
     } catch (e) {
-        res.status(400).send(e)
+        res.status(500).send()
     }
 })
 
