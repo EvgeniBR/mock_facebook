@@ -2,7 +2,8 @@ const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
 const router = new express.Router()
-
+const multer = require('multer')
+const sharp = require('sharp')
 
 //create user
 router.post('/users', async (req, res) => {
@@ -100,6 +101,85 @@ router.delete('/users/me',auth, async (req, res) => {
         res.send(req.user)
     } catch (e) {
         res.status(500).send()
+    }
+})
+
+
+// this function uploads image files  has a 5 mb limit and accepts only jpg | jpeg | png
+const upload = multer({
+    limits:{
+        fileSize: 5000000
+    },
+    fileFilter(req , file , cb) {
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+
+            return cb(new Error('File must be a image'))
+        }
+
+        
+        cb(undefined , true)
+        
+    }
+})
+// routs to upload delete and get avatar
+router.post('/users/me/avatar',auth , upload.single('avatar') ,async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({width:500 , height:500 }).png().toBuffer()
+    req.user.avatar = buffer
+    await req.user.save()
+   res.send()
+}, (error , req , res , next)=>{
+    res.status(400).send({error: error.message})
+})
+
+router.delete('/users/me/avatar',auth , upload.single('avatar') ,async (req, res) => {
+    req.user.avatar = undefined
+    await req.user.save()
+   res.send()
+})
+
+router.get('/users/:id/avatar' , async (req , res)=>{
+    try{
+        const user = await User.findById(req.params.id)
+
+        if(!user || !user.avatar){
+            throw new Error()
+        }
+
+        res.set('Content-Type' , 'image/png')
+        res.send(user.avatar)
+    }catch(e){
+      res.status(404).send()  
+    }
+})
+
+
+router.post('/users/me/cover',auth , upload.single('cover') ,async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({width:1920 , height:1080 }).png().toBuffer()
+    req.user.cover = buffer
+    await req.user.save()
+   res.send()
+}, (error , req , res , next)=>{
+    res.status(400).send({error: error.message})
+})
+
+router.delete('/users/me/cover',auth , upload.single('cover') ,async (req, res) => {
+    req.user.cover = undefined
+    await req.user.save()
+   res.send()
+})
+
+router.get('/users/:id/cover' , async (req , res)=>{
+    try{
+        const user = await User.findById(req.params.id)
+
+        if(!user || !user.cover){
+            throw new Error()
+        }
+
+        res.set('Content-Type' , 'image/png')
+        res.send(user.cover)
+    }catch(e){
+      res.status(404).send()  
     }
 })
 
