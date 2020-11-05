@@ -49,7 +49,7 @@ router.patch('/facebook-comment/:id', async (req, res) => {
         res.send(updatedPast);
  
     } catch (e) {
-        res.status(400).send(e)
+        res.status(400).send("e")
     }
 })
 
