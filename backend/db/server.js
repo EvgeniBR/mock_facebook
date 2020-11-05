@@ -7,3 +7,4 @@ mongoose.connect("mongodb+srv://mockfacebookapp:@dorinzz122@cluster0.eltwc.mongo
   useCreateIndex: true,
   useUnifiedTopology:true,
 });
+mongoose.set('useFindAndModify', false);
