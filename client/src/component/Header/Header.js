@@ -27,18 +27,18 @@ const Header = () => {
        <SearchBar/>
        </div>
        <div className="middleBtns">
-       <Link className="facebookHomeBtn headerBtn" to="/">Home</Link> 
-       <Link className="facebookWatchBtn headerBtn" to="/watch">Watch</Link> 
-       <Link className="facebookMarketPlaceBtn headerBtn" to="/marketPlace">MarketPlace</Link> 
-       <Link className="facebookGroupsBtn headerBtn" to="/groups">Groups</Link> 
-       <Link className="facebookGamingBtn headerBtn" to="/gaming">Gaming</Link> 
+       <Link className="facebookHomeBtn headerBtn" to="/"><i className="fas fa-home fa-2x"></i></Link> 
+       <Link className="facebookWatchBtn headerBtn" to="/watch"><i className="fab fa-youtube fa-2x"></i></Link> 
+       <Link className="facebookMarketPlaceBtn headerBtn" to="/marketPlace"><i className="fas fa-store fa-2x"></i></Link> 
+       <Link className="facebookGroupsBtn headerBtn" to="/groups"><i className="fas fa-users fa-2x"></i></Link> 
+       <Link className="facebookGamingBtn headerBtn" to="/gaming"><i className="fas fa-gamepad fa-2x"></i></Link> 
        </div>
        <div className="rightSideBtns">
        <Link className="facebookProfileBtn" to="/:path">Me</Link> 
-       <HeaderDropDown btnName="+" handleClick={onCreateClick}/>
-       <HeaderDropDown btnName="Massanger " handleClick={onMassangerClick}/>
-       <HeaderDropDown btnName="Notifications" handleClick={onNotificationsClick}/>
-       <HeaderDropDown btnName="Account" handleClick={onAccountClick}/>
+       <HeaderDropDown btnName="fas fa-plus" handleClick={onCreateClick}/>
+       <HeaderDropDown btnName="fab fa-facebook-messenger " handleClick={onMassangerClick}/>
+       <HeaderDropDown btnName="fas fa-bell" handleClick={onNotificationsClick}/>
+       <HeaderDropDown btnName="fas fa-sort-down" handleClick={onAccountClick}/>
        </div>
    </header>
   );

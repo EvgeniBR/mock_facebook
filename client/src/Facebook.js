@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Header from './component/Header/Header'
 import Login from "./login-page/Login";
+import Profile from "./profile-page/Profile";
 
 const Facebook = () => {
   let history = useHistory();
@@ -12,6 +13,7 @@ const Facebook = () => {
   return (
     <Router>
       <Header/>
+      <Profile />
       <Switch>
         {/* <Route exact path="/" render={(props) => <App {...props} />} /> */}
         <Route path="/register" render={(props) => <Login {...props} />} />

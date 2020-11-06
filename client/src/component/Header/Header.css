@@ -41,4 +41,12 @@
     padding: 10px 20px;
     color:#B8BBBF;
   }
+  .middleBtns a{
+    transition: all 0.4s;
+    border-radius: 5px;
+  }
+  .middleBtns a:hover{
+    background: rgb(97, 97, 97);
+  }
+
 

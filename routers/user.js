@@ -4,11 +4,12 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 const multer = require('multer')
 const sharp = require('sharp')
-
+const userPath = require('../util/pathCreator')
 //create user
 router.post('/users', async (req, res) => {
+    const path = await userPath.pathCreator(req.body.last_name)
     const user = new User(req.body)
-
+    user.path = path
     try {
         await user.save()
         const token = await user.generateAuthToken()
@@ -58,6 +59,23 @@ router.post('/users/logoutAll' , auth, async (req, res) => {
 //get user own profile
 router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
+})
+//get user path profile
+router.get(`/users/:path`, async (req, res) => {
+    const path = req.params.path
+
+    try {
+        const user = await User.findOne({path:path})
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+    } catch (e) {
+        res.status(500).send()
+    }
+    
 })
 // get specific profile by id
 router.get('/users/:id', async (req, res) => {
