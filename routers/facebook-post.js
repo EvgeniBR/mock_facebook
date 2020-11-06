@@ -1,5 +1,5 @@
 const express = require("express");
-const Post = require("../models/facebook-post");
+const {Post,PostComment} = require("../models/facebook-post");
 const router = new express.Router();
 const date = require("../util/date");
 
@@ -74,7 +74,7 @@ router.patch("/facebook-comment/:id", async (req, res) => {
   const myData = req.body;
   myData["createdDate"] = date.getFullDate();
   myData["updateDate"] = date.getFullDate();
-  const comment = new Post(myData);
+  const comment = new PostComment(myData);
   try {
     const updatePost = await Post.findOneAndUpdate(
       { _id: req.params.id },
@@ -91,24 +91,38 @@ router.patch("/facebook-comment/:id", async (req, res) => {
   }
 });
 
-//update exists post and update friend comment -> need get owner(owner id) , message
+//update exists post and update friend comment -> need get props -> owner(owner id) , friendid , req -> message
 router.patch("/facebook-comment/:id/:commentid", async (req, res) => {
-  console.log(req.params.commentid);
-  console.log(req.params.id);
   const myData = req.body.massege;
   try {
     const updatePost = await Post.findOneAndUpdate(
-      {"_id": req.params.id, "comments._id": req.params.commentid},
-      {$set: {"comments.$.massege": "P"}}
+      {"_id": req.params.id , "comments._id": req.params.commentid },
+      {$set: {"comments.$.massege": myData}},{ new: true }
     );
-
     if (!updatePost) {
       res.status(400).send(e);
     }
     res.send(updatePost);
-  } catch (e) {
+  }
+   catch (e) {
     res.status(400).send(e);
   }
 });
+
+//update exists post and delete friend comment -> need get props -> owner(owner id) , friendid
+router.patch("/facebook-comment/:id/delete/:commentid", async (req, res) => {
+  try {
+    const updatePost = await Post.findByIdAndDelete(
+      {"_id": req.params.id , "comments._id": req.params.commentid });
+    if (!updatePost) {
+      res.status(400).send(e);
+    }
+    res.send(updatePost);
+  }
+   catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 
 module.exports = router;
