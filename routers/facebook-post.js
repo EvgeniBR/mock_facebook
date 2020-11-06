@@ -35,7 +35,6 @@ router.post("/facebook-post", async (req, res) => {
 router.patch("/facebook-post/:id", async (req, res) => {
   //get the new massge and update exists post sould return the post
   const updateMsg = req.body.massege;
-  console.log(updateMsg);
   try {
     await Post.findOneAndUpdate(
       { _id: req.params.id },
@@ -52,9 +51,23 @@ router.patch("/facebook-post/:id", async (req, res) => {
   }
 });
 
-
 //delete post
 /////////////////////  user activity - must delete from activity of user and comment users ///////////
+router.delete("/facebook-post/:id", async (req, res) => {
+  //get the new massge and update exists post sould return the post
+  try {
+    await Post.findOneAndDelete({ _id: req.params.id }).then(
+      (newUpdatedPost) => {
+        if (!newUpdatedPost) {
+          res.status(400).json({ data: "not deleted" });
+        }
+        res.json({ data: "deleted" });
+      }
+    );
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
 
 //update exists post with new comment -> need get owner(owner id) , message
 router.patch("/facebook-comment/:id", async (req, res) => {
@@ -63,16 +76,36 @@ router.patch("/facebook-comment/:id", async (req, res) => {
   myData["updateDate"] = date.getFullDate();
   const comment = new Post(myData);
   try {
-    await Post.findOneAndUpdate(
+    const updatePost = await Post.findOneAndUpdate(
       { _id: req.params.id },
       { $push: { comments: comment } },
       { new: true }
-    ).then((newUpdatedPost) => {
-      if (!newUpdatedPost) {
-        res.status(400).send();
-      }
-      res.send(newUpdatedPost);
-    });
+    );
+
+    if (!updatePost) {
+      res.status(400).send();
+    }
+    res.send(updatePost);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+//update exists post and update friend comment -> need get owner(owner id) , message
+router.patch("/facebook-comment/:id/:commentid", async (req, res) => {
+  console.log(req.params.commentid);
+  console.log(req.params.id);
+  const myData = req.body.massege;
+  try {
+    const updatePost = await Post.findOneAndUpdate(
+      {"_id": req.params.id, "comments._id": req.params.commentid},
+      {$set: {"comments.$.massege": "P"}}
+    );
+
+    if (!updatePost) {
+      res.status(400).send(e);
+    }
+    res.send(updatePost);
   } catch (e) {
     res.status(400).send(e);
   }
