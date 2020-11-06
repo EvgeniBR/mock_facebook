@@ -125,8 +125,6 @@ router.patch("/facebook-comment/:id/delete/:commentid", async (req, res) => {
   }
 });
 
-
-
 //TO-DO - remove like not work
 //add to spesific post -> need to get owner(path)
 router.patch("/facebook-post/:id/:reaction", async (req, res) => {
@@ -134,19 +132,24 @@ router.patch("/facebook-post/:id/:reaction", async (req, res) => {
   const like = new PostLike(req.body);
   like.reaction = req.params.reaction;
   try {
-    const post = await Post.find({
-      _id: req.params.id,
-      "likes.owner": req.body.owner,
-    },{_id:1});
+    const post = await Post.find(
+      {
+        _id: req.params.id,
+        "likes.owner": req.body.owner,
+      },
+    );
     //check if exist or not
     if (post.length) {
       const idToDelete = post[0]._id;
+      console.log(post);
       //for unlike
       if (req.params.reaction === "unlike") {
-        console.log(idToDelete);
-
-        await Post.update({_id:req.params.id}, { $pull: {"likes.$.owner":req.body.owner}})
-        .then((updateLike) => res.send(updateLike));
+        const test = await Post.findOneAndUpdate(
+          { _id: req.params.id },
+          { $pull: { likes: { owner: req.body.owner } } },
+          { new: true }
+        );
+        res.send(test);
       } else {
         //update reaction options
         await Post.findOneAndUpdate(
