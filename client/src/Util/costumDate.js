@@ -20,7 +20,7 @@ const monthsList = {
 //TO-DO function to weeks pass and years pass , test 
 
 const getMinutesPass = (minutes) => {
-  return {date:`${d.getMinutes() - minutes} minutes`}
+  return {date:`${d.getMinutes() - minutes} minutes`};
 }
 
 const getHoursPass = (time) => {
@@ -30,12 +30,30 @@ const getHoursPass = (time) => {
     return getMinutesPass(minute);
   }
   else{
-    return {date:`${d.getHours() - hour} hours`}
+    return {date:`${d.getHours() - hour} hours`};
   }
 }
 
-const getWeeksPass = (time) => {}
-const getYearsPass = (time) => {}
+const getWeeksPass = ({day,time}) => {
+  if(day > 7){
+    return {date:`${parseInt(day/7)} weeks`};
+  }
+  else if(day <= 7 && day >= 1){
+    return {date:`${day} days`};
+  }
+  else{
+    return getHoursPass(time);
+  }
+}
+
+const getYearsPass = ({date , time}) => {
+  const day = parseInt(date.substring(0, 2));
+  const year = parseInt(date.substring(4, 8));
+  if(d.getFullYear() === year){
+    return getWeeksPass({day,time});
+  }
+  return {date:`${d.getFullYear() - year} years`};
+}
 
 //return 
 const getDateAgo = ({date , time}) =>{
@@ -52,12 +70,17 @@ const getDateAgo = ({date , time}) =>{
 }
 
 const getPostTime = time => {
-  const splitedTime = time.split(' ')
+  const splitedTime = time.split(' ');
   return getDateAgo({date:splitedTime[0] , time:splitedTime[1]});
 };
 
+const getCommentTime = time => {
+  const splitedTime = time.split(' ');
+  return getYearsPass({date:splitedTime[0] , time:splitedTime[1]});
+}
 
 
 export default {
   getPostTime,
+  getCommentTime,
 };

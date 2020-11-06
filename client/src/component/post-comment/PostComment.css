@@ -1,0 +1,20 @@
+
+.PostCommentContainer{
+    display: flex;
+}
+
+.UserComment{
+    display: flex;
+    flex-direction: column;
+}
+
+.PostComment{
+    background-color: var(--post-commnet-background);
+    border-radius: 20px;
+    padding: 7px;
+    display: inline-block;
+}
+
+.CommentOptions{
+    display: flex;
+}

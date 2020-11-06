@@ -3,6 +3,8 @@ import "./Post.css";
 import CircleIcon from '../circle-Img/CircleIcon';
 import FaceBookUserName from '../facebook-username/FaceBookUserName'
 import PostDate from '../date/PostDate';
+import PostButton from '../post-button/PostButton';
+import PostComment from '../post-comment/PostComment'
 
 const Post = () => {
   return <div className="PostContainer">
@@ -14,7 +16,14 @@ const Post = () => {
             <PostDate time="03112020 1350"/>
         </div>
       </div>
-      
+      <p>hello facebook</p>
+      <div className="PostBtnContainer">
+        <PostButton info="Like" icon="far fa-thumbs-up"/>
+        <PostButton info="Comment" icon="far fa-comment-alt"/>
+        <PostButton info="Share" icon="fas fa-share"/>
+      </div>
+      {/* test only -> need to map over */}
+      <PostComment path="/zrihen.1" comment="Hi first comment"/>
   </div>
 };
 

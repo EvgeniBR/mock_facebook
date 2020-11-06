@@ -1,10 +1,12 @@
 import React from "react";
 import costumDate from '../../Util/costumDate';
+import './PostDate.css'
 
-const PostDate = ({time}) => {
-  const postTime = costumDate.getPostTime(time)
+const PostDate = ({time , comment}) => {
+  //get comment format or post date format
+  const postTime = comment?costumDate.getCommentTime(time):costumDate.getPostTime(time)
 
-  return <div>{postTime.date}</div>;
+  return <p className="PostDate">{postTime.date}</p>;
 };
 
 export default PostDate;
