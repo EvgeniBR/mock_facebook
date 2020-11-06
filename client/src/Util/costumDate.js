@@ -1,14 +1,59 @@
 
 const d = new Date()
 
-const getDateAgo = (date) =>{
-  const day = date.substring(0, 2);
-  console.log(day);
+const monthsList = {
+  1:"January",
+  2:"	February",
+  3:"March",
+  4:"April",
+  5:"May",
+  6:"June",
+  7:"July",
+  8:"August",
+  9:"September",
+  10:"October",
+  11:"November",
+  12:"December"
+}
+
+
+//TO-DO function to weeks pass and years pass , test 
+
+const getMinutesPass = (minutes) => {
+  return {date:`${d.getMinutes() - minutes} minutes`}
+}
+
+const getHoursPass = (time) => {
+  const hour = parseInt(time.substring(0, 2));
+  const minute = parseInt(time.substring(2, 4));
+  if(d.getHours() === hour){
+    return getMinutesPass(minute);
+  }
+  else{
+    return {date:`${d.getHours() - hour} hours`}
+  }
+}
+
+const getWeeksPass = (time) => {}
+const getYearsPass = (time) => {}
+
+//return 
+const getDateAgo = ({date , time}) =>{
+  const day = parseInt(date.substring(0, 2));
+  const month = parseInt(date.substring(2, 4));
+  const year = parseInt(date.substring(4, 8));
+  //if pass more than 1 day - show all date
+  if(d.getDay() === day && d.getMonth()+1 === month && d.getFullYear() === year){
+    return getHoursPass(time);
+  }
+  else{
+    return {date:`${day} ${monthsList[month]} ${year}`}
+  }
 }
 
 const getPostTime = time => {
   const splitedTime = time.split(' ')
-  getDateAgo(splitedTime[0]);
+  return getDateAgo({date:splitedTime[0] , time:splitedTime[1]});
 };
 
 

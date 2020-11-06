@@ -1,8 +1,10 @@
 import React from "react";
-import Date from '../../Util/costumDate';
+import costumDate from '../../Util/costumDate';
 
 const PostDate = ({time}) => {
-  return <div>{Date.getPostTime(time)}</div>;
+  const postTime = costumDate.getPostTime(time)
+
+  return <div>{postTime.date}</div>;
 };
 
 export default PostDate;
