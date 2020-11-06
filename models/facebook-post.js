@@ -1,5 +1,17 @@
 const mongoose = require("mongoose");
 
+
+const likeSchema = new mongoose.Schema({
+  owner:{
+    type:String,
+    required: true,
+  },
+  reaction:{
+    type:String,
+    required: true,
+  }
+})
+
 const commentSchema = new mongoose.Schema({
   owner: {
     type: String,
@@ -20,29 +32,7 @@ const commentSchema = new mongoose.Schema({
   date: {
     type: String,
   },
-  likes: {
-    like: {
-      type: Array,
-    },
-    love: {
-      type: Array,
-    },
-    care: {
-      type: Array,
-    },
-    haha: {
-      type: Array,
-    },
-    wow: {
-      type: Array,
-    },
-    sad: {
-      type: Array,
-    },
-    angry: {
-      type: Array,
-    },
-  },
+  likes: [likeSchema],
   comments: {
     type: Array,
   },
@@ -69,33 +59,12 @@ const postSchema = new mongoose.Schema({
   date: {
     type: String,
   },
-  likes: {
-    like: {
-      type: Array,
-    },
-    love: {
-      type: Array,
-    },
-    care: {
-      type: Array,
-    },
-    haha: {
-      type: Array,
-    },
-    wow: {
-      type: Array,
-    },
-    sad: {
-      type: Array,
-    },
-    angry: {
-      type: Array,
-    },
-  },
+  likes: [likeSchema],
   comments: [ commentSchema ]
 });
 
 const Post = mongoose.model("FacebookPost", postSchema);
-const PostComment = mongoose.model("FacebookComment", commentSchema);
+const PostComment = mongoose.model("commentPost",commentSchema);
+const PostLike = mongoose.model("postLikes",likeSchema);
 
-module.exports = {Post,PostComment};
+module.exports = {Post,PostComment,PostLike};
