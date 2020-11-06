@@ -8,7 +8,7 @@ const HeaderDropDown = ({handleClick , btnName}) => {
   
   return (
     <div>
-        <button onClick={handleClick} >{btnName}</button>
+        <button onClick={handleClick} ><i className={btnName}></i></button>
     </div>
   );
   

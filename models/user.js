@@ -84,6 +84,9 @@ const userSchema = new mongoose.Schema({
   seen:[{
     type: Boolean,
   }],
+  path:{
+    type:String,
+  }
  }, {
     timestamps: true,
   });
