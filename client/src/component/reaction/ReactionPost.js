@@ -1,10 +1,10 @@
 import React from "react";
 import './ReactionPost.css'
 
-const ReactionPost = ({reaction}) => {
+const ReactionPost = ({reaction , alt , reactionPick}) => {
   return (
-    <button className="ReactionPost">
-      <img src={reaction} alt="angry" />
+    <button className="ReactionPost" onClick={() => reactionPick(alt)}>
+      <img src={reaction} alt={alt} />
     </button>
   );
 };

@@ -1,9 +1,10 @@
-.CommentReaction{
+.CommentBtn{
     border: none;
     background-color: rgba(0,0,0,0);
     color: var(--post-font-color);
+    position: relative;
 }
 
-.CommentReaction:hover{
+.CommentBtn:hover{
     text-decoration: underline;
 }

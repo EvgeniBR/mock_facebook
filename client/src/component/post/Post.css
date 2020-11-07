@@ -6,6 +6,10 @@
     color: var(--post-font-color);
 }
 
+.UserComment{
+    margin-left: 5px;
+}
+
 .PostBtnContainer{
     border-top: 1px solid var(--post-font-color);
     border-bottom: 1px solid var(--post-font-color);
@@ -13,3 +17,8 @@
     justify-content: space-around;
 }
 
+.CommentOptions{
+    width: 120px;
+    display: flex;
+    justify-content: space-evenly;
+}

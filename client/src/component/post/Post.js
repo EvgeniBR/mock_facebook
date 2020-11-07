@@ -22,7 +22,7 @@ const Post = () => {
       <div className="PostBtnContainer">
         <PostButton info="Like" icon="far fa-thumbs-up" hoverOption="like"/>
         <PostButton info="Comment" icon="far fa-comment-alt"/>
-        <PostButton info="Share" icon="fas fa-share" hoverOption="comming-soon"/>
+        <PostButton info="Share" icon="fas fa-share" hoverOption="commingsoon"/>
       </div>
       {/* test only -> need to map over */}
       <PostComment path="/zrihen.1" comment="Hi first comment"/>

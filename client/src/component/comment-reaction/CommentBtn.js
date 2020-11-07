@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./PostButton.css";
 import ReactionPostContainer from "../reaction-post-container/ReactionPostContainer";
+import "./CommentBtn.css";
 
-const PostButton = ({ icon, info, hoverOption }) => {
+const CommentBtn = ({ text, hoverOption }) => {
   const [hoverMode, setHoverMode] = useState(false);
   const [reaction, setReaction] = useState("");
 
-  let option;
+  let option = "";
   if (hoverOption === "like") {
     option = (
       <ReactionPostContainer
@@ -14,22 +14,19 @@ const PostButton = ({ icon, info, hoverOption }) => {
         changeReaction={(userReact) => setReaction(userReact)}
       />
     );
-  } else if (hoverOption === "commingsoon") {
   }
 
-  console.log(reaction);
 
   return (
     <button
-      className="PostButton"
+      className="CommentBtn"
       onMouseOver={() => setHoverMode(true)}
       onMouseLeave={() => setHoverMode(false)}
     >
       {hoverMode && option}
-      <i className={icon}></i>
-      {info}
+      {text}
     </button>
   );
 };
 
-export default PostButton;
+export default CommentBtn;

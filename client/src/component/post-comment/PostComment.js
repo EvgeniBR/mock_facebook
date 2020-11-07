@@ -2,7 +2,7 @@ import React from "react";
 import "./PostComment.css";
 import CircleIcon from "../circle-Img/CircleIcon";
 import FaceBookUserName from "../facebook-username/FaceBookUserName";
-import CommentReaction from "../comment-reaction/CommentReaction";
+import CommentBtn from "../comment-reaction/CommentBtn";
 import PostDate from '../date/PostDate';
 
 const PostComment = ({ path, comment }) => {
@@ -15,8 +15,8 @@ const PostComment = ({ path, comment }) => {
           <p>{comment}</p>
         </div>
         <div className="CommentOptions">
-          <CommentReaction text="Like" />
-          <CommentReaction text="Reply" />
+          <CommentBtn text="Like" hoverOption="like"/> ·
+          <CommentBtn text="Reply" /> ·
           <PostDate time="04112020 1250" comment="true"/>
         </div>
       </div>
