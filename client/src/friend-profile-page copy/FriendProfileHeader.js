@@ -1,25 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Profile.css'
+import './FriendProfile.css'
 
 
-const ProfileHeader = () => {
+const FriendProfileHeader = () => {
 
 
   return (
    <header>
      
-       <div className="profile-header-container">
+       <div className="friend-profile-header-container">
        <Link  to="/:path/">Posts</Link> 
        <Link  to="/:path/about">About</Link> 
        <Link  to="/:path/friends">Friends</Link> 
        <Link  to="/:path/photos">Photos</Link> 
        <Link  to="/:path/archive">Archive</Link> 
        <Link  to="/:path/more">More</Link> 
-       <div className="empty-div"></div>
-       <button className="edit-profile-btn"><i className="fas fa-pencil-alt"></i> Edit Profile</button>
-       <button><i className="fas fa-eye"></i></button>
-       <button><i className="fas fa-search"></i></button>
+       <div className="friend-empty-div"></div>
+       <button className="message-friend-btn"><i className="fab fa-facebook-messenger"></i> Message</button>
+       <button><i class="fas fa-phone-alt"></i></button>
+       <button><i class="fas fa-user-plus"></i></button>
        <button>•••</button>
        </div>
      
@@ -27,4 +27,4 @@ const ProfileHeader = () => {
   );
 }
 
-export default ProfileHeader;
+export default FriendProfileHeader;
