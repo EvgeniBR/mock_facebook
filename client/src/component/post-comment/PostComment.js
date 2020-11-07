@@ -17,7 +17,7 @@ const PostComment = ({ path, comment }) => {
         <div className="CommentOptions">
           <CommentBtn text="Like" hoverOption="like"/> ·
           <CommentBtn text="Reply" /> ·
-          <PostDate time="04112020 1250" comment="true"/>
+          <PostDate time="05112020 1250" comment="true"/>
         </div>
       </div>
     </div>

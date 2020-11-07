@@ -4,10 +4,16 @@
     background-color: var(--post-background);
     padding: var(--post-padding);
     color: var(--post-font-color);
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.post-header > .PostHeaderUserInfo {
+    margin-left: var(--post-margin-left);
 }
 
 .UserComment{
-    margin-left: 5px;
+    margin-left: var(--post-margin-left);
 }
 
 .PostBtnContainer{
