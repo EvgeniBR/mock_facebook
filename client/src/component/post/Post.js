@@ -4,7 +4,9 @@ import CircleIcon from '../circle-Img/CircleIcon';
 import FaceBookUserName from '../facebook-username/FaceBookUserName'
 import PostDate from '../date/PostDate';
 import PostButton from '../post-button/PostButton';
-import PostComment from '../post-comment/PostComment'
+import PostComment from '../post-comment/PostComment';
+import ReactionPostContainer from '../reaction-post-container/ReactionPostContainer';
+
 
 const Post = () => {
   return <div className="PostContainer">
@@ -18,12 +20,13 @@ const Post = () => {
       </div>
       <p>hello facebook</p>
       <div className="PostBtnContainer">
-        <PostButton info="Like" icon="far fa-thumbs-up"/>
+        <PostButton info="Like" icon="far fa-thumbs-up" hoverOption="like"/>
         <PostButton info="Comment" icon="far fa-comment-alt"/>
-        <PostButton info="Share" icon="fas fa-share"/>
+        <PostButton info="Share" icon="fas fa-share" hoverOption="comming-soon"/>
       </div>
       {/* test only -> need to map over */}
       <PostComment path="/zrihen.1" comment="Hi first comment"/>
+      <ReactionPostContainer/>
   </div>
 };
 

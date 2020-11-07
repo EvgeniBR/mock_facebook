@@ -1,7 +1,11 @@
 :root{
     --field-size:30px;
+
+
     --post-padding:10px;
     --post-commnet-background:rgba(145, 145, 145, 0.541);
+    --post-background:rgb(34, 34, 34);
+    --post-font-color:rgb(207, 207, 207);
 }
 
 *,*::before, *::after{

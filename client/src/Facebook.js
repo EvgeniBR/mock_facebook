@@ -7,9 +7,6 @@ import Login from "./login-page/Login";
 import Profile from "./profile-page/Profile";
 
 const Facebook = () => {
-  let history = useHistory();
-
-
 
   return (
     <Router>

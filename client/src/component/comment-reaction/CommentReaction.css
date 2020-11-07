@@ -1,6 +1,7 @@
 .CommentReaction{
     border: none;
     background-color: rgba(0,0,0,0);
+    color: var(--post-font-color);
 }
 
 .CommentReaction:hover{
