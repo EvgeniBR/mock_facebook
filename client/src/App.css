@@ -1,5 +1,7 @@
 :root{
     --field-size:30px;
+    --post-padding:10px;
+    --post-commnet-background:rgba(145, 145, 145, 0.541);
 }
 
 *,*::before, *::after{

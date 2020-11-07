@@ -1,0 +1,12 @@
+.PastButton{
+    background-color: inherit;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    margin: 2px;
+}
+
+.PastButton:hover{
+    background-color:var(--post-commnet-background);
+    border-radius: 5px;
+}

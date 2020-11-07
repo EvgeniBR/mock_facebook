@@ -1,0 +1,14 @@
+.PostContainer{
+    width: 600px;
+    height: 700px;
+    background-color: rgb(108, 108, 216);
+    padding: var(--post-padding);
+}
+
+.PostBtnContainer{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: space-around;
+}
+
