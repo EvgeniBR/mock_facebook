@@ -5,6 +5,11 @@ const get = (path) => {
   return http.get(`/${path}`);
 }
 
+const getAuth = (path,token) => {
+  return http.get(`/${path}`,{headers: {Authorization: 'Bearer ' + token}
+});
+}
+
 //create or update new sheet 
 const create = (path,data)  => {
   return http.post(`/${path}`, data);
@@ -20,6 +25,7 @@ const remove = id => {
 
 
 export default {
+  getAuth,
   get,
   create,
   update,
