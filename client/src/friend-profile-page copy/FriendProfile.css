@@ -1,4 +1,4 @@
-.cover-container{
+.friend-cover-container{
     width:100vw;
     height:55vh ;
     background-image: linear-gradient(#CDD0D3 25%,  #272829 75%);
@@ -8,30 +8,14 @@
     
 }
 
-.cover-container  img{
+.friend-cover-container  img{
     height:35vh;
     width: 55vw;
     border: 1px solid black;
     
 }
 
-.edit-photo{
-    border: 1px solid black;
-    height:3vh;
-    width: 10vw;
-    position :absolute;
-    top: 50%;
-    left: 70%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    transition: all 0.4s;
-}
-.edit-photo:active{
-    background: white;
-    transform: translate(-50%, -50%);
-}
-
-.profile-container{
+.friend-profile-container{
     position: absolute;
     width: 10vw;
     height: 20vh;
@@ -41,22 +25,7 @@
     border-radius: 100%;
 }
 
-.edit-pic{
-    border: 1px solid black;
-    position :absolute;
-    top: 70%;
-    left: 95%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    transition: all 0.4s;
-    z-index: 2;
-    opacity: 0.5;
-}
-
-.edit-pic:hover{
-    opacity: 1;
-}
-.profile-name{
+.friend-profile-name{
     text-align: center;
     position: absolute;
     top:75%;
@@ -68,7 +37,7 @@
     width:50vw;
 }
 
-.profile-header-container{
+.friend-profile-header-container{
     display: flex;
     justify-content: center;
     position: absolute;
@@ -78,7 +47,7 @@
     z-index: 2;
    
 }
-.profile-header-container a{
+.friend-profile-header-container a{
     color: white;
     padding: 0.5rem 2rem;
     font-size: 1.1rem;
@@ -86,10 +55,10 @@
     transition: all 0.4s;
     border-radius: 5px;
 }
-.profile-header-container a:hover{
+.friend-profile-header-container a:hover{
     background: #acaeaf;
 }
-.empty-div{
+.friend-empty-div{
     width:5rem
 }
 
@@ -101,7 +70,7 @@ color:white;
 transition: all 0.4s;
 cursor: pointer;
 }
-.edit-profile-btn{
+.message-friend-btn{
     min-width: 90px;
 }
 
