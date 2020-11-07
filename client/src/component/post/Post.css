@@ -1,14 +1,30 @@
 .PostContainer{
     width: 600px;
     height: 700px;
-    background-color: rgb(108, 108, 216);
+    background-color: var(--post-background);
     padding: var(--post-padding);
+    color: var(--post-font-color);
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.post-header > .PostHeaderUserInfo {
+    margin-left: var(--post-margin-left);
+}
+
+.UserComment{
+    margin-left: var(--post-margin-left);
 }
 
 .PostBtnContainer{
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-top: 1px solid var(--post-font-color);
+    border-bottom: 1px solid var(--post-font-color);
     display: flex;
     justify-content: space-around;
 }
 
+.CommentOptions{
+    width: 120px;
+    display: flex;
+    justify-content: space-evenly;
+}

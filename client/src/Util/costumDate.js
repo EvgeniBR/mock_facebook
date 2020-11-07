@@ -39,7 +39,7 @@ const getWeeksPass = ({day,time}) => {
     return {date:`${parseInt(day/7)} weeks`};
   }
   else if(day <= 7 && day >= 1){
-    return {date:`${day} days`};
+    return {date:`${d.getDay() - day} days`};
   }
   else{
     return getHoursPass(time);

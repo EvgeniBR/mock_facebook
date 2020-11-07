@@ -1,0 +1,7 @@
+.ReactionPostContainer{
+    background-color: var(--post-background);
+    position: absolute;
+    width: 350px;
+    border-radius: 20px;
+    top: -50px;
+}

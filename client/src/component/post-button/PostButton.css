@@ -1,12 +1,18 @@
-.PastButton{
+.PostButton{
     background-color: inherit;
     border: none;
     width: 100%;
     padding: 10px;
     margin: 2px;
+    color: var(--post-font-color);
+    position: relative;
 }
 
-.PastButton:hover{
+.PostButton>i{
+    margin-right: 5px;
+}
+
+.PostButton:hover{
     background-color:var(--post-commnet-background);
     border-radius: 5px;
 }
