@@ -18,14 +18,14 @@ const CommentBtn = ({ text, hoverOption }) => {
 
 
   return (
-    <button
+    <div
       className="CommentBtn"
       onMouseOver={() => setHoverMode(true)}
       onMouseLeave={() => setHoverMode(false)}
     >
       {hoverMode && option}
       {text}
-    </button>
+    </div>
   );
 };
 

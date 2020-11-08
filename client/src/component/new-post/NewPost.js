@@ -2,10 +2,10 @@ import React from "react";
 import "./NewPost.css";
 import CircleIcon from "../circle-Img/CircleIcon";
 
-const NewPost = ({ username, img , WriteNewPost}) => {
+const NewPost = ({ username, srcAvatar , WriteNewPost}) => {
   return (
     <div className="NewPost">
-      <CircleIcon />
+      <CircleIcon srcIcon={srcAvatar}/>
       <button onClick={() => WriteNewPost()}>What's on your mind {username}</button>
     </div>
   );
