@@ -172,11 +172,20 @@ router.get('/users/:id/avatar' , async (req , res)=>{
 
 
 router.post('/users/me/cover',auth , upload.single('cover') ,async (req, res) => {
+    console.log('1');
+    console.log(req.body);
+    console.log(req.file);
     const buffer = await sharp(req.file.buffer).resize({width:1920 , height:1080 }).png().toBuffer()
+    console.log('2');
     req.user.cover = buffer
+    console.log('3');
     await req.user.save()
+    console.log('4');
    res.send()
+   console.log('5');
 }, (error , req , res , next)=>{
+    console.log('Game Over');
+    console.log(error);
     res.status(400).send({error: error.message})
 })
 
