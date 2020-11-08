@@ -34,8 +34,13 @@ const FeedPage = () => {
     getData();
   },[]);
 
-  const updateDBPost = (value) => {
-      
+  const updateDBPost = async (value) => {
+    const data = {
+      owner:path,
+      massege:value
+    }
+    await DataService.create('facebook-post',data);
+    setWritePostMode(false);
   }
 
 
