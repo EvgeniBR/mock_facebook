@@ -16,7 +16,7 @@ router.get("/facebook-post/:owner", async (req, res) => {
   }
 });
 
-//post new user post obj needed -> owner(token/auth/id), massage
+//post new user post obj needed -> owner(token/auth/id), massege
 router.post("/facebook-post", async (req, res) => {
   const myData = req.body;
   myData["createdDate"] = date.getFullDate();

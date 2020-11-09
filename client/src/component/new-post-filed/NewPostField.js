@@ -1,9 +1,14 @@
-import React from "react";
+import React , {useState} from "react";
 import "./NewPostField.css";
 import CircleIcon from "../circle-Img/CircleIcon";
 import FaceBookUserName from "../facebook-username/FaceBookUserName";
 
-const NewPostField = () => {
+
+const NewPostField = ({firstName , lastName , srcAvatar , path , uploadNewPost}) => {
+  const [postMassage , setPostMassege] = useState('');
+
+  const placeholderMsg = `What's on your mind , ${firstName}?`;
+
   return (
     <div className="NewPostField">
       <div className="NewPostFieldBox">
@@ -12,16 +17,16 @@ const NewPostField = () => {
         </div>
         <div>
           <div className="NewPostFieldBox__userData">
-            <CircleIcon />
+            <CircleIcon srcIcon={srcAvatar} />
             <FaceBookUserName
-              firstName="dorin"
-              lastName="zrihen"
-              path="/zrihen.1"
+              firstName={firstName}
+              lastName={lastName}
+              path={path}
             />
           </div>
           <div className="NewPostFieldBox__main">
-              <textarea placeholder="What's on your mind?"></textarea>
-              <button>Post</button>
+              <textarea placeholder={placeholderMsg} onChange={(e) => setPostMassege(e.target.value)}></textarea>
+              <button onClick={() => uploadNewPost(postMassage)}>Post</button>
           </div>
         </div>
       </div>

@@ -17,10 +17,9 @@ const PostButton = ({ icon, info, hoverOption }) => {
   } else if (hoverOption === "commingsoon") {
   }
 
-  console.log(reaction);
 
   return (
-    <button
+    <div
       className="PostButton"
       onMouseOver={() => setHoverMode(true)}
       onMouseLeave={() => setHoverMode(false)}
@@ -28,7 +27,7 @@ const PostButton = ({ icon, info, hoverOption }) => {
       {hoverMode && option}
       <i className={icon}></i>
       {info}
-    </button>
+    </div>
   );
 };
 

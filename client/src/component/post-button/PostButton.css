@@ -6,6 +6,7 @@
     margin: 2px;
     color: var(--post-font-color);
     position: relative;
+    text-align: center;
 }
 
 .PostButton>i{
