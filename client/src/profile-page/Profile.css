@@ -11,24 +11,30 @@
 .cover-container  img{
     height:35vh;
     width: 55vw;
-    border: 1px solid black;
+    
     
 }
 
 .edit-photo{
-    border: 1px solid black;
+    background: rgba(245, 242, 242, 0.384);
     height:3vh;
-    width: 10vw;
+    width: 8vw;
     position :absolute;
     top: 50%;
     left: 70%;
     transform: translate(-50%, -50%);
     background: transparent;
     transition: all 0.4s;
+    color:white;
+    opacity: 0.5;
+    transition:all 0.4s
 }
 .edit-photo:active{
     background: white;
     transform: translate(-50%, -50%);
+}
+.edit-photo:hover{
+    opacity: 1;
 }
 
 .profile-container{
@@ -63,7 +69,8 @@
     transform: translateY(-50%);
     border-radius: 100%;
     color: white;
-}
+    font-size: 4rem;
+    }
 .underLine{
     width:50vw;
 }

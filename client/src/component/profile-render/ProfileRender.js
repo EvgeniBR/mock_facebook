@@ -8,9 +8,11 @@ const ProfileRender = () => {
     const [userData , setUserData ] = useState([])
 
     const cookies = new Cookies();
-    const token = cookies.get('mockFacebookToken');
-
+    let token =cookies.get('mockFacebookToken');
+    
     useEffect(()=>{
+        
+        
 
         if(!token){
             const getData = async() =>{
@@ -26,7 +28,7 @@ const ProfileRender = () => {
             console.log(userData);
         }
         getData()
-    },[])
+    },[token])
 
   if(!token){
     return (
