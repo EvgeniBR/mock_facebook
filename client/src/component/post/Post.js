@@ -8,14 +8,25 @@ import PostComment from "../post-comment/PostComment";
 import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
 
-const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
+const Post = ({ id, path, message, firstName, lastName, time, userAvatar ,likes }) => {
   const [commentsArr, setCommentsArr] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [newLike, setNewLike] = useState("");
+  const [currentPick , setCurrentPick] = useState("");
+
+
+  const setEmoji = () => {
+    let currentLikePick = '';
+    if(likes.length){
+      currentLikePick = likes.find(like =>  like.owner === path)
+    }
+    currentLikePick ? setCurrentPick(currentLikePick.reaction) : setCurrentPick('');
+  }
 
   const getData = async () => {
     const postCommentsArr = await DataService.get(`facebook-post/post/${id}`);
-    console.log(postCommentsArr.data);
     setCommentsArr(postCommentsArr.data);
+    setEmoji();
   };
 
   useEffect(() => {
@@ -23,20 +34,32 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
   }, []);
 
   useEffect(() => {
-    console.log(newComment);
     if (newComment) {
       const setData = async () => {
         await DataService.patch(`facebook-comment/${id}`, newComment);
+        setNewComment('');
         getData();
       };
       setData();
     }
   }, [newComment]);
 
+  useEffect(() => {
+    if (newLike) {
+      const data = {owner:path}
+      const setData = async () => {
+        await DataService.patch(`facebook-post/${id}/${newLike}`, data);
+        setNewLike('');
+        getData();
+      };
+      setData();
+    }
+  }, [newLike]);
+
+
   let postComments = [];
   if (commentsArr.length) {
     postComments = commentsArr.map((comment) => {
-      console.log(comment);
       return (
         <PostComment
           commentPath={comment.myPost.owner}
@@ -54,6 +77,8 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
     });
   }
 
+
+
   const updateNewComment = async (value) => {
     const dataFormat = {
       owner: path,
@@ -61,6 +86,10 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
     };
     setNewComment(dataFormat);
   };
+
+  const updateLikeSelected = (like) => {
+    setNewLike(like);
+  }
 
   return (
     <div className="Post">
@@ -77,7 +106,7 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
       </div>
       <p>{message}</p>
       <div className="PostBtnContainer">
-        <PostButton info="Like" icon="far fa-thumbs-up" hoverOption="like" />
+        <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" userPressLike={(like) => updateLikeSelected(like)}/>
         <PostButton info="Comment" icon="far fa-comment-alt" />
         <PostButton
           info="Share"
@@ -85,7 +114,6 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
           hoverOption="commingsoon"
         />
       </div>
-      {/* test only -> need to map over */}
       {postComments}
       <WriteNewComment
         userAvatar={userAvatar}

@@ -23,14 +23,6 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdDate:{
-    type: String,
-    required: true,
-  },
-  updateDate:{
-    type: String,
-    required: true,
-  },
   date: {
     type: String,
   },
@@ -45,14 +37,6 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   message: {
-    type: String,
-    required: true,
-  },
-  createdDate:{
-    type: String,
-    required: true,
-  },
-  updateDate:{
     type: String,
     required: true,
   },

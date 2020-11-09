@@ -2,7 +2,7 @@ const express = require("express");
 const { Post, PostComment, PostLike } = require("../models/facebook-post");
 const Uesr = require("../models/user");
 const router = new express.Router();
-const date = require("../util/date");
+
 
 // CRUD POST
 //need to add -> nested comment to post comment.
@@ -16,7 +16,6 @@ const getUserData = async (owner) => {
 };
 
 const getUserProfile = async (owner_list, res) => {
-  console.log(owner_list);
   try{
     const getUserInfo = owner_list.comments.map(async (post) => {
       return {
@@ -87,8 +86,6 @@ router.get("/facebook-post/feed/:owner", async (req, res) => {
 //post new user post obj needed -> owner(token/auth/id), message
 router.post("/facebook-post", async (req, res) => {
   const myData = req.body;
-  myData["createdDate"] = date.getFullDate();
-  myData["updateDate"] = date.getFullDate();
   const post = new Post(myData);
   try {
     await post.save();
@@ -139,8 +136,6 @@ router.delete("/facebook-post/:id", async (req, res) => {
 //update exists post with new comment -> need get owner(owner id) , message
 router.patch("/facebook-comment/:id", async (req, res) => {
   const myData = req.body;
-  myData["createdDate"] = date.getFullDate();
-  myData["updateDate"] = date.getFullDate();
   const comment = new Post(myData);
   try {
     const updatePost = await Post.findOneAndUpdate(
