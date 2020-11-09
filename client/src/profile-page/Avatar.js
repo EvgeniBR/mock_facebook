@@ -1,43 +1,41 @@
-import React from "react";
+import React ,{useEffect} from "react";
 import './Profile.css'
 import DataService from "../db-connection/DataService";
 import Cookies from 'universal-cookie';
 
-const Avatar = () => {
+const Avatar = (props) => {
+
+  useEffect(()=>{
+     console.log(props.data);
+  })
 
   const cookies = new Cookies();
   const token = cookies.get("mockFacebookToken");
   
-  const coverSubmit = async (e) => {
-    console.log('line 13');
+  const profileSubmit = async (e) => {
+    let profileData = new FormData();
+    profileData.append("avatar", e.target.files[0]);
    e.preventDefault()
    if(token){
-     
-     console.log(e.target.files[0]);
      try{
-       await DataService.createAuthP(`users/me`, e.target.files[0] , token)
-       
-       
+       await DataService.createAuthP(`users/me`, profileData , token)
       }catch{
-       
-       console.log('line 23');
-
+       console.log('line 23')
      }
    }
-   console.log('line 27');
   };
  
   
   return (
-    <div  className="profile-container">
-         <img src="#sd" alt="profile pic"></img>
-      <button className="edit-pic">
+    <div  className="profile-container" >
+         <img src={`data:image/png;base64,${props.data.avatar}`} alt="profile pic"></img>
+        <form   encType="multipart/form-data" method="post">
+      <label htmlFor="profile" className="edit-pic">
         <i className="fas fa-camera fa-2x camera-btn"> </i> 
-        <form   encType="multipart/form-data">
-        <input type="file" name="cover" onChange={(e)=>coverSubmit(e)} />
+      </label>
+        <input style={{display:"none"}} id="profile" type="file" name="avatar" onChange={(e)=>profileSubmit(e)} />
         
       </form>
-      </button>
       
     </div>
     
@@ -46,3 +44,6 @@ const Avatar = () => {
 }
 
 export default Avatar;
+
+
+

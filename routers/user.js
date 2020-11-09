@@ -126,7 +126,7 @@ router.delete('/users/me',auth, async (req, res) => {
 // this function uploads image files  has a 5 mb limit and accepts only jpg | jpeg | png
 const upload = multer({
     limits:{
-        fileSize: 5000000
+        fileSize: 50000000
     },
     fileFilter(req , file , cb) {
         if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
@@ -148,13 +148,11 @@ router.post('/users/me/avatar',auth , upload.single('avatar') ,async (req, res) 
 }, (error , req , res , next)=>{
     res.status(400).send({error: error.message})
 })
-
 router.delete('/users/me/avatar',auth , upload.single('avatar') ,async (req, res) => {
     req.user.avatar = undefined
     await req.user.save()
    res.send()
 })
-
 router.get('/users/:id/avatar' , async (req , res)=>{
     try{
         const user = await User.findById(req.params.id)
@@ -169,18 +167,10 @@ router.get('/users/:id/avatar' , async (req , res)=>{
       res.status(404).send()  
     }
 })
-
-
 router.post('/users/me/cover',auth , upload.single('cover') ,async (req, res) => {
-    console.log('1');
-    console.log(req.body);
-    console.log(req.file);
-    const buffer = await sharp(req.file.buffer).resize({width:1920 , height:1080 }).png().toBuffer()
-    console.log('2');
+    const buffer = await sharp(req.file.buffer).resize({width:1280 , height:760 }).png().toBuffer()
     req.user.cover = buffer
-    console.log('3');
     await req.user.save()
-    console.log('4');
    res.send()
    console.log('5');
 }, (error , req , res , next)=>{

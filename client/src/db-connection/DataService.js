@@ -19,7 +19,7 @@ const createAuth = (path, data, token) => {
   return http.post(`/${path}/cover`, data, {
     headers: {
        Authorization: "Bearer " + token,
-      //  "Content-Type": "multipart/form-data",
+       "Content-Type": "multipart/form-data",
       },
   });
 };
@@ -47,5 +47,5 @@ export default {
   update,
   remove,
   createAuth,
-  createAuthP
-};
+  createAuthP,
+}

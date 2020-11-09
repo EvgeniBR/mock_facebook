@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cover from "./Cover";
 import ProfileHeader from "./ProfileHeader";
 
 
-const Profile = () => {
+const Profile = (props) => {
+  useEffect(()=>{
+// console.log(props.data);
+  })
   return (
     <div>
-      <Cover />
+      <Cover data = {props.data}/>
       <br/>
      <ProfileHeader/>
     </div>
