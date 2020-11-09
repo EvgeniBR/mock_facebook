@@ -36,6 +36,10 @@ const update = (id, data) => {
   return http.put(`${id}`, data);
 };
 
+const patch = (id, data) => {
+  return http.patch(`/${id}`, data);
+};
+
 const remove = (id) => {
   return http.delete(`/${id}`);
 };
@@ -46,6 +50,7 @@ export default {
   create,
   update,
   remove,
+  patch,
   createAuth,
   createAuthP
 };

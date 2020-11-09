@@ -1,6 +1,5 @@
-.PostContainer{
+.Post{
     width: 600px;
-    height: 700px;
     background-color: var(--post-background);
     padding: var(--post-padding);
     color: var(--post-font-color);
