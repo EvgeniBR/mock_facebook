@@ -8,15 +8,14 @@ import PostComment from "../post-comment/PostComment";
 import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
 
-const Post = ({ id, path, message, firstName, lastName, time }) => {
+const Post = ({ id, path, message, firstName, lastName, time, userAvatar }) => {
   const [commentsArr, setCommentsArr] = useState([]);
   const [newComment, setNewComment] = useState("");
 
   const getData = async () => {
-    const postCommentsArr = await DataService.get(
-      `facebook-post/post/${id}`
-    );
-    console.log(postCommentsArr);
+    const postCommentsArr = await DataService.get(`facebook-post/post/${id}`);
+    console.log(postCommentsArr.data);
+    setCommentsArr(postCommentsArr.data);
   };
 
   useEffect(() => {
@@ -27,13 +26,10 @@ const Post = ({ id, path, message, firstName, lastName, time }) => {
     console.log(newComment);
     if (newComment) {
       const setData = async () => {
-        const newComment = await DataService.patch(
-          `facebook-comment/${id}`,
-          newComment
-        );
+        await DataService.patch(`facebook-comment/${id}`, newComment);
+        getData();
       };
       setData();
-      getData();
     }
   }, [newComment]);
 
@@ -43,12 +39,16 @@ const Post = ({ id, path, message, firstName, lastName, time }) => {
       console.log(comment);
       return (
         <PostComment
-          key={comment._id}
-          id={comment._id}
-          comments={comment.comments}
-          commentPath={comment.owner}
-          message={comment.message}
-          date={comment.createdAt}
+          commentPath={comment.myPost.owner}
+          key={comment.myPost._id}
+          id={comment.myPost._id}
+          firstName={comment.userDataPost.first_name}
+          lastName={comment.userDataPost.last_name}
+          userAvatar={comment.userDataPost.avatar}
+          message={comment.myPost.message}
+          comments={comment.myPost.comments}
+          time={comment.myPost.createdAt}
+          likes={comment.myPost.likes}
         />
       );
     });
@@ -65,7 +65,7 @@ const Post = ({ id, path, message, firstName, lastName, time }) => {
   return (
     <div className="Post">
       <div className="post-header">
-        <CircleIcon path={path} />
+        <CircleIcon srcIcon={userAvatar} />
         <div className="PostHeaderUserInfo">
           <FaceBookUserName
             firstName={firstName}
@@ -87,7 +87,10 @@ const Post = ({ id, path, message, firstName, lastName, time }) => {
       </div>
       {/* test only -> need to map over */}
       {postComments}
-      <WriteNewComment updateNewComment={(e) => updateNewComment(e)} />
+      <WriteNewComment
+        userAvatar={userAvatar}
+        updateNewComment={(e) => updateNewComment(e)}
+      />
     </div>
   );
 };

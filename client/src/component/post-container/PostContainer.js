@@ -6,7 +6,7 @@ import DataService from "../../db-connection/DataService";
 import { useLocation } from "react-router-dom";
 
 //TO-DO - after friend will added make a lits of path and add it to postToShowPathList
-const PostContainer = ({ writePost, firstName, path, srcAvatar }) => {
+const PostContainer = ({profileAvatar , writePost, firstName, path }) => {
   const [posts, setPosts] = useState([]);
   const location = useLocation();
   const firstUpdate = useRef(true);
@@ -46,6 +46,7 @@ const PostContainer = ({ writePost, firstName, path, srcAvatar }) => {
           id={post.myPost._id}
           firstName={post.userDataPost.first_name}
           lastName={post.userDataPost.last_name}
+          userAvatar={post.userDataPost.avatar}
           message= {post.myPost.message}
           comments={post.myPost.comments}
           time={post.myPost.createdAt}
@@ -58,7 +59,7 @@ const PostContainer = ({ writePost, firstName, path, srcAvatar }) => {
   return (
     <div className="PostContainer">
       <NewPost
-        srcAvatar={srcAvatar}
+        srcAvatar={profileAvatar}
         username={firstName}
         WriteNewPost={() => writePost()}
       />

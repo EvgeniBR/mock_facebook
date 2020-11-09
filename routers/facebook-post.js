@@ -10,7 +10,7 @@ const date = require("../util/date");
 const getUserData = async (owner) => {
   const user = await Uesr.findOne(
     { path: owner },
-    { first_name: 1, last_name: 1 }
+    { first_name: 1, last_name: 1 , avatar:1}
   );
   return user;
 };

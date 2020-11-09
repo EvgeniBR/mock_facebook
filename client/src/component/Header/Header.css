@@ -1,5 +1,5 @@
 .header {
-  height: 7vh;
+  height: var(--header-height);
   display: flex;
   justify-content: space-between;
   background: #242526;

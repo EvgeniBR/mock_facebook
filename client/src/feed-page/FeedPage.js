@@ -12,9 +12,8 @@ const FeedPage = () => {
   const [userName , setUserName] = useState('');
   const [userLastName , setUserLastName] = useState('');
   const [path , setPath] = useState('')
-  const [friendList , setFriendList] = useState([])
+  const [profilePicture , setProfilePicture] = useState('')
   //TODO - change and get the avatar from the user axios
-  const [userAvatar , setUserAvatar] = useState('');
 
   const cookies = new Cookies();
   let history = useHistory();
@@ -29,9 +28,8 @@ const FeedPage = () => {
       const user = await DataService.getAuth('users/me',token);
       setUserName(user.data.first_name);
       setUserLastName(user.data.last_name);
-      setPath(user.data.path)
-      setFriendList(user.data.friends)
-      setUserAvatar('https://pro2-bar-s3-cdn-cf3.myportfolio.com/8ee9e0df6a57e6cb08ce8298364354c5/e01d8c8ac8d02856d9ca18a0_rw_1920.jpg?h=cd2ded3063a9f9cc22079f881abdf8f9');
+      setPath(user.data.path);
+      setProfilePicture(user.data.avatar);
     }
     getData();
   },[]);
@@ -48,8 +46,8 @@ const FeedPage = () => {
 
   return (
     <div className="FeedPage">
-      {writeModePost && <NewPostField firstName={userName} lastName={userLastName} path={path} srcAvatar={userAvatar} uploadNewPost={(value) => updateDBPost(value)}/>}
-        <PostContainer writePost={() => setWritePostMode(true)} firstName={userName} lastName={userLastName} path={path} srcAvatar={userAvatar}/>
+      {writeModePost && <NewPostField profileAvatar={profilePicture} firstName={userName} lastName={userLastName} path={path}  uploadNewPost={(value) => updateDBPost(value)}/>}
+        <PostContainer writePost={() => setWritePostMode(true)} profileAvatar={profilePicture} firstName={userName} lastName={userLastName} path={path} />
     </div>
   );
 }
