@@ -1,19 +1,20 @@
 import React from "react";
 import Header from "../Header/Header";
-import { BrowserRouter , Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProfileRender from "../profile-render/ProfileRender";
+import FeedPage from "../../feed-page/FeedPage";
+
+
 const PageContainer = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
-     
-        <Route
-          exact
-          path="/:profilename"
-          render={(props) => <ProfileRender {...props} />}
-        />
-     
-    </BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <FeedPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

@@ -11,9 +11,6 @@ const ProfileRender = () => {
     let token =cookies.get('mockFacebookToken');
     
     useEffect(()=>{
-        
-        
-
         if(!token){
             const getData = async() =>{
             const user = await DataService.get(`/users/:path`)
@@ -32,7 +29,7 @@ const ProfileRender = () => {
 
   if(!token){
     return (
-        <div>
+        <div className="test">
             <FriendProfile data={userData} />
         </div>
       );
