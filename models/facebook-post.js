@@ -10,6 +10,8 @@ const likeSchema = new mongoose.Schema({
     type:String,
     required: true,
   }
+},{
+  timestamps: true,
 })
 
 const commentSchema = new mongoose.Schema({
@@ -37,6 +39,8 @@ const commentSchema = new mongoose.Schema({
     type: Array,
   },
   // children: [ nestedCommentSchema ]
+},{
+  timestamps: true,
 })
 
 const postSchema = new mongoose.Schema({
@@ -60,7 +64,9 @@ const postSchema = new mongoose.Schema({
     type: String,
   },
   likes: [likeSchema],
-  comments: [ commentSchema ]
+  comments: [ commentSchema ],
+},{
+  timestamps: true,
 });
 
 const Post = mongoose.model("FacebookPost", postSchema);

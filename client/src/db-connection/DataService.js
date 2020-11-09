@@ -2,7 +2,7 @@ import http from "./PathConnect";
 
 
 const get = (path) => {
-  return http.get(`/${path}`);
+  return  http.get(`/${path}`);
 }
 
 const getAuth = (path,token) => {

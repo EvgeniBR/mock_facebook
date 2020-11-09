@@ -1,15 +1,67 @@
 const express = require("express");
 const { Post, PostComment, PostLike } = require("../models/facebook-post");
+const Uesr = require("../models/user");
 const router = new express.Router();
 const date = require("../util/date");
 
 // CRUD POST
 //need to add -> nested comment to post comment.
 
-//get user posts (all posts)
-router.get("/facebook-post/:owner", async (req, res) => {
+// const getProfileNameAndPicture = (usersPost) => {
+//   const posts = usersPost.map(async (post , index) => {
+//     await Uesr.findOne({ path: post.owner }, { first_name:1 , last_name:1 }).then(user => {
+//       console.log(user);
+//       console.log(post);
+//       const newArray = user;
+//       newArray = post;
+//       console.log(newArray);
+      
+//     });
+//   })
+//   console.log("1",posts);
+// }
+
+const getUserData = async (owner) => {
+  const user = await Uesr.findOne({ path: owner }, { first_name:1 , last_name:1 })
+  return user;
+}
+
+//get user posts (all posts) -> set Owner list.
+router.get("/facebook-post/profile/:owner", async (req, res) => {
+  const owner = req.params.owner;
+
   try {
-    const usersPost = await Post.find({ owner: req.params.owner });
+    const usersPost = await Post.find({ owner: owner });
+
+    res.send(usersPost);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+
+//get user posts (all posts) -> set Owner list.
+router.get("/facebook-post/feed/:owner", async (req, res) => {
+  const owner = req.params.owner;
+  //get owner friedlist
+  let userFriend = [];
+  try {
+    userFriend = await Uesr.findOne({ path: owner }, { friends: 1 });
+  } catch (e) {
+    res.status(500).send();
+  }
+  let selecteMassege = userFriend.friends;
+  selecteMassege.push(owner);
+
+  try {
+    const usersPost = await Post.find({ owner: {$in : [...selecteMassege ] }});
+    const getUserInfo = usersPost.map(async post => {
+      await getUserData(post.owner).then(info =>{
+        const data = {...info, ...post};
+        console.log(data);
+      });
+    })
+
     res.send(usersPost);
   } catch (e) {
     res.status(500).send();
@@ -132,12 +184,10 @@ router.patch("/facebook-post/:id/:reaction", async (req, res) => {
   const like = new PostLike(req.body);
   like.reaction = req.params.reaction;
   try {
-    const post = await Post.find(
-      {
-        _id: req.params.id,
-        "likes.owner": req.body.owner,
-      },
-    );
+    const post = await Post.find({
+      _id: req.params.id,
+      "likes.owner": req.body.owner,
+    });
     //check if exist or not
     if (post.length) {
       const idToDelete = post[0]._id;
