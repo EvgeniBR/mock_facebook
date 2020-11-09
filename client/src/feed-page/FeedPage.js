@@ -12,6 +12,7 @@ const FeedPage = () => {
   const [userName , setUserName] = useState('');
   const [userLastName , setUserLastName] = useState('');
   const [path , setPath] = useState('')
+  const [friendList , setFriendList] = useState([])
   //TODO - change and get the avatar from the user axios
   const [userAvatar , setUserAvatar] = useState('');
 
@@ -28,7 +29,9 @@ const FeedPage = () => {
       const user = await DataService.getAuth('users/me',token);
       setUserName(user.data.first_name);
       setUserLastName(user.data.last_name);
+      console.log(user.data.path);
       setPath(user.data.path)
+      setFriendList(user.data.friends)
       setUserAvatar('https://pro2-bar-s3-cdn-cf3.myportfolio.com/8ee9e0df6a57e6cb08ce8298364354c5/e01d8c8ac8d02856d9ca18a0_rw_1920.jpg?h=cd2ded3063a9f9cc22079f881abdf8f9');
     }
     getData();

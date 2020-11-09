@@ -6,6 +6,7 @@ import PostDate from '../date/PostDate';
 import PostButton from '../post-button/PostButton';
 import PostComment from '../post-comment/PostComment';
 import ReactionPostContainer from '../reaction-post-container/ReactionPostContainer';
+import WriteNewComment from '../write-new-comment/WriteNewComment';
 
 
 const Post = () => {
@@ -26,6 +27,7 @@ const Post = () => {
       {/* test only -> need to map over */}
       <PostComment path="/zrihen.1" comment="Hi first comment"/>
       <ReactionPostContainer/>
+      <WriteNewComment />
   </div>
 };
 

@@ -1,0 +1,18 @@
+.WriteNewComment{
+    padding: var(--post-padding);
+    color: var(--post-font-color);
+    display: flex;
+    border-radius: 10px;
+}
+
+.WriteNewComment > input {
+    padding: var(--post-padding);
+    color: var(--post-font-color);
+    background-color: var(--post-commnet-background);
+    border: none;
+    border-radius: var(--post-comment-border-radius);
+    margin-left: var(--post-margin-left);
+    font-size: 15px;
+    width: 100%;
+    text-align: left;
+}
