@@ -7,24 +7,29 @@ const date = require("../util/date");
 // CRUD POST
 //need to add -> nested comment to post comment.
 
-// const getProfileNameAndPicture = (usersPost) => {
-//   const posts = usersPost.map(async (post , index) => {
-//     await Uesr.findOne({ path: post.owner }, { first_name:1 , last_name:1 }).then(user => {
-//       console.log(user);
-//       console.log(post);
-//       const newArray = user;
-//       newArray = post;
-//       console.log(newArray);
-      
-//     });
-//   })
-//   console.log("1",posts);
-// }
-
 const getUserData = async (owner) => {
-  const user = await Uesr.findOne({ path: owner }, { first_name:1 , last_name:1 })
+  const user = await Uesr.findOne(
+    { path: owner },
+    { first_name: 1, last_name: 1 }
+  );
   return user;
-}
+};
+
+const getUserProfile = async (owner_list, res) => {
+  console.log(owner_list);
+  try{
+    const getUserInfo = owner_list.comments.map(async (post) => {
+      return {
+        myPost: post,
+        userDataPost: await getUserData(post.owner),
+      };
+    });
+    Promise.all(getUserInfo).then((arr) => res.send(arr));
+  }
+  catch (e) {
+    res.status(500).send("inside function");
+  }
+};
 
 //get user posts (all posts) -> set Owner list.
 router.get("/facebook-post/profile/:owner", async (req, res) => {
@@ -39,6 +44,18 @@ router.get("/facebook-post/profile/:owner", async (req, res) => {
   }
 });
 
+//get comments of post by id
+router.get("/facebook-post/post/:id", async (req, res) => {
+  const id = req.params.id;
+
+  let postComments = [];
+  try {
+    postComments = await Post.findOne({ _id: id }, { comments: 1 });
+    await getUserProfile(postComments , res);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
 
 //get user posts (all posts) -> set Owner list.
 router.get("/facebook-post/feed/:owner", async (req, res) => {
@@ -50,25 +67,24 @@ router.get("/facebook-post/feed/:owner", async (req, res) => {
   } catch (e) {
     res.status(500).send();
   }
-  let selecteMassege = userFriend.friends;
-  selecteMassege.push(owner);
+  let selecteMessage = userFriend.friends;
+  selecteMessage.push(owner);
 
   try {
-    const usersPost = await Post.find({ owner: {$in : [...selecteMassege ] }});
-    const getUserInfo = usersPost.map(async post => {
-      await getUserData(post.owner).then(info =>{
-        const data = {...info, ...post};
-        console.log(data);
-      });
-    })
-
-    res.send(usersPost);
+    const usersPost = await Post.find({ owner: { $in: [...selecteMessage] } });
+    const getUserInfo = usersPost.map(async (post) => {
+      return {
+        myPost: post,
+        userDataPost: await getUserData(post.owner),
+      };
+    });
+    Promise.all(getUserInfo).then((arr) => res.send(arr));
   } catch (e) {
     res.status(500).send();
   }
 });
 
-//post new user post obj needed -> owner(token/auth/id), massege
+//post new user post obj needed -> owner(token/auth/id), message
 router.post("/facebook-post", async (req, res) => {
   const myData = req.body;
   myData["createdDate"] = date.getFullDate();
@@ -82,14 +98,14 @@ router.post("/facebook-post", async (req, res) => {
   }
 });
 
-//update post -> need to get massege
+//update post -> need to get message
 router.patch("/facebook-post/:id", async (req, res) => {
   //get the new massge and update exists post sould return the post
-  const updateMsg = req.body.massege;
+  const updateMsg = req.body.message;
   try {
     await Post.findOneAndUpdate(
       { _id: req.params.id },
-      { massege: updateMsg },
+      { message: updateMsg },
       { new: true }
     ).then((newUpdatedPost) => {
       if (!newUpdatedPost) {
@@ -125,7 +141,7 @@ router.patch("/facebook-comment/:id", async (req, res) => {
   const myData = req.body;
   myData["createdDate"] = date.getFullDate();
   myData["updateDate"] = date.getFullDate();
-  const comment = new PostComment(myData);
+  const comment = new Post(myData);
   try {
     const updatePost = await Post.findOneAndUpdate(
       { _id: req.params.id },
@@ -144,11 +160,11 @@ router.patch("/facebook-comment/:id", async (req, res) => {
 
 //update exists post and update friend comment -> need get props -> owner(owner id) , friendid , req -> message
 router.patch("/facebook-comment/:id/:commentid", async (req, res) => {
-  const myData = req.body.massege;
+  const myData = req.body.message;
   try {
     const updatePost = await Post.findOneAndUpdate(
       { _id: req.params.id, "comments._id": req.params.commentid },
-      { $set: { "comments.$.massege": myData } },
+      { $set: { "comments.$.message": myData } },
       { new: true }
     );
     if (!updatePost) {

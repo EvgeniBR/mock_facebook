@@ -19,7 +19,7 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  massege: {
+  message: {
     type: String,
     required: true,
   },
@@ -35,10 +35,6 @@ const commentSchema = new mongoose.Schema({
     type: String,
   },
   likes: [likeSchema],
-  comments: {
-    type: Array,
-  },
-  // children: [ nestedCommentSchema ]
 },{
   timestamps: true,
 })
@@ -48,7 +44,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  massege: {
+  message: {
     type: String,
     required: true,
   },

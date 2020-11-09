@@ -4,9 +4,9 @@ import './PostDate.css'
 
 const PostDate = ({time , comment}) => {
   //get comment format or post date format
-  const postTime = comment?costumDate.getCommentTime(time):costumDate.getPostTime(time)
+  //const postTime = comment?costumDate.getCommentTime(time):costumDate.getPostTime(time)
 
-  return <p className="PostDate">{postTime.date}</p>;
+  return <p className="PostDate">{time}</p>;
 };
 
 export default PostDate;

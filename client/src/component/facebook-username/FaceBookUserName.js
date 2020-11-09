@@ -6,4 +6,8 @@ const FaceBookUserName = ({firstName , lastName , path}) => {
   return <Link className="PostUserName" to={path}>{firstName} {lastName}</Link>;
 };
 
+FaceBookUserName.defaultProps = {
+  path: '/'
+}
+
 export default FaceBookUserName;

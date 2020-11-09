@@ -1,48 +1,70 @@
-import React ,{ useState , useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./PostContainer.css";
-import Post from '../post/Post';
+import Post from "../post/Post";
 import NewPost from "../new-post/NewPost";
-import DataService from '../../db-connection/DataService';
-import { useLocation } from 'react-router-dom';
+import DataService from "../../db-connection/DataService";
+import { useLocation } from "react-router-dom";
 
 //TO-DO - after friend will added make a lits of path and add it to postToShowPathList
-const PostContainer = ({writePost , firstName , lastName , path , srcAvatar, friendsList}) => {
+const PostContainer = ({ writePost, firstName, path, srcAvatar }) => {
+  const [posts, setPosts] = useState([]);
   const location = useLocation();
   const firstUpdate = useRef(true);
-  
+
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     }
-    async function getData(){
+    async function getData() {
       let postToShow;
 
       //const user = await DataService.get('users/me',token);
       const currentPath = location.pathname;
-      if(currentPath === '/'){
+      if (currentPath === "/") {
         //on feed se we need to take the user path and from friend list
         postToShow = await DataService.get(`facebook-post/feed/${path}`);
-        
-      }
-      else{
+      } else {
         //get profile user post
         postToShow = await DataService.get(`facebook-post/profile/${path}`);
-        
       }
-      console.log(postToShow);
-
-      //const postToShow = await DataService.get(`facebook-post`,{params:postToShowPathList});
-      
-      
+      console.log(postToShow.data);
+      setPosts(postToShow.data);
     }
     getData();
-  },[path]);
+  }, [path]);
 
-  return <div>
-      <NewPost srcAvatar={srcAvatar} username={firstName} WriteNewPost={() => writePost()}/>
-      <Post path={path} />
-  </div>;
+
+  //show all the post selected
+  let showPosts;
+  if (posts.length) {
+    showPosts = posts.map((post) => {
+      return (
+        <Post
+          path={post.myPost.owner}
+          key={post.myPost._id}
+          id={post.myPost._id}
+          firstName={post.userDataPost.first_name}
+          lastName={post.userDataPost.last_name}
+          message= {post.myPost.message}
+          comments={post.myPost.comments}
+          time={post.myPost.createdAt}
+          likes={post.myPost.likes}
+        />
+      );
+    });
+  }
+
+  return (
+    <div className="PostContainer">
+      <NewPost
+        srcAvatar={srcAvatar}
+        username={firstName}
+        WriteNewPost={() => writePost()}
+      />
+      {showPosts}
+    </div>
+  );
 };
 
 export default PostContainer;
