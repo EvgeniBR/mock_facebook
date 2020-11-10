@@ -43,6 +43,18 @@ router.get("/facebook-post/profile/:owner", async (req, res) => {
   }
 });
 
+//get post by id .
+router.get("/facebook-post/get-post/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const post = await Post.findById(id);
+    res.send(post);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 //get comments of post by id
 router.get("/facebook-post/post/:id", async (req, res) => {
   const id = req.params.id;

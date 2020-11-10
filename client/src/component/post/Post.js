@@ -8,22 +8,42 @@ import PostComment from "../post-comment/PostComment";
 import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
 
-const Post = ({ id, path, message, firstName, lastName, time, userAvatar ,likes }) => {
+const Post = ({ id, firstName, lastName, path, userAvatar , userPath , updateLikeSelected}) => {
+  //post info
+  const [message , setMassege ] = useState("")
+  const [time , setTime] = useState("0000-00-00T00:00:00")
+  const [likes , setLikes] = useState([])
   const [commentsArr, setCommentsArr] = useState([]);
+
+  //set new like or comment
+  
   const [newComment, setNewComment] = useState("");
   const [newLike, setNewLike] = useState("");
   const [currentPick , setCurrentPick] = useState("");
 
 
+  //change emoji reaction
+  const updateDBwithNewLikeSelected = (value) => {
+    setNewLike(value);
+  }
+
+  const setPostInfo = (postData) => {
+    setMassege(postData.message);
+    setTime(postData.createdAt);
+    setLikes(postData.likes);
+  }
+
   const setEmoji = () => {
     let currentLikePick = '';
     if(likes.length){
-      currentLikePick = likes.find(like =>  like.owner === path)
+      currentLikePick = likes.find(like =>  like.owner === userPath)
     }
     currentLikePick ? setCurrentPick(currentLikePick.reaction) : setCurrentPick('');
   }
 
   const getData = async () => {
+    const postData = await DataService.get(`facebook-post/get-post/${id}`);
+    setPostInfo(postData.data);
     const postCommentsArr = await DataService.get(`facebook-post/post/${id}`);
     setCommentsArr(postCommentsArr.data);
     setEmoji();
@@ -38,19 +58,22 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar ,likes 
       const setData = async () => {
         await DataService.patch(`facebook-comment/${id}`, newComment);
         setNewComment('');
-        getData();
+        await getData();
       };
       setData();
     }
   }, [newComment]);
 
+
   useEffect(() => {
     if (newLike) {
-      const data = {owner:path}
+      const data = {
+        owner:userPath
+      }
       const setData = async () => {
         await DataService.patch(`facebook-post/${id}/${newLike}`, data);
-        setNewLike('');
-        getData();
+        setNewLike("");
+        await getData();
       };
       setData();
     }
@@ -78,7 +101,6 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar ,likes 
   }
 
 
-
   const updateNewComment = async (value) => {
     const dataFormat = {
       owner: path,
@@ -86,10 +108,6 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar ,likes 
     };
     setNewComment(dataFormat);
   };
-
-  const updateLikeSelected = (like) => {
-    setNewLike(like);
-  }
 
   return (
     <div className="Post">
@@ -106,7 +124,7 @@ const Post = ({ id, path, message, firstName, lastName, time, userAvatar ,likes 
       </div>
       <p>{message}</p>
       <div className="PostBtnContainer">
-        <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" userPressLike={(like) => updateLikeSelected(like)}/>
+        <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" updateWithNewLike={(like) => updateDBwithNewLikeSelected(like)}/>
         <PostButton info="Comment" icon="far fa-comment-alt" />
         <PostButton
           info="Share"

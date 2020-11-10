@@ -11,7 +11,7 @@ const FeedPage = () => {
   const [writeModePost , setWritePostMode] = useState(false);
   const [userName , setUserName] = useState('');
   const [userLastName , setUserLastName] = useState('');
-  const [path , setPath] = useState('')
+  const [userPath , setUserPath] = useState('')
   const [profilePicture , setProfilePicture] = useState('')
   //TODO - change and get the avatar from the user axios
 
@@ -28,7 +28,7 @@ const FeedPage = () => {
       const user = await DataService.getAuth('users/me',token);
       setUserName(user.data.first_name);
       setUserLastName(user.data.last_name);
-      setPath(user.data.path);
+      setUserPath(user.data.path);
       setProfilePicture(user.data.avatar);
     }
     getData();
@@ -36,7 +36,7 @@ const FeedPage = () => {
 
   const updateDBPost = async (value) => {
     const data = {
-      owner:path,
+      owner:userPath,
       message:value
     }
     await DataService.create('facebook-post',data);
@@ -46,8 +46,8 @@ const FeedPage = () => {
 
   return (
     <div className="FeedPage">
-      {writeModePost && <NewPostField profileAvatar={profilePicture} firstName={userName} lastName={userLastName} path={path}  uploadNewPost={(value) => updateDBPost(value)}/>}
-        <PostContainer writePost={() => setWritePostMode(true)} profileAvatar={profilePicture} firstName={userName} lastName={userLastName} path={path} />
+      {writeModePost && <NewPostField profileAvatar={profilePicture} firstName={userName} lastName={userLastName} userPath={userPath}  uploadNewPost={(value) => updateDBPost(value)}/>}
+        <PostContainer writePost={() => setWritePostMode(true)} profileAvatar={profilePicture} firstName={userName} lastName={userLastName} userPath={userPath}/>
     </div>
   );
 }

@@ -10,7 +10,7 @@ import sad from "../../img/reaction/sad.png";
 import wow from "../../img/reaction/wow.png";
 
 
-const PostButton = ({ icon, info, hoverOption ,userPressLike , emojiPicked}) => {
+const PostButton = ({ icon, info, hoverOption ,updateWithNewLike , emojiPicked}) => {
   const [hoverMode, setHoverMode] = useState(false);
   const [reaction, setReaction] = useState("");
 
@@ -52,8 +52,9 @@ const PostButton = ({ icon, info, hoverOption ,userPressLike , emojiPicked}) => 
       <ReactionPostContainer
         onMouseOver={() => setHoverMode(true)}
         changeReaction={(userReact) => {
-          setReaction(userReact)
-          userPressLike(reaction)
+          setReaction(userReact);
+          updateWithNewLike(userReact);
+          setHoverMode(false)
         }}
       />
     );
