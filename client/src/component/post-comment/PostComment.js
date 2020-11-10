@@ -5,21 +5,21 @@ import FaceBookUserName from "../facebook-username/FaceBookUserName";
 import CommentBtn from "../comment-reaction/CommentBtn";
 import PostDate from '../date/PostDate';
 
-const PostComment = ({ commentPath, message , date , id}) => {
+const PostComment = ({commentPath,id,firstName,lastName,userAvatar,time,likes,message}) => {
   const [comments , setComments] = useState([]);
   
   return (
     <div className="PostCommentContainer">
-      <CircleIcon path={commentPath} />
+      <CircleIcon srcIcon={userAvatar} />
       <div className="UserComment">
         <div className="PostComment">
-          <FaceBookUserName firstName="Jhon" lastName="Doe" path={commentPath} />
+          <FaceBookUserName firstName={firstName} lastName={lastName} path={commentPath} />
           <p>{message}</p>
         </div>
         <div className="CommentOptions">
           <CommentBtn text="Like" hoverOption="like"/> ·
           <CommentBtn text="Reply" /> ·
-          <PostDate time={date} comment="true"/>
+          <PostDate time={time} comment="true"/>
         </div>
       </div>
     </div>

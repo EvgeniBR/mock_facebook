@@ -1,0 +1,9 @@
+.PostStatics{
+    display: flex;
+    justify-content: space-between;
+}
+
+.PostStaticsLikesEmoji {
+    width: 12px;
+    height: 12px;
+}

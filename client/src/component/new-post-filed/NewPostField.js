@@ -4,7 +4,7 @@ import CircleIcon from "../circle-Img/CircleIcon";
 import FaceBookUserName from "../facebook-username/FaceBookUserName";
 
 
-const NewPostField = ({firstName , lastName , srcAvatar , path , uploadNewPost}) => {
+const NewPostField = ({profileAvatar , firstName , lastName  , userPath , uploadNewPost}) => {
   const [postMassage , setPostMassege] = useState('');
 
   const placeholderMsg = `What's on your mind , ${firstName}?`;
@@ -17,11 +17,11 @@ const NewPostField = ({firstName , lastName , srcAvatar , path , uploadNewPost})
         </div>
         <div>
           <div className="NewPostFieldBox__userData">
-            <CircleIcon srcIcon={srcAvatar} />
+            <CircleIcon srcIcon={profileAvatar} />
             <FaceBookUserName
               firstName={firstName}
               lastName={lastName}
-              path={path}
+              path={userPath}
             />
           </div>
           <div className="NewPostFieldBox__main">

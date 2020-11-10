@@ -17,3 +17,9 @@
     background-color:var(--post-commnet-background);
     border-radius: 5px;
 }
+
+.PostButton>img{
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
