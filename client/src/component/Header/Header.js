@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 import HeaderDropDown from './HeaderDropDown'
 
 
-const Header = () => {
+const Header = ({userPath}) => {
 
    const onCreateClick = () =>{
        console.log('create click');
@@ -34,7 +34,7 @@ const Header = () => {
        <Link className="facebookGamingBtn headerBtn" to="/gaming"><i className="fas fa-gamepad fa-2x"></i></Link> 
        </div>
        <div className="rightSideBtns">
-       <Link className="facebookProfileBtn" to="/:path">Me</Link> 
+       <Link className="facebookProfileBtn" to={userPath}>Me</Link> 
        <HeaderDropDown btnName="fas fa-plus" handleClick={onCreateClick}/>
        <HeaderDropDown btnName="fab fa-facebook-messenger " handleClick={onMassangerClick}/>
        <HeaderDropDown btnName="fas fa-bell" handleClick={onNotificationsClick}/>

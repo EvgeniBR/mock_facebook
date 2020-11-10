@@ -75,9 +75,8 @@ const userSchema = new mongoose.Schema({
   friends:[{
     type: String,
   }],
-  friendsRequest:[{
-    type: String,
-  }],
+  friendsRequest:[],
+  friendsRequestSend:[],
   activity:[{
     type: String,
   }],
