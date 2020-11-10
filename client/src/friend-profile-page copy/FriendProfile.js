@@ -3,10 +3,11 @@ import FriendCover from "./FriendCover";
 import FriendProfileHeader from "./FriendProfileHeader";
 
 
-const FriendProfile = () => {
+const FriendProfile = (props) => {
+  console.log('f' , props);
   return (
     <div>
-      <FriendCover />
+      <FriendCover data = {props.data} />
       <br/>
      <FriendProfileHeader/>
     </div>

@@ -7,6 +7,8 @@ import Cookies from "universal-cookie";
 
 const Cover = (props) => {
   useEffect(()=>{
+     console.log('cover',props.data.data);
+     
      
       })
 
@@ -26,13 +28,15 @@ const Cover = (props) => {
       }
     }
   };
-
+if(props.length === 0 || props.data.data === undefined ){
+  return(
+    <div>Loading</div>
+  )
+}
   return (
     <div className="cover-container">
-      <img src={`data:image/png;base64,${props.data.cover}`}
+      <img src={`data:image/png;base64,${props.data.data.cover}`}
       alt="111"
-      width="250"
-      height="250"
       />
       <form encType="multipart/form-data"  method="post">
         <label htmlFor="file" className="edit-photo">
@@ -41,9 +45,9 @@ const Cover = (props) => {
           <input style={{display:"none"}} id="file" type="file" name="cover" onChange={(e) => coverSubmit(e)} />
       </form>
       
-      <Avatar data={props.data} />
+      <Avatar data={props.data.data} />
       <h2 className="profile-name">
-        {`${props.data.first_name} ${props.data.last_name}`} <hr className="underLine" />
+        {`${props.data.data.first_name} ${props.data.data.last_name}`} <hr className="underLine" />
       </h2>
     </div>
   );

@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie';
 const Avatar = (props) => {
 
   useEffect(()=>{
-     console.log(props.data);
+      console.log('avatar',props.data);
   })
 
   const cookies = new Cookies();
