@@ -3,6 +3,9 @@ import http from "./PathConnect";
 const get = (path) => {
   return http.get(`/${path}`);
 };
+const getFriendProfile = (path) => {
+  return http.get(`users${path}`);
+};
 
 const getAuth = (path, token) => {
   return http.get(`/${path}`, {
@@ -53,4 +56,5 @@ export default {
   patch,
   createAuth,
   createAuthP,
+  getFriendProfile,
 }

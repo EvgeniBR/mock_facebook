@@ -58,6 +58,7 @@ const SignUp = () => {
     if(!checkIfEmpty()){
       try{
         const user = await DataService.create('users', data);
+        console.log(user.data.token);
         cookies.set('mockFacebookToken', user.data.token , coociesAccess);
         history.push('/');
       }
