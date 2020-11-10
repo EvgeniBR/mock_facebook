@@ -122,7 +122,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath }) => {
         </div>
       </div>
       <p>{message}</p>
-      {(commentsArr.length || likes.length) && <PostStatics comments={commentsArr} likes={likes}/>}
+      {(commentsArr.length || likes.length) ? <PostStatics comments={commentsArr} likes={likes}/> : <></>}
       <div className="PostBtnContainer">
         <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" updateWithNewLike={(like) => updateDBwithNewLikeSelected(like)}/>
         <PostButton info="Comment" icon="far fa-comment-alt" />

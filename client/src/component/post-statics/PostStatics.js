@@ -5,18 +5,22 @@ import './PostStatics.css'
 
 const PostStatics = ({ comments, likes }) => {
 
-    const reaction = likes.map(like => {
-        return <img className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like.reaction).emoji} alt="reaction"/>
-    })
+    let reactionToShow = [];
 
-    console.log(likes);
+    for(const like of likes){
+        if(!reactionToShow.includes(like.reaction)){
+            const emoji = <img className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like.reaction).emoji} alt="reaction"/>
+            reactionToShow.push(emoji)
+        }
+    }
+
   return (
     <div className="PostStatics">
       <div>
-          {likes.length && <div className="PostStaticsLikes">{reaction} {likes.length} Likes</div>}
+        {likes.length ? <div className="PostStaticsLikes">{reactionToShow} {likes.length} Likes</div>:<div></div>}
       </div>
       <div className="PostStaticsComments">
-        {comments.length && <div> {comments.length} Comments</div>}
+        {comments.length ? <div> {comments.length} Comments</div> : <div></div>}
       </div>
     </div>
   );
