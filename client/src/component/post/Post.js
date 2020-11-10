@@ -7,8 +7,9 @@ import PostButton from "../post-button/PostButton";
 import PostComment from "../post-comment/PostComment";
 import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
+import PostStatics from '../post-statics/PostStatics';
 
-const Post = ({ id, firstName, lastName, path, userAvatar , userPath , updateLikeSelected}) => {
+const Post = ({ id, firstName, lastName, path, userAvatar , userPath }) => {
   //post info
   const [message , setMassege ] = useState("")
   const [time , setTime] = useState("0000-00-00T00:00:00")
@@ -33,20 +34,19 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , updateLik
     setLikes(postData.likes);
   }
 
-  const setEmoji = () => {
+  useEffect(() => {
     let currentLikePick = '';
     if(likes.length){
       currentLikePick = likes.find(like =>  like.owner === userPath)
     }
     currentLikePick ? setCurrentPick(currentLikePick.reaction) : setCurrentPick('');
-  }
+  }, [likes]);
 
   const getData = async () => {
     const postData = await DataService.get(`facebook-post/get-post/${id}`);
     setPostInfo(postData.data);
     const postCommentsArr = await DataService.get(`facebook-post/post/${id}`);
     setCommentsArr(postCommentsArr.data);
-    setEmoji();
   };
 
   useEffect(() => {
@@ -71,9 +71,8 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , updateLik
         owner:userPath
       }
       const setData = async () => {
-        await DataService.patch(`facebook-post/${id}/${newLike}`, data);
+        await DataService.patch(`facebook-post/${id}/${newLike}`, data).then(() => getData());
         setNewLike("");
-        await getData();
       };
       setData();
     }
@@ -123,6 +122,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , updateLik
         </div>
       </div>
       <p>{message}</p>
+      {(commentsArr.length || likes.length) && <PostStatics comments={commentsArr} likes={likes}/>}
       <div className="PostBtnContainer">
         <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" updateWithNewLike={(like) => updateDBwithNewLikeSelected(like)}/>
         <PostButton info="Comment" icon="far fa-comment-alt" />

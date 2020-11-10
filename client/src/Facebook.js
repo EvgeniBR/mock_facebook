@@ -11,7 +11,7 @@ const Facebook = () => {
     <Router>
       <Route exact path="/"> <PageContainer/></Route>
       <Route path="/register"><Login/></Route>
-      <Route path="/:username"><ProfileRender/></Route>
+      
     </Router>
   );
 };

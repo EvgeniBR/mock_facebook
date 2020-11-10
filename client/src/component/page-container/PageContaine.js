@@ -9,11 +9,12 @@ const PageContainer = () => {
   return (
     <Router>
       <Header />
-      <Switch>
+
         <Route exact path="/">
           <FeedPage />
         </Route>
-      </Switch>
+        <Route path="/:username"><ProfileRender/></Route>
+
     </Router>
   );
 };
