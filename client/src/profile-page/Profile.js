@@ -5,7 +5,7 @@ import ProfileHeader from "./ProfileHeader";
 
 const Profile = (props) => {
   useEffect(()=>{
-// console.log(props.data);
+ console.log('cover' , props.data);
   })
   return (
     <div>
