@@ -46,8 +46,10 @@ const FeedPage = () => {
 
   return (
     <div className="FeedPage">
+      <div className="FeedPage_RightPage"></div>
       {writeModePost && <NewPostField profileAvatar={profilePicture} firstName={userName} lastName={userLastName} userPath={userPath}  uploadNewPost={(value) => updateDBPost(value)}/>}
         <PostContainer writePost={() => setWritePostMode(true)} profileAvatar={profilePicture} firstName={userName} lastName={userLastName} userPath={userPath}/>
+        <div className="FeedPage_LeftPage"></div>
     </div>
   );
 }
