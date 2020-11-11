@@ -5,7 +5,6 @@ import emojiOptions from '../../Util/emojiOptions';
 
 const PostButton = ({ icon, info, hoverOption ,updateWithNewLike , emojiPicked}) => {
   const [hoverMode, setHoverMode] = useState(false);
-  const [reaction, setReaction] = useState("");
 
 
   let option;
@@ -14,7 +13,6 @@ const PostButton = ({ icon, info, hoverOption ,updateWithNewLike , emojiPicked})
       <ReactionPostContainer
         onMouseOver={() => setHoverMode(true)}
         changeReaction={(userReact) => {
-          setReaction(userReact);
           updateWithNewLike(userReact);
           setHoverMode(false)
         }}

@@ -2,6 +2,7 @@ const express = require("express");
 require("./db/server");
 const userRouter = require("./routers/user");
 const postRouter = require("./routers/facebook-post");
+const addFriendRouter = require("./routers/friend-request");
 const cors = require('cors');
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(userRouter);
 app.use(postRouter);
+app.use(addFriendRouter);
 
 const port = process.env.PORT || 7000;
 

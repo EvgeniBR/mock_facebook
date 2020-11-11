@@ -1,33 +1,38 @@
-import { useHistory } from "react-router-dom";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./component/Header/Header";
 import FeedPage from "./feed-page/FeedPage";
 import Login from "./login-page/Login";
 import ProfileRender from "./component/profile-render/ProfileRender";
-import PageContainer from "../src/component/page-container/PageContaine";
-
-import { useEffect } from "react";
+import Cookies from "universal-cookie";
+import DataService from "./db-connection/DataService";
 
 const Facebook = () => {
+  const [userPath, setUserPath] = useState("");
+  const cookies = new Cookies();
+  let location = window.location;
+  const token = cookies.get("mockFacebookToken");
 
-  
- let location = (window.location);
-  
-const pathLocation =(location.pathname);
+  useEffect(() => {
+    if (token) {
+      async function getData() {
+        const user = await DataService.getAuth("users/me", token);
+        setUserPath(user.data.path);
+      }
+      getData();
+    }
+  }, []);
 
-  if (pathLocation === "/register") {
-    return (
-      <BrowserRouter>
-      
-        <Route exact path="/register"> <Login /></Route>
-         
-        
-      </BrowserRouter>
-    );
+  const pathLocation = location.pathname;
+
+  //get the user path fropm the token.
+
+  if (pathLocation === "/register" || !token) {
+    return <Login />;
   }
   return (
     <BrowserRouter>
-      <Header />
+      <Header userPath={userPath} />
       <Route exact path="/">
         {" "}
       </Route>

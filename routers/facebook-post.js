@@ -214,7 +214,6 @@ router.patch("/facebook-post/:id/:reaction", async (req, res) => {
     //check if exist or not
     if (post.length) {
       const idToDelete = post[0]._id;
-      console.log(post);
       //for unlike
       if (req.params.reaction === "unlike") {
         const test = await Post.findOneAndUpdate(

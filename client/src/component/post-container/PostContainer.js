@@ -51,11 +51,6 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath }) => {
           lastName={post.userDataPost.last_name}
           userAvatar={post.userDataPost.avatar}
           userPath={userPath}
-          // message={post.myPost.message}
-          // comments={post.myPost.comments}
-          // time={post.myPost.createdAt}
-          // likes={post.myPost.likes}
-          // updateLikeSelected={(value) => updatePostDBwithNewLike(value)}
         />
       );
     });

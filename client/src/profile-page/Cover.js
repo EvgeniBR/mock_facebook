@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Profile.css";
 import Avatar from "./Avatar";
 import DataService from "../db-connection/DataService";

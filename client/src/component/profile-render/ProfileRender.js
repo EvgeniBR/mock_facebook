@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 const ProfileRender = () => {
   const [userData, setUserData] = useState([]);
   const [endUser, setEndUser] = useState(null);
+  const [userPath , setUserPath] = useState('')
 
   const cookies = new Cookies();
   let token = cookies.get("mockFacebookToken");
@@ -17,19 +18,17 @@ const ProfileRender = () => {
   useEffect(() => {
     const getData = async () => {
       const currentPath = location.pathname;
-      console.log(currentPath);
       const user = await DataService.getAuth("users/me", token);
+      setUserPath(user.data.path);
       console.log(user.data.path);
       if ( currentPath === `/${user.data.path}`) {
         setEndUser("me");
-        console.log("me");
         setUserData(user);
       } else {
         const getData = async () => {
           const user = await DataService.getFriendProfile(`${currentPath}`);
           setUserData(user);
           setEndUser("friend");
-          console.log("friend");
         };
         getData();
       }
@@ -45,13 +44,13 @@ const ProfileRender = () => {
   if (endUser === "friend") {
     return (
       <div className="test">
-        <FriendProfile data={userData} />
+        <FriendProfile data={userData} userPath={userPath}/>
       </div>
     );
   }
   return (
     <div>
-      <Profile data={userData} />
+      <Profile data={userData} userPath={userPath}/>
     </div>
   );
 };

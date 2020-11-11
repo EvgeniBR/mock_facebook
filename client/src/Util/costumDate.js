@@ -16,21 +16,38 @@ const monthsList = {
   12:"December"
 }
 
+//TO-DO BACKEND - fix the schema not with +2 hours for now - add +2 to the front end. 
+const calcTimePassHour = (timeNow , timePostPublish) =>{
+  if(timeNow < timePostPublish){
+    return 24 - timePostPublish + timeNow;
+  }
+  else{
+    return timeNow - timePostPublish;
+  }
+}
 
-//TO-DO function to weeks pass and years pass , test 
+
+const calcTimePassMinute = (timeNow , timePostPublish) =>{
+  if(timeNow < timePostPublish){
+    return 60 - timePostPublish + timeNow;
+  }
+  else{
+    return timeNow - timePostPublish;
+  }
+}
 
 const getMinutesPass = (minutes) => {
-  return {date:`${d.getMinutes() - minutes} minutes`};
+  return {date:`${calcTimePassMinute(d.getMinutes(),minutes)} minutes`};
 }
 
 const getHoursPass = (time) => {
-  const hour = parseInt(time[0]);
+  const hour = parseInt(time[0])+2;
   const minute = parseInt(time[1]);
   if(d.getHours() === hour){
     return getMinutesPass(minute);
   }
   else{
-    return {date:`${d.getHours() - hour} hours`};
+    return {date:`${calcTimePassHour(d.getHours(),hour)} hours`};
   }
 }
 
