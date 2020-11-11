@@ -43,6 +43,20 @@ const addGetFriendRequest = async (profileToUpdate , friendRequestToRemove ) => 
   return updateUser
 }
 
+//get friend request picture 
+router.get("/facebook-profile/get-profile-info/:owner", async (req, res) => {
+  const owner = castingTheValue(req.params.owner);
+
+  try {
+    const updateUser = await User.findOne(
+      { path: owner },
+      { first_name:1 , last_name:1 , avatar:1 },
+    );
+    res.send(updateUser);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
 
 
 //make new request
