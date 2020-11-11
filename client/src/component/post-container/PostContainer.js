@@ -22,8 +22,10 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath }) => {
       //on feed se we need to take the user path and from friend list
       postToShow = await DataService.get(`facebook-post/feed/${userPath}`);
     } else {
+      //TO-DO fix user per path
       //get profile user post
-      postToShow = await DataService.get(`facebook-post/profile/${userPath}`);
+      postToShow = await DataService.get(`facebook-post/feed/${userPath}`);
+      //postToShow = await DataService.get(`facebook-post/profile/${userPath}`);
     }
     setPosts([]);
     setPosts(postToShow.data);
