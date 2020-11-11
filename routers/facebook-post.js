@@ -216,12 +216,12 @@ router.patch("/facebook-post/:id/:reaction", async (req, res) => {
       const idToDelete = post[0]._id;
       //for unlike
       if (req.params.reaction === "unlike") {
-        const test = await Post.findOneAndUpdate(
+        const unlike = await Post.findOneAndUpdate(
           { _id: req.params.id },
           { $pull: { likes: { owner: req.body.owner } } },
           { new: true }
         );
-        res.send(test);
+        res.send(unlike);
       } else {
         //update reaction options
         await Post.findOneAndUpdate(

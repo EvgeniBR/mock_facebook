@@ -5,9 +5,9 @@ import Cookies from 'universal-cookie';
 
 const Avatar = (props) => {
 
-  useEffect(()=>{
-      console.log('avatar',props.data);
-  })
+  // useEffect(()=>{
+  //     console.log('avatar',props.data);
+  // })
 
   const cookies = new Cookies();
   const token = cookies.get("mockFacebookToken");
@@ -20,7 +20,6 @@ const Avatar = (props) => {
      try{
        await DataService.createAuthP(`users/me`, profileData , token)
       }catch{
-       console.log('line 23')
      }
    }
   };

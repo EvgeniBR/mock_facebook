@@ -6,11 +6,11 @@ import DataService from "../db-connection/DataService";
 import Cookies from "universal-cookie";
 
 const Cover = (props) => {
-  useEffect(()=>{
-     console.log('cover',props.data.data);
+  // useEffect(()=>{
+  //    console.log('cover',props.data.data);
      
      
-      })
+  //     })
 
   const cookies = new Cookies();
   const token = cookies.get("mockFacebookToken");

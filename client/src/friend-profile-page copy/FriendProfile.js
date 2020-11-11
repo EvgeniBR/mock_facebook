@@ -9,7 +9,6 @@ const FriendProfile = (props) => {
 
   let friendRequest = false;
   if(props.data.data){
-    console.log(props.data.data.friendsRequest);
     const findRequest = props.data.data.friendsRequest.some(fRequest => {
       return fRequest.owner === props.userPath;
     })

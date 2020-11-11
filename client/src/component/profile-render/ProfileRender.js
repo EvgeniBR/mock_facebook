@@ -20,7 +20,7 @@ const ProfileRender = () => {
       const currentPath = location.pathname;
       const user = await DataService.getAuth("users/me", token);
       setUserPath(user.data.path);
-      console.log(user.data.path);
+      // console.log(user.data.path);
       if ( currentPath === `/${user.data.path}`) {
         setEndUser("me");
         setUserData(user);
