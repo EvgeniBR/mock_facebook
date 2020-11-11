@@ -18,20 +18,17 @@ const ProfileRender = () => {
   useEffect(() => {
     const getData = async () => {
       const currentPath = location.pathname;
-      console.log(currentPath);
       const user = await DataService.getAuth("users/me", token);
       setUserPath(user.data.path);
       console.log(user.data.path);
       if ( currentPath === `/${user.data.path}`) {
         setEndUser("me");
-        console.log("me");
         setUserData(user);
       } else {
         const getData = async () => {
           const user = await DataService.getFriendProfile(`${currentPath}`);
           setUserData(user);
           setEndUser("friend");
-          console.log("friend");
         };
         getData();
       }
@@ -40,7 +37,6 @@ const ProfileRender = () => {
   }, [location.pathname , token]);
 
 
-  console.log(userData);
 
   if (endUser == null) {
     return <div>Loading</div>;

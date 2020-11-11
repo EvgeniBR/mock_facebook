@@ -9,13 +9,13 @@ router.patch("/facebook-profile/send-request", async (req, res) => {
   console.log(profilePath,userPath);
   //update the profile with request from the user 
   try {
-    const updateUser = await Post.findOneAndUpdate(
+    const updateUser = await Uesr.findOneAndUpdate(
       { path: profilePath },
-      { $push: { friendsRequest : { "userPath": userPath} } },
+      { $push: { friendsRequest : { "owner": userPath} } },
       { new: true }
     );
     if (!updateUser) {
-      res.status(400).send(updateUser);
+      res.status(400).send(e);
     }
     res.send(updateUser);
   } catch (e) {
@@ -29,9 +29,9 @@ router.patch("/facebook-profile/get-request", async (req, res) => {
     
     //update the user with path the user send request to 
     try {
-      const updateUser = await Post.findOneAndUpdate(
+      const updateUser = await Uesr.findOneAndUpdate(
         { path: userPath },
-        { $push: { friendsRequestSend : { "profilePath": profilePath}}},
+        { $push: { friendsRequestSend : { "owner": profilePath}}},
         { new: true }
       );
       if (!updateUser) {

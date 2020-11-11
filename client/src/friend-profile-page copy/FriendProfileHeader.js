@@ -15,7 +15,7 @@ const FriendProfileHeader = ({ userPath, profilePath , request}) => {
   const makeFriendRequest = async () => {
     try{
       await DataService.patch(`facebook-profile/send-request`, {userPath , profilePath });
-      await DataService.patch(`facebook-profile/get-request`, {profilePath ,userPath});
+      await DataService.patch(`facebook-profile/get-request`, {userPath , profilePath });
       setProfileRequest(!profileRequest);
     }
     catch{

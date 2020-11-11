@@ -1,3 +1,4 @@
+import { request } from "http";
 import React  from "react";
 import FriendCover from "./FriendCover";
 import FriendProfileHeader from "./FriendProfileHeader";
@@ -6,11 +7,13 @@ import FriendProfileHeader from "./FriendProfileHeader";
 const FriendProfile = (props) => {
   console.log('f' , props);
 
-  const friendRequest = false;
+  let friendRequest = false;
   if(props.data.data){
-    if(props.data.data.friendsRequest.includes(props.userPath)){
-      friendRequest = true;
-    }
+    console.log(props.data.data.friendsRequest);
+    const findRequest = props.data.data.friendsRequest.some(fRequest => {
+      return fRequest.owner === props.userPath;
+    })
+    friendRequest = findRequest;
   }
 
 
