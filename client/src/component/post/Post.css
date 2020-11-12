@@ -1,23 +1,25 @@
 .Post{
     width: 600px;
-    background-color: var(--post-background);
-    padding: var(--post-padding);
-    color: var(--post-font-color);
     margin: 10px;
     border-radius: 10px;
 }
-
-.post-header > .PostHeaderUserInfo {
-    margin-left: var(--post-margin-left);
+.Post > p{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.UserComment{
-    margin-left: var(--post-margin-left);
+.PostHeaderUser {
+    display: flex;
+    align-items: center;
 }
+
+.PostHeaderUser .PostHeaderUser__Info{
+    display: flex;
+    flex-direction: column;
+}
+
 
 .PostBtnContainer{
-    border-top: 1px solid var(--post-font-color);
-    border-bottom: 1px solid var(--post-font-color);
     display: flex;
     justify-content: space-around;
 }

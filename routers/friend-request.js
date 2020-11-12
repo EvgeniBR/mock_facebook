@@ -66,8 +66,6 @@ router.patch("/facebook-profile/send-request", async (req, res) => {
   const userPath=req.body.userPath;
   const request = castingTheValue(req.query.request);
 
-  console.log("pp" ,profilePath , "up" , userPath , "request" , typeof request  );
-
   //update the profile with request from the user 
   try {
     const updateUser = request ? await removeFriendRequest(profilePath , userPath) : await addFriendRequest(profilePath , userPath)
@@ -85,8 +83,6 @@ router.patch("/facebook-profile/get-request", async (req, res) => {
     const profilePath = req.body.profilePath;
     const userPath=req.body.userPath;
     const request = castingTheValue(req.query.request);
-
-    console.log("pp" ,profilePath , "up" , userPath , "request" , request  );
 
     //update the user with path the user send request to 
     try {

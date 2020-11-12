@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import './FaceBookUserName.css'
 
-const FaceBookUserName = ({firstName , lastName , path}) => {
-  return <Link className="PostUserName" to={path}>{firstName} {lastName}</Link>;
+const FaceBookUserName = ({firstName , lastName , path , fontColor }) => {
+
+  return <Link className="PostUserName" style={{color: `${fontColor}`}} to={path}>{firstName} {lastName}</Link>;
 };
 
 FaceBookUserName.defaultProps = {

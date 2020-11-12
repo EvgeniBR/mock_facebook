@@ -10,13 +10,12 @@ import DataService from "./db-connection/DataService";
 const Facebook = () => {
   const [userPath, setUserPath] = useState("");
   const cookies = new Cookies();
-  let location = '';
+  let location = "";
   const token = cookies.get("mockFacebookToken");
 
-
   useEffect(() => {
-    location=window.location;
-  })
+    location = window.location;
+  });
 
   useEffect(() => {
     if (token) {
@@ -26,12 +25,11 @@ const Facebook = () => {
       }
       getData();
     }
-  }, [token , location.pathname ]);
+  }, [token, location.pathname]);
 
   const pathLocation = location.pathname;
 
   //get the user path fropm the token.
-
 
   if (pathLocation === "/register" || !token) {
     return (
@@ -63,4 +61,3 @@ const Facebook = () => {
 };
 
 export default Facebook;
-

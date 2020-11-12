@@ -20,6 +20,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
     "sharp": "^0.26.2",
+    "styled-components": "^5.2.1",
     "universal-cookie": "^4.0.4",
     "validator": "^13.1.17",
     "web-vitals": "^0.2.4"

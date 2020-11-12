@@ -3,24 +3,12 @@
     --header-height:55px;
 
     --facebook-background-color:rgb(20, 20, 20);
-
-    --post-padding:10px;
-    --post-commnet-background:rgba(145, 145, 145, 0.541);
-    --post-background:rgb(46, 46, 46);
-    --post-font-color:rgb(207, 207, 207);
-    --post-margin-left:10px;
-    --post-comment-border-radius:20px;
-    --background-absolute-cover:rgba(0, 0, 0, 0.541);
-
     --seperator-line: rgb(87, 87, 87);
-}
 
+}
 *,*::before, *::after{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html{
-    font-family: 'Roboto', sans-serif;
-}

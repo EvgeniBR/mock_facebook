@@ -1,25 +1,35 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CircleIcon from "../circle-Img/CircleIcon";
-import DataService from '../../db-connection/DataService';
+import DataService from "../../db-connection/DataService";
+import ButtonField from '../button-field/ButtonField';
 
 const FeedFriendRequest = ({ text, friendRequests }) => {
   const [userAvatar, setUserAvatar] = useState("");
-  const [userName , setUserName] = useState("");
-  const [userLastName , setUserLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
 
   useEffect(() => {
-    if (friendRequests.lenght) {
-      const getData = async () => {
-        const owner = friendRequests[0].owner
-          console.log(owner);
-        const userData = await DataService.get(`facebook-profile/get-profile-info/${owner}`);
-        console.log(userData);
-      };
+    if (friendRequests.length) {
+      async function getData() {
+        // const owner = friendRequests[friendRequests.length - 1].owner;
+        // TO-DO  - change to the last request
+        const owner = friendRequests[0].owner;
+        const userData = await DataService.get(
+          `facebook-profile/get-profile-info/${owner}`
+        );
+        setUserAvatar(userData.data.avatar);
+        setUserName(userData.data.first_name);
+        setUserLastName(userData.data.last_name);
+      }
       getData();
     }
   }, [friendRequests]);
 
-  console.log(friendRequests);
+  const handleConfirmRequest = () => {
+
+  }
+
+
 
   return (
     <div>
@@ -34,6 +44,15 @@ const FeedFriendRequest = ({ text, friendRequests }) => {
           }}
         >
           <CircleIcon srcIcon={userAvatar} />
+          <div>
+            <p>
+              {userName} {userLastName}
+              <div>
+                <ButtonField btnText="Confirm"  btnColor="#504ddb"  handleClick={() => handleConfirmRequest()}/>
+                <ButtonField/>
+              </div>
+            </p>
+          </div>
         </div>
       </div>
     </div>

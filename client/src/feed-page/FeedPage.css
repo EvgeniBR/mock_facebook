@@ -1,6 +1,5 @@
 /* TO-DO -> media query  */ 
 .FeedPage{
-    background-color: var(--facebook-background-color);
     display: flex;
     justify-content: center;
     position: relative;
