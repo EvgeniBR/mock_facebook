@@ -6,7 +6,6 @@ const router = new express.Router();
 
 // CRUD POST
 //need to add -> nested comment to post comment.
-
 const getUserData = async (owner) => {
   const user = await Uesr.findOne(
     { path: owner },
