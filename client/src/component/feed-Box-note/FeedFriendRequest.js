@@ -8,9 +8,10 @@ const FeedFriendRequest = ({ text, friendRequests }) => {
   const [userLastName , setUserLastName] = useState("");
 
   useEffect(() => {
-    if (friendRequests) {
+    if (friendRequests.lenght) {
       const getData = async () => {
-        const owner = friendRequests[friendRequests.lenght -1 ].owner
+        const owner = friendRequests[0].owner
+          console.log(owner);
         const userData = await DataService.get(`facebook-profile/get-profile-info/${owner}`);
         console.log(userData);
       };
@@ -32,7 +33,7 @@ const FeedFriendRequest = ({ text, friendRequests }) => {
             console.log("maybe there is a lot of friends here :) ");
           }}
         >
-          <CircleIcon />
+          <CircleIcon srcIcon={userAvatar} />
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ const FeedPage = () => {
       setUserLastName(user.data.last_name);
       setUserPath(user.data.path);
       setProfilePicture(user.data.avatar);
-      setFriendRequests(user.data.friendRequests);
+      setFriendRequests(user.data.friendsRequest);
     }
     getData();
   }, []);

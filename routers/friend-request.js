@@ -45,7 +45,8 @@ const addGetFriendRequest = async (profileToUpdate , friendRequestToRemove ) => 
 
 //get friend request picture 
 router.get("/facebook-profile/get-profile-info/:owner", async (req, res) => {
-  const owner = castingTheValue(req.params.owner);
+  const owner = req.params.owner;
+  console.log(owner);
 
   try {
     const updateUser = await User.findOne(
