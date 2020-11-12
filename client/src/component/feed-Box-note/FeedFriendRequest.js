@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import CircleIcon from "../circle-Img/CircleIcon";
 import DataService from "../../db-connection/DataService";
-import ButtonField from '../button-field/ButtonField';
+import ButtonField from "../button-field/ButtonField";
 
-const FeedFriendRequest = ({ text, friendRequests }) => {
+const FeedFriendRequest = ({ text, friendRequests, currentPath }) => {
   const [userAvatar, setUserAvatar] = useState("");
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
+  const [userAskPath, setUserAskPath] = useState("");
 
   useEffect(() => {
     if (friendRequests.length) {
@@ -20,16 +21,43 @@ const FeedFriendRequest = ({ text, friendRequests }) => {
         setUserAvatar(userData.data.avatar);
         setUserName(userData.data.first_name);
         setUserLastName(userData.data.last_name);
+        setUserAskPath(owner);
       }
       getData();
     }
   }, [friendRequests]);
 
-  const handleConfirmRequest = () => {
+  const handleConfirmRequest = async () => {
+    //remove the request and push each profile to friend list
+    try {
+      await DataService.patch(`facebook-profile/send-request?request=true&friends=true`, {
+        userPath:userAskPath,
+        profilePath:currentPath,
+      });
+      await DataService.patch(`facebook-profile/get-request?request=true&friends=true`, {
+        userPath:userAskPath,
+        profilePath:currentPath,
+      });
+    } catch {
+      console.log("something wrong try again later");
+    }
+  };
 
-  }
-
-
+  const handleReqectRequest = async () => {
+    //remove the request
+    try {
+      await DataService.patch(`facebook-profile/send-request?request=true`, {
+        userPath:userAskPath,
+        profilePath:currentPath,
+      });
+      await DataService.patch(`facebook-profile/get-request?request=true`, {
+        userPath:userAskPath,
+        profilePath:currentPath,
+      });
+    } catch {
+      console.log("something wrong try again later");
+    }
+  };
 
   return (
     <div>
@@ -48,8 +76,16 @@ const FeedFriendRequest = ({ text, friendRequests }) => {
             <p>
               {userName} {userLastName}
               <div>
-                <ButtonField btnText="Confirm"  btnColor="#504ddb"  handleClick={() => handleConfirmRequest()}/>
-                <ButtonField/>
+                <ButtonField
+                  btnText="Confirm"
+                  btnColor="#504ddb"
+                  handleClick={() => handleConfirmRequest()}
+                />
+                <ButtonField
+                  btnText="Delete"
+                  btnColor="#fff"
+                  handleClick={() => handleReqectRequest()}
+                />
               </div>
             </p>
           </div>

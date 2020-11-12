@@ -18,4 +18,5 @@ export const lightTheme = {
     postBorderRadius:'20px',
     //feed
     fieldBackGroundPost:'rgba(0, 0, 0, 0.5)',
+    seperatorLine:'rgb(87, 87, 87)'
   }

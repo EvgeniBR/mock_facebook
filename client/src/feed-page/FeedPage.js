@@ -19,7 +19,7 @@ const FeedPage = () => {
   const [userPath, setUserPath] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [friendRequests, setFriendRequests] = useState("");
-  const [theme , setTheme] = useState(lightTheme);
+  const [theme , setTheme] = useState(darkTheme);
 
   const cookies = new Cookies();
   let history = useHistory();
@@ -41,7 +41,7 @@ const FeedPage = () => {
       setFriendRequests(user.data.friendsRequest);
     }
     getData();
-    false ? setTheme(lightTheme) : setTheme(darkTheme)
+    // false ? setTheme(lightTheme) : setTheme(darkTheme)
   }, []);
 
   const updateDBPost = async (value) => {
@@ -79,18 +79,20 @@ const FeedPage = () => {
           />
         </div>
         <div className="FeedPage_RightPage">
-          <FeedBoxNote>
+          <FeedBoxNote theme={theme}>
             <FeedSponsored
               text="Sponsored"
               imgSponsored="https://static.wixstatic.com/media/37decd_f811fb5ae1bb45ebbd3f5b9ac735639b~mv2.jpg/v1/crop/x_16,y_0,w_1569,h_1154/fill/w_560,h_412,al_c,q_80,usm_0.66_1.00_0.01/WOHL.webp"
               sponsoredText="Bootcamp 2021 | Appleseeds Academy"
               linkTo="www.appleseeds.org.il"
+              theme={theme}
             />
           </FeedBoxNote>
           <FeedBoxNote>
             <FeedFriendRequest
               text="Friend Requests"
               friendRequests={friendRequests}
+              currentPath={userPath}
             />
           </FeedBoxNote>
         </div>

@@ -43,10 +43,18 @@ const addGetFriendRequest = async (profileToUpdate , friendRequestToRemove ) => 
   return updateUser
 }
 
+const addToFriendsList = async (profileToUpdate , friendToAdded ) => {
+  const updateUser = await User.findOneAndUpdate(
+    { path: profileToUpdate },
+    { $pull : { friends : { "owner": friendToAdded}}},
+    { new: true }
+  );
+  return updateUser
+}
+
 //get friend request picture 
 router.get("/facebook-profile/get-profile-info/:owner", async (req, res) => {
   const owner = req.params.owner;
-  console.log(owner);
 
   try {
     const updateUser = await User.findOne(
@@ -65,6 +73,8 @@ router.patch("/facebook-profile/send-request", async (req, res) => {
   const profilePath = req.body.profilePath;
   const userPath=req.body.userPath;
   const request = castingTheValue(req.query.request);
+  const friends = castingTheValue(req.query.friends);
+
 
   //update the profile with request from the user 
   try {
@@ -73,16 +83,21 @@ router.patch("/facebook-profile/send-request", async (req, res) => {
       res.status(400).send(e);
     }
     console.log(updateUser);
-    res.send(updateUser);
+    const addFriend =  friends && await addToFriendsList(userPath , profilePath);
+    return addFriend ?  res.send(addFriend) : res.send(updateUser)
   } catch (e) {
     res.status(400).send(e);
   }
 });
-    {/* { $pull : { friendsRequestSend : { "owner": userPath}}}, */}
+
 router.patch("/facebook-profile/get-request", async (req, res) => {
     const profilePath = req.body.profilePath;
     const userPath=req.body.userPath;
     const request = castingTheValue(req.query.request);
+    const friends = castingTheValue(req.query.friends);
+
+
+    console.log(profilePath , userPath ,  req.query.request , req.query.friends );
 
     //update the user with path the user send request to 
     try {
@@ -90,8 +105,9 @@ router.patch("/facebook-profile/get-request", async (req, res) => {
       if (!updateUser) {
         res.status(400).send();
       }
-      console.log(updateUser);
-      res.send(updateUser);
+
+      const addFriend =  friends && await addToFriendsList(profilePath ,userPath );
+      return addFriend ?  res.send(addFriend) : res.send(updateUser)
     } catch (e) {
       res.status(400).send(e);
     }
