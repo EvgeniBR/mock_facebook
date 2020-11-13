@@ -1,6 +1,7 @@
 
 .PostCommentContainer{
     display: flex;
+    margin-top: 10px;
 }
 
 .UserComment{
@@ -9,10 +10,10 @@
 }
 
 .PostComment{
-    background-color: var(--post-commnet-background);
     border-radius: 20px;
-    padding: 7px;
+    padding: 5px;
     display: inline-block;
+    
 }
 
 .CommentOptions{

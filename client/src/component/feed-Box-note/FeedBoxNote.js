@@ -2,8 +2,9 @@ import React from "react";
 import "./FeedBoxNote.css";
 
 const FeedBoxNote = (props) => {
+ 
   return (
-    <div className="FeedBoxNote">
+    <div className="FeedBoxNote" >
         {props.children}
     </div>
   );

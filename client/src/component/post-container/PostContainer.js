@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./PostContainer.css";
 import Post from "../post/Post";
 import NewPost from "../new-post/NewPost";
 import DataService from "../../db-connection/DataService";
 import { useLocation } from "react-router-dom";
 
 //TO-DO - after friend will added make a lits of path and add it to postToShowPathList
-const PostContainer = ({ profileAvatar, writePost, firstName, userPath }) => {
+const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme}) => {
   const [posts, setPosts] = useState([]);
   const [newLike, setNewLike] = useState("");
 
@@ -53,6 +52,7 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath }) => {
           lastName={post.userDataPost.last_name}
           userAvatar={post.userDataPost.avatar}
           userPath={userPath}
+          theme = {theme}
         />
       );
     });

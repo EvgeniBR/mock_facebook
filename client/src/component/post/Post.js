@@ -9,7 +9,7 @@ import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
 import PostStatics from '../post-statics/PostStatics';
 
-const Post = ({ id, firstName, lastName, path, userAvatar , userPath }) => {
+const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) => {
   //post info
   const [message , setMassege ] = useState("")
   const [time , setTime] = useState("0000-00-00T00:00:00")
@@ -94,6 +94,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath }) => {
           comments={comment.myPost.comments}
           time={comment.myPost.createdAt}
           likes={comment.myPost.likes}
+          theme={theme}
         />
       );
     });
@@ -109,21 +110,22 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath }) => {
   };
 
   return (
-    <div className="Post">
-      <div className="post-header">
+    <div className="Post" style={{backgroundColor: `${theme.postBackground}` , padding:`${theme.postPadding}` , color:`${theme.secondText}`}}>
+      <div className="PostHeaderUser">
         <CircleIcon srcIcon={userAvatar} />
-        <div className="PostHeaderUserInfo">
+        <div className="PostHeaderUser__Info" style={{marginLeft: `${theme.postMargin}`}}>
           <FaceBookUserName
             firstName={firstName}
             lastName={lastName}
             path={path}
+            fontColor={theme.primaryText}
           />
           <PostDate time={time} />
         </div>
       </div>
       <p>{message}</p>
       {(commentsArr.length || likes.length) ? <PostStatics comments={commentsArr} likes={likes}/> : <></>}
-      <div className="PostBtnContainer">
+      <div className="PostBtnContainer" style={{borderTop: `1px solid ${theme.secondText}` , borderBottom:`1px solid ${theme.secondText}`}}>
         <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" updateWithNewLike={(like) => updateDBwithNewLikeSelected(like)}/>
         <PostButton info="Comment" icon="far fa-comment-alt" />
         <PostButton
@@ -136,6 +138,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath }) => {
       <WriteNewComment
         userAvatar={userAvatar}
         updateNewComment={(e) => updateNewComment(e)}
+        theme={theme}
       />
     </div>
   );
