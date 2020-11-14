@@ -73,9 +73,7 @@ const userSchema = new mongoose.Schema({
   cover:{
     type : Buffer,
   },
-  friends:[{
-    type: String,
-  }],
+  friends:[{owner:String}],
   friendsRequest:[{owner:String,date:Date}],
   friendsRequestSend:[{owner:String,date:Date}],
   activity:[{

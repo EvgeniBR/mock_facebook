@@ -10,7 +10,6 @@ import ReactionPost from "../reaction/ReactionPost";
 import "./ReactionPostConatiner.css";
 
 const ReactionPostContainer = ({ changeReaction }) => {
-
   const updateNewReaction = (value) => {
     changeReaction(value);
   };
@@ -18,6 +17,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
   return (
     <div className="ReactionPostContainer">
       <ReactionPost
+        key="like"
         reaction={like}
         alt="like"
         reactionPick={(value) => {
@@ -25,6 +25,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
         }}
       />
       <ReactionPost
+        key="love"
         reaction={love}
         alt="love"
         reactionPick={(value) => {
@@ -32,6 +33,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
         }}
       />
       <ReactionPost
+        key="care"
         reaction={care}
         alt="care"
         reactionPick={(value) => {
@@ -39,6 +41,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
         }}
       />
       <ReactionPost
+        key="haha"
         reaction={haha}
         alt="haha"
         reactionPick={(value) => {
@@ -46,6 +49,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
         }}
       />
       <ReactionPost
+        key="wow"
         reaction={wow}
         alt="wow"
         reactionPick={(value) => {
@@ -53,6 +57,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
         }}
       />
       <ReactionPost
+        key="sad"
         reaction={sad}
         alt="sad"
         reactionPick={(value) => {
@@ -60,6 +65,7 @@ const ReactionPostContainer = ({ changeReaction }) => {
         }}
       />
       <ReactionPost
+        key="angry"
         reaction={angry}
         alt="angry"
         reactionPick={(value) => {

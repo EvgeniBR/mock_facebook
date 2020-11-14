@@ -47,18 +47,21 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath }) => {
     //remove the request
     try {
       await DataService.patch(`facebook-profile/send-request?request=true`, {
-        userPath:userAskPath,
-        profilePath:currentPath,
+        userPath:currentPath,
+        profilePath:userAskPath,
       });
       await DataService.patch(`facebook-profile/get-request?request=true`, {
-        userPath:userAskPath,
-        profilePath:currentPath,
+        userPath:currentPath,
+        profilePath:userAskPath,
       });
     } catch {
       console.log("something wrong try again later");
     }
   };
 
+  if(!friendRequests.length){
+    return <div></div>
+  }
   return (
     <div>
       <div className="FeedSponsored">

@@ -9,7 +9,7 @@ const PostStatics = ({ comments, likes }) => {
 
     for(const like of likes){
         if(!reactionToShow.includes(like.reaction)){
-            const emoji = <img className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like.reaction).emoji} alt="reaction"/>
+            const emoji = <img key={like.reaction} className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like.reaction).emoji} alt="reaction"/>
             reactionToShow.push(emoji)
         }
     }
