@@ -63,6 +63,7 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme,c
         srcAvatar={profileAvatar}
         username={firstName}
         WriteNewPost={() => writePost()}
+        theme={theme}
       />
       {showPosts}
     </div>

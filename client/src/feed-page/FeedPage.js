@@ -12,7 +12,7 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../theme";
 import { GlobalStyles } from "../global";
 
-const FeedPage = ({currentUserPath}) => {
+const FeedPage = ({ currentUserPath }) => {
   const [writeModePost, setWritePostMode] = useState(false);
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
@@ -90,11 +90,15 @@ const FeedPage = ({currentUserPath}) => {
             />
           </FeedBoxNote>
           <FeedBoxNote>
-            <FeedFriendRequest
-              text="Friend Requests"
-              friendRequests={friendRequests}
-              currentPath={userPath}
-            />
+            {/* show only if there is a freind request */}
+            {!!friendRequests.length && (
+              <FeedFriendRequest
+                text="Friend Requests"
+                friendRequests={friendRequests}
+                currentPath={userPath}
+                theme={theme}
+              />
+            )}
           </FeedBoxNote>
         </div>
       </div>

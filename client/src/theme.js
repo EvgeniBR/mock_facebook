@@ -9,7 +9,7 @@ export const lightTheme = {
     body: '#222222',
     text: '#404040',
     primaryText:"#ededed",
-    secondText:"#E7E7E7",
+    secondText:"#dbdbdb",
     // posts
     postBackground:'#292929',
     postCommentBackground:'#686868',

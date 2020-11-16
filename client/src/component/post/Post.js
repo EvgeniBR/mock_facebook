@@ -83,7 +83,6 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
   let postComments = [];
   if (commentsArr.length) {
     postComments = commentsArr.map((comment) => {
-      console.log(comment);
       return (
         <PostComment
           commentPath={comment.myPost.owner}
