@@ -13,7 +13,7 @@ const PostStatics = ({ comments, likes }) => {
     //   likeTypes = likes.map(like => like.key)
     // }
     
-
+    console.log("test");
     for(const like of likes){
         if(!reactionToShow.includes(like.reaction)){
             const emoji = <img key={like.reaction} className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like.reaction).emoji} alt="reaction"/>
