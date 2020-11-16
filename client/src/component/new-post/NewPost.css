@@ -1,20 +1,12 @@
 .NewPost{
     width: 600px;
-    background-color: var(--post-background);
-    padding: var(--post-padding);
-    color: var(--post-font-color);
     margin: 10px;
     display: flex;
     border-radius: 10px;
 }
 
 .NewPost > button {
-    padding: var(--post-padding);
-    color: var(--post-font-color);
-    background-color: var(--post-commnet-background);
     border: none;
-    border-radius: var(--post-comment-border-radius);
-    margin-left: var(--post-margin-left);
     font-size: 15px;
     width: 100%;
 }

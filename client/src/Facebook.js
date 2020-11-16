@@ -51,7 +51,7 @@ const Facebook = () => {
         {" "}
       </Route>
       <Route exact path="/">
-        <FeedPage />
+        <FeedPage currentUserPath={userPath}/>
       </Route>
       <Route path="/:username">
         <ProfileRender />

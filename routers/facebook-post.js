@@ -29,18 +29,7 @@ const getUserProfile = async (owner_list, res) => {
   }
 };
 
-//get user posts (all posts) -> set Owner list.
-router.get("/facebook-post/profile/:owner", async (req, res) => {
-  const owner = req.params.owner;
 
-  try {
-    const usersPost = await Post.find({ owner: owner });
-
-    res.send(usersPost);
-  } catch (e) {
-    res.status(500).send();
-  }
-});
 
 //get post by id .
 router.get("/facebook-post/get-post/:id", async (req, res) => {
@@ -58,10 +47,27 @@ router.get("/facebook-post/get-post/:id", async (req, res) => {
 router.get("/facebook-post/post/:id", async (req, res) => {
   const id = req.params.id;
 
-  let postComments = [];
   try {
-    postComments = await Post.findOne({ _id: id }, { comments: 1 });
+    const postComments = await Post.findOne({ _id: id }, { comments: 1 });
     await getUserProfile(postComments , res);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+//get user posts --- for spesific profile --- 
+router.get("/facebook-post/profile/:owner", async (req, res) => {
+  const owner = req.params.owner;
+
+  try {
+    const usersPost = await Post.find({ owner: owner });
+    const getUserInfo = usersPost.map(async (post) => {
+      return {
+        myPost: post,
+        userDataPost: await getUserData(post.owner),
+      };
+    });
+    Promise.all(getUserInfo).then((arr) => res.send(arr));
   } catch (e) {
     res.status(500).send();
   }
@@ -73,11 +79,13 @@ router.get("/facebook-post/feed/:owner", async (req, res) => {
   //get owner friedlist
   let userFriend = [];
   try {
-    userFriend = await Uesr.findOne({ path: owner }, { friends: 1 });
+    userFriend = await Uesr.findOne({ path: owner }, {_id:0, 'friends.owner': 1 });
   } catch (e) {
     res.status(500).send();
   }
-  let selecteMessage = userFriend.friends;
+  let selecteMessage = userFriend.friends.map(friend => {
+    return friend.owner;
+  });
   selecteMessage.push(owner);
 
   try {
@@ -90,7 +98,7 @@ router.get("/facebook-post/feed/:owner", async (req, res) => {
     });
     Promise.all(getUserInfo).then((arr) => res.send(arr));
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send(e);
   }
 });
 

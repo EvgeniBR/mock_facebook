@@ -12,19 +12,19 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../theme";
 import { GlobalStyles } from "../global";
 
-const FeedPage = () => {
+const FeedPage = ({ currentUserPath }) => {
   const [writeModePost, setWritePostMode] = useState(false);
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
   const [userPath, setUserPath] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [friendRequests, setFriendRequests] = useState("");
-  const [theme , setTheme] = useState(darkTheme);
+  const [theme, setTheme] = useState(darkTheme);
 
   const cookies = new Cookies();
   let history = useHistory();
 
-  // TO-DO - change the there to get the current pick 
+  // TO-DO - change the theme to get the current pick
 
   useEffect(() => {
     const token = cookies.get("mockFacebookToken");
@@ -66,7 +66,7 @@ const FeedPage = () => {
               lastName={userLastName}
               userPath={userPath}
               uploadNewPost={(value) => updateDBPost(value)}
-              theme = {theme}
+              theme={theme}
             />
           )}
           <PostContainer
@@ -76,6 +76,7 @@ const FeedPage = () => {
             lastName={userLastName}
             userPath={userPath}
             theme={theme}
+            currentUserPath={currentUserPath}
           />
         </div>
         <div className="FeedPage_RightPage">
@@ -89,11 +90,15 @@ const FeedPage = () => {
             />
           </FeedBoxNote>
           <FeedBoxNote>
-            <FeedFriendRequest
-              text="Friend Requests"
-              friendRequests={friendRequests}
-              currentPath={userPath}
-            />
+            {/* show only if there is a freind request */}
+            {!!friendRequests.length && (
+              <FeedFriendRequest
+                text="Friend Requests"
+                friendRequests={friendRequests}
+                currentPath={userPath}
+                theme={theme}
+              />
+            )}
           </FeedBoxNote>
         </div>
       </div>

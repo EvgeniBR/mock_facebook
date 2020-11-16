@@ -5,7 +5,7 @@ import DataService from "../../db-connection/DataService";
 import { useLocation } from "react-router-dom";
 
 //TO-DO - after friend will added make a lits of path and add it to postToShowPathList
-const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme}) => {
+const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme,currentUserPath}) => {
   const [posts, setPosts] = useState([]);
   const [newLike, setNewLike] = useState("");
 
@@ -23,10 +23,8 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme})
     } else {
       //TO-DO fix user per path
       //get profile user post
-      postToShow = await DataService.get(`facebook-post/feed/${userPath}`);
-      //postToShow = await DataService.get(`facebook-post/profile/${userPath}`);
+      postToShow = await DataService.get(`facebook-post/profile/${userPath}`);
     }
-    setPosts([]);
     setPosts(postToShow.data);
   }
 
@@ -45,14 +43,15 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme})
     showPosts = posts.map((post) => {
       return (
         <Post
-          path={post.myPost.owner}
+          postOwnerPath={post.myPost.owner}
           key={post.myPost._id}
           id={post.myPost._id}
           firstName={post.userDataPost.first_name}
           lastName={post.userDataPost.last_name}
           userAvatar={post.userDataPost.avatar}
-          userPath={userPath}
+          userProfileAvatar ={profileAvatar}
           theme = {theme}
+          currentUserPath={currentUserPath}
         />
       );
     });
@@ -64,6 +63,7 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme})
         srcAvatar={profileAvatar}
         username={firstName}
         WriteNewPost={() => writePost()}
+        theme={theme}
       />
       {showPosts}
     </div>

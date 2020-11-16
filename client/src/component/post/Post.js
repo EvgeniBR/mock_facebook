@@ -9,7 +9,7 @@ import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
 import PostStatics from '../post-statics/PostStatics';
 
-const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) => {
+const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , userProfileAvatar , currentUserPath}) => {
   //post info
   const [message , setMassege ] = useState("")
   const [time , setTime] = useState("0000-00-00T00:00:00")
@@ -37,7 +37,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
   useEffect(() => {
     let currentLikePick = '';
     if(likes.length){
-      currentLikePick = likes.find(like =>  like.owner === userPath)
+      currentLikePick = likes.find(like =>  like.owner === currentUserPath)
     }
     currentLikePick ? setCurrentPick(currentLikePick.reaction) : setCurrentPick('');
   }, [likes]);
@@ -55,6 +55,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
 
   useEffect(() => {
     if (newComment) {
+      console.log(newComment);
       const setData = async () => {
         await DataService.patch(`facebook-comment/${id}`, newComment);
         setNewComment('');
@@ -68,7 +69,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
   useEffect(() => {
     if (newLike) {
       const data = {
-        owner:userPath
+        owner:currentUserPath
       }
       const setData = async () => {
         await DataService.patch(`facebook-post/${id}/${newLike}`, data).then(() => getData());
@@ -95,6 +96,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
           time={comment.myPost.createdAt}
           likes={comment.myPost.likes}
           theme={theme}
+          userPath={postOwnerPath}
         />
       );
     });
@@ -103,7 +105,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
 
   const updateNewComment = async (value) => {
     const dataFormat = {
-      owner: path,
+      owner: currentUserPath,
       message: value,
     };
     setNewComment(dataFormat);
@@ -117,7 +119,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
           <FaceBookUserName
             firstName={firstName}
             lastName={lastName}
-            path={path}
+            path={postOwnerPath}
             fontColor={theme.primaryText}
           />
           <PostDate time={time} />
@@ -136,7 +138,7 @@ const Post = ({ id, firstName, lastName, path, userAvatar , userPath , theme}) =
       </div>
       {postComments}
       <WriteNewComment
-        userAvatar={userAvatar}
+        userAvatar={userProfileAvatar}
         updateNewComment={(e) => updateNewComment(e)}
         theme={theme}
       />

@@ -5,7 +5,7 @@ import FaceBookUserName from "../facebook-username/FaceBookUserName";
 import CommentBtn from "../comment-reaction/CommentBtn";
 import PostDate from '../date/PostDate';
 
-const PostComment = ({commentPath,id,firstName,lastName,userAvatar,time,likes,message , theme}) => {
+const PostComment = ({commentPath,id,firstName,lastName,userAvatar,time,likes,message , theme,userPath}) => {
   const [comments , setComments] = useState([]);
   
   return (
