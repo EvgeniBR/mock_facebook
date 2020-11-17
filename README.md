@@ -1,6 +1,8 @@
 # mock_facebook
 Create and use basic Facebook, add friends and posts
 
+<img src="C:\Users\Genib\Desktop\Capture1.png" alt="main"/>
+
 ## summary
 <a href="https://mock-facebook.herokuapp.com/" target="_blank">Mock Facebook live demo</a>
 <br>
