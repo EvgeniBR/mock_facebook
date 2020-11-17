@@ -51,12 +51,12 @@ const getHoursPass = (time) => {
   }
 }
 
-const getWeeksPass = (day,time) => {
-  if(d.getDay() - day > 7){
-    return {date:`${parseInt(day/7)} weeks`};
+const getWeeksPass = (day,month,time) => {
+  if((d.getMonth() - month)*30 >30 || d.getDate() - day > 7){
+    return {date:`${(d.getMonth()*30-month*30+d.getDate() - day)/7} weeks`};
   }
-  else if(d.getDay() - day <= 7 && d.getDay() - day >= 1){
-    return {date:`${d.getDay() - day} days`};
+  else if(d.getDate() - day <= 7 && d.getDate() - day >= 1){
+    return {date:`${d.getDate() - day} days`};
   }
   else{
     return getHoursPass(time);
@@ -67,9 +67,10 @@ const getYearsPass = (date , time) => {
   const splitDate = date.split('-');
   const splitTime = time.split(':');
   const day = parseInt(splitDate[2]);
+  const month = parseInt(splitDate[1]);
   const year = parseInt(splitDate[0]);
   if(d.getFullYear() === year){
-    return getWeeksPass(day,splitTime);
+    return getWeeksPass(day,month,splitTime);
   }
   return {date:`${d.getFullYear() - year} years`};
 }
