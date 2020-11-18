@@ -91,22 +91,22 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
           <p style={{ color: theme.secondText }}>
             {userName} {userLastName}
           </p>
-          {!approve && !refuse && (
+          {(!approve && !refuse)? (
             <div className="FeedPage__Main--btn">
               <ButtonField
                 btnText="Confirm"
-                btnColor="#504ddb"
+                btnColor={theme.btnBlueColor}
                 handleClick={() => handleConfirmRequest()}
-                btnWidth="50%"
+                btnWidth="48%"
               />
               <ButtonField
                 btnText="Delete"
-                btnColor="#fff"
+                btnColor={theme.postBackground}
                 handleClick={() => handleReqectRequest()}
-                btnWidth="50%"
+                btnWidth="48%"
               />
-            </div>
-          )}
+            </div> 
+          ) : approve ? <div>You accept the friend request</div> : <div>You reject the friend request</div>}
         </div>
       </div>
     </div>
