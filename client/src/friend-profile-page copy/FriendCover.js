@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./FriendProfile.css";
 import FriendAvatar from "./FriendAvatar";
 const FriendCover = (props) => {
   //get cover photo from user to img tag
 
-  useEffect(()=>{
-    console.log('friend',props.data.data);
+  // useEffect(()=>{
+  //   console.log('friend',props.data.data);
  
-     })
+  //    })
 
   return (
     <div className="friend-cover-container">

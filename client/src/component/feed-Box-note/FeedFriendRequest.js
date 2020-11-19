@@ -8,23 +8,21 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
   const [userAvatar, setUserAvatar] = useState("");
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
-  const [userAskPath, setUserAskPath] = useState("");
+  const [userAskProfilePath, setUserAskProfilePath] = useState("");
   const [approve, setApprove] = useState(false);
   const [refuse, setRefuse] = useState(false);
 
   useEffect(() => {
     if (friendRequests.length) {
       async function getData() {
-        // const owner = friendRequests[friendRequests.length - 1].owner;
-        // TO-DO  - change to the last request
-        const owner = friendRequests[0].owner;
+        const owner = friendRequests[friendRequests.length - 1].owner;
         const userData = await DataService.get(
           `facebook-profile/get-profile-info/${owner}`
         );
         setUserAvatar(userData.data.avatar);
         setUserName(userData.data.first_name);
         setUserLastName(userData.data.last_name);
-        setUserAskPath(owner);
+        setUserAskProfilePath(owner);
       }
       getData();
     }
@@ -34,17 +32,9 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
     //remove the request and push each profile to friend list
     try {
       await DataService.patch(
-        `facebook-profile/send-request?request=true&friends=true`,
-        {
-          userPath: userAskPath,
-          profilePath: currentPath,
-        }
-      );
-      await DataService.patch(
-        `facebook-profile/get-request?request=true&friends=true`,
-        {
-          userPath: userAskPath,
-          profilePath: currentPath,
+        `facebook-profile/getFriendRequest`,{
+          userPath: currentPath,
+          profilePath: userAskProfilePath,
         }
       );
       setApprove(true);
@@ -56,13 +46,9 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
   const handleReqectRequest = async () => {
     //remove the request
     try {
-      await DataService.patch(`facebook-profile/send-request?request=true`, {
+      await DataService.patch(`facebook-profile/rejectFriendRequest`, {
         userPath: currentPath,
-        profilePath: userAskPath,
-      });
-      await DataService.patch(`facebook-profile/get-request?request=true`, {
-        userPath: currentPath,
-        profilePath: userAskPath,
+        profilePath: userAskProfilePath,
       });
       setRefuse(true);
     } catch {
