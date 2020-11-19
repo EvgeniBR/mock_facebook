@@ -9,6 +9,8 @@ import DataService from "./db-connection/DataService";
 
 const Facebook = () => {
   const [userPath, setUserPath] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
   const cookies = new Cookies();
   const location = useRef(window.location)
   const token = cookies.get("mockFacebookToken");
@@ -19,6 +21,8 @@ const Facebook = () => {
       async function getData() {
         const user = await DataService.getAuth("users/me", token);
         setUserPath(user.data.path);
+        setUserName(`${user.data.first_name} ${user.data.last_name}`)
+        setUserAvatar(user.data.avatar)
       }
       getData();
     }
@@ -32,7 +36,7 @@ const Facebook = () => {
     return (
       <BrowserRouter>
         <Route exact path="/">
-          <Header userPath={userPath} />
+          <Header userPath={userPath} userName={userName} userAvatar={userAvatar}/>
           <FeedPage />
         </Route>
         <Route exact path="/register">
@@ -43,7 +47,7 @@ const Facebook = () => {
   }
   return (
     <BrowserRouter>
-      <Header userPath={userPath} />
+      <Header userPath={userPath} userName={userName} userAvatar={userAvatar}/>
       <Route exact path="/">
         {" "}
       </Route>

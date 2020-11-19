@@ -1,0 +1,12 @@
+.dropDownOptions{
+    width: 250px;
+    position: absolute;
+    top: var(--header-height);
+    right:0;
+    z-index: 3;
+    
+}
+
+.facebookPolicy{
+    font-size: 10px;
+}
