@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './Profile.css'
 
 
-const ProfileHeader = () => {
+const ProfileHeader = ({theme}) => {
 
 
   return (

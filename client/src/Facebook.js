@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./component/Header/Header";
 import FeedPage from "./feed-page/FeedPage";
@@ -10,12 +10,9 @@ import DataService from "./db-connection/DataService";
 const Facebook = () => {
   const [userPath, setUserPath] = useState("");
   const cookies = new Cookies();
-  let location = "";
+  const location = useRef(window.location)
   const token = cookies.get("mockFacebookToken");
 
-  useEffect(() => {
-    location = window.location;
-  });
 
   useEffect(() => {
     if (token) {

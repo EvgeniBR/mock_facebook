@@ -43,7 +43,7 @@ const ProfileRender = () => {
   }
   if (endUser === "friend") {
     return (
-      <div className="test">
+      <div>
         <FriendProfile data={userData} userPath={userPath}/>
       </div>
     );

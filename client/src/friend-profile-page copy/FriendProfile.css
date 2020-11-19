@@ -68,13 +68,18 @@
 }
 
 header button{
-min-width: 30px;
-border-radius: 5px;
-background: #3A3B3C;
-color:white;
-transition: all 0.4s;
-cursor: pointer;
+    min-width: 30px;
+    border-radius: 5px;
+    background: #3A3B3C;
+    color:white;
+    transition: all 0.4s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+
 .message-friend-btn{
     min-width: 90px;
 }

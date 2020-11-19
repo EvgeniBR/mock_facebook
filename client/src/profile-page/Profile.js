@@ -46,7 +46,7 @@ const Profile = (props) => {
     <GlobalStyles />
       <Cover data={props.data} />
       <br />
-      <ProfileHeader />
+      <ProfileHeader theme={theme}/>
       <PostContainer
         // writePost={() => setWritePostMode(true)}
         profileAvatar={profilePicture}

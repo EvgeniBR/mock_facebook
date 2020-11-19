@@ -1,13 +1,11 @@
-import React , {useEffect} from "react";
+import React from "react";
 import './FriendProfile.css'
 
 const FriendAvatar = (props) => {
-  useEffect(()=>{
-    console.log('friend profile',props);
+  // useEffect(()=>{
+  //   console.log('friend profile',props);
  
-     })
-  
- 
+  //    })
   
   return (
     <div  className="friend-profile-container">
