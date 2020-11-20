@@ -1,10 +1,11 @@
 import React from "react";
 import DropDownOptions from "../dropdown-options/DropDownOptions";
 import DropDownAccount from "../dropdown-options/DropDownAccount";
+import CircleDivWithIcon from '../circle-div/CircleDivWithIcon';
 import "./Header.css";
 
-const HeaderDropDown = ({handleClick,btnName,id,theme,userName,userAvatar,showDropDown,userPath,changeDisplayMode}) => {
-  const handleDropDownClick = (e) => {
+const HeaderDropDown = ({handleClick,btnName,id,theme,userName,userAvatar,showDropDown,userPath,changeDisplayMode ,themePick}) => {
+  const handleDropDownClick = () => {
     handleClick(true);
   };
 
@@ -15,7 +16,7 @@ const HeaderDropDown = ({handleClick,btnName,id,theme,userName,userAvatar,showDr
   return (
     <div className="divButtonContainer">
       <button className="right-btn" onClick={handleDropDownClick}>
-        <i id={id} className={btnName}></i>
+        <CircleDivWithIcon icon={btnName} backgroundColor={theme.postCommentBackground} color={theme.primaryText} size="35px"/>
       </button>
       {showDropDown && (
         <DropDownOptions
@@ -30,6 +31,7 @@ const HeaderDropDown = ({handleClick,btnName,id,theme,userName,userAvatar,showDr
             userPath={userPath}
             handleCloseDropDown={handleCloseDropDown}
             changeDisplayMode={changeDisplayMode}
+            themePick={themePick}
           />
         </DropDownOptions>
       )}

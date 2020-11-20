@@ -50,7 +50,7 @@ const FeedPage = ({ currentUserPath, theme }) => {
   };
 
   return (
-    <div className="FeedPage">
+    <div className="FeedPage" style={{backgroundColor:theme.body}}>
       <div className="FeedPage_LeftPage"></div>
       <div className="FeedPage_CenterPage">
         {writeModePost && (

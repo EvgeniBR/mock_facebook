@@ -12,11 +12,13 @@ import { lightTheme, darkTheme } from "./theme";
 const Facebook = () => {
   const [userPath, setUserPath] = useState("");
   const [userName, setUserName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
   const cookies = new Cookies();
   const location = useRef(window.location);
   const token = cookies.get("mockFacebookToken");
-  const [theme, setTheme] = useState(darkTheme);
+  const [theme, setTheme] = useState(lightTheme);
+  const [themePick , setThemePick] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -24,16 +26,22 @@ const Facebook = () => {
       async function getData() {
         const user = await DataService.getAuth("users/me", token);
         setUserPath(user.data.path);
-        setUserName(`${user.data.first_name} ${user.data.last_name}`);
+        setUserName(user.data.first_name);
+        setUserLastName(user.data.last_name);
         setUserAvatar(user.data.avatar);
       }
       getData();
     }
   }, [token, location.pathname]);
 
+  useEffect(() => {
+    themePick ? setTheme(darkTheme) : setTheme(lightTheme)
+  }, [themePick]);
+
+
 
   const changeDisplayMode = (value) => {
-    value ? setTheme(lightTheme) : setTheme(darkTheme)
+    setThemePick(value)
   }
 
   //get the user path from the token.
@@ -45,9 +53,11 @@ const Facebook = () => {
             <Header
               userPath={userPath}
               userName={userName}
+              userLastName={userLastName}
               userAvatar={userAvatar}
               theme={theme}
               changeDisplayMode={changeDisplayMode}
+              themePick={themePick}
             />
             <FeedPage currentUserPath={userPath} theme={theme} />
           </ThemeProvider>
@@ -63,9 +73,11 @@ const Facebook = () => {
       <Header
         userPath={userPath}
         userName={userName}
+        userLastName={userLastName}
         userAvatar={userAvatar}
         theme={theme}
         changeDisplayMode={changeDisplayMode}
+        themePick={themePick}
       />
       <Route exact path="/">
         {" "}

@@ -10,7 +10,8 @@ const DropDownAccount = ({
   userName,
   theme,
   handleCloseDropDown,
-  changeDisplayMode
+  changeDisplayMode,
+  themePick
 }) => {
   const [showChangeOptions, setShowChangeOptions] = useState(false);
   let history = useHistory();
@@ -47,11 +48,11 @@ const DropDownAccount = ({
         <form >
           <label>
             <p>Off</p>
-            <input type="radio" name="display" onChange={() => changeDispalyMode(false)} checked={true} />
+            <input type="radio" name="display" onChange={() => changeDispalyMode(false)} checked={!themePick} />
           </label>
           <label>
             <p>On</p>
-            <input type="radio" name="display" onChange={() => changeDispalyMode(true)} checked={false}/>
+            <input type="radio" name="display" onChange={() => changeDispalyMode(true)} checked={themePick}/>
           </label>
         </form>
       </div>
