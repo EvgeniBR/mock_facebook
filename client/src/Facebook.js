@@ -18,6 +18,7 @@ const Facebook = () => {
   const token = cookies.get("mockFacebookToken");
   const [theme, setTheme] = useState(darkTheme);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (token) {
       async function getData() {
@@ -30,10 +31,13 @@ const Facebook = () => {
     }
   }, [token, location.pathname]);
 
-  const pathLocation = location.pathname;
+
+  const changeDisplayMode = (value) => {
+    value ? setTheme(lightTheme) : setTheme(darkTheme)
+  }
 
   //get the user path from the token.
-  if (pathLocation === "/register" || !token) {
+  if (location.pathname === "/register" || !token) {
     return (
       <BrowserRouter>
         <Route exact path="/">
@@ -43,8 +47,9 @@ const Facebook = () => {
               userName={userName}
               userAvatar={userAvatar}
               theme={theme}
+              changeDisplayMode={changeDisplayMode}
             />
-            <FeedPage currentUserPath={userPath} theme={theme}/>
+            <FeedPage currentUserPath={userPath} theme={theme} />
           </ThemeProvider>
         </Route>
         <Route exact path="/register">
@@ -55,18 +60,24 @@ const Facebook = () => {
   }
   return (
     <BrowserRouter>
-      <Header userPath={userPath} userName={userName} userAvatar={userAvatar} />
+      <Header
+        userPath={userPath}
+        userName={userName}
+        userAvatar={userAvatar}
+        theme={theme}
+        changeDisplayMode={changeDisplayMode}
+      />
       <Route exact path="/">
         {" "}
       </Route>
       <Route exact path="/">
         <ThemeProvider theme={theme}>
-          <FeedPage currentUserPath={userPath} theme={theme}/>
+          <FeedPage currentUserPath={userPath} theme={theme} />
         </ThemeProvider>
       </Route>
       <Route path="/:username">
         <ThemeProvider theme={theme}>
-          <ProfileRender currentUserPath={userPath} theme={theme}/>
+          <ProfileRender currentUserPath={userPath} theme={theme} />
         </ThemeProvider>
       </Route>
     </BrowserRouter>

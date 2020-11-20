@@ -1,9 +1,11 @@
 .circleDivWithIcon{
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .circleDivWithIcon > i {
-    width: 100%;
-    height: 100%;
+    position: absolute;
 }

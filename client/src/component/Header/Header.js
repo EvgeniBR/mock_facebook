@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import './Header.css'
 import SearchBar from './SearchBar'
 import HeaderDropDown from './HeaderDropDown'
-import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "../../theme";
-import { GlobalStyles } from "../../global";
 
 
-const Header = ({userPath , userName , userAvatar}) => {
-   const [theme, setTheme] = useState(darkTheme);
+const Header = ({userPath , userName , userAvatar , theme , changeDisplayMode}) => {
    const [accountDropDown , setAccountDropDown ] = useState(false) 
+
 
    const onCreateClick = () =>{
        console.log('create click');
@@ -26,10 +23,8 @@ const Header = ({userPath , userName , userAvatar}) => {
    }
 
   return (
-    <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <header className="header">
-            <div className="leftSideBtns">
+    <header className="header">
+        <div className="leftSideBtns">
             <Link className="facebookLogoBtn" to="/"><img className="mainLogo" src="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512" alt="logo"></img> </Link>
             <SearchBar/>
             </div>
@@ -45,10 +40,9 @@ const Header = ({userPath , userName , userAvatar}) => {
             <HeaderDropDown theme={theme} id="create" btnName="fas fa-plus" handleClick={onCreateClick}/>
             <HeaderDropDown theme={theme} id="messenger" btnName="fab fa-facebook-messenger " handleClick={onMassangerClick}/>
             <HeaderDropDown theme={theme} id="notefications" btnName="fas fa-bell" handleClick={onNotificationsClick}/>
-            <HeaderDropDown theme={theme} id="account" btnName="fas fa-sort-down" userName={userName} userAvatar={userAvatar} handleClick={onAccountClick} showDropDown={accountDropDown}/>
-            </div>
-        </header>
-   </ThemeProvider>
+            <HeaderDropDown theme={theme} id="account" btnName="fas fa-sort-down" userName={userName} userAvatar={userAvatar} userPath={userPath} handleClick={onAccountClick} showDropDown={accountDropDown} changeDisplayMode={changeDisplayMode}/>
+        </div>
+    </header>
   );
 }
 

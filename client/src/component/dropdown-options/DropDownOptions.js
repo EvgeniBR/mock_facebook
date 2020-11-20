@@ -1,10 +1,18 @@
-import React from "react";
+import React , {useRef} from "react";
 
-const DropDownOptions = (props , ref) => {
+const DropDownOptions = (props) => {
+  const dropDownRef = useRef(null);
 
+  const handleDropDownClick = (e) => {
+    if(!dropDownRef.current.contains(e.target)){
+      props.handleCloseDropDown(false)
+    }
+  }
 
-  return <div className="dropDownOptions" style={{backgroundColor:`${props.theme.postBackground}`}}>
+  return <div className="dropDown" onClick={handleDropDownClick}>
+    <div className="dropDownOptions" ref={dropDownRef} style={{backgroundColor:`${props.background}` , border:`1px solid ${props.border}`}}>
       {props.children}
+    </div>
   </div>
    
 
