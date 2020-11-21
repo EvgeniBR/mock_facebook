@@ -80,7 +80,6 @@ const Header = ({userPath,userName,userLastName,userAvatar,theme,changeDisplayMo
           <CircleIcon srcIcon={userAvatar} size="35px" />
           <p style={{color:theme.primaryText}}>{userName}</p>
         </div>
-        {/* <Link className="facebookProfileBtn" to={userPath}>Me</Link>  */}
         <HeaderDropDown
           theme={theme}
           id="create"

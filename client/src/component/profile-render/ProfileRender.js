@@ -39,8 +39,6 @@ const ProfileRender = ({currentUserPath , theme}) => {
   }, [location.pathname , currentUserPath , token]);
 
 
-  console.log(endUser);
-
   if (endUser === "me") {
     return (
       <Profile data={userData} userPath={currentUserPath} theme={theme}/>

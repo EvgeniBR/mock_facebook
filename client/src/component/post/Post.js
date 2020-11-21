@@ -40,7 +40,7 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
       currentLikePick = likes.find(like =>  like.owner === currentUserPath)
     }
     currentLikePick ? setCurrentPick(currentLikePick.reaction) : setCurrentPick('');
-  }, [likes]);
+  }, [likes , currentUserPath]);
 
   const getData = async () => {
     const postData = await DataService.get(`facebook-post/get-post/${id}`);

@@ -3,6 +3,7 @@ import "./DropDownOptions.css";
 import CircleIcon from "../circle-Img/CircleIcon";
 import CircleDivWithIcon from "../circle-div/CircleDivWithIcon";
 import { useHistory } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 const DropDownAccount = ({
   userPath,
@@ -15,6 +16,7 @@ const DropDownAccount = ({
 }) => {
   const [showChangeOptions, setShowChangeOptions] = useState(false);
   let history = useHistory();
+  const cookies = new Cookies();
 
   const handleMoveToProfile = () => {
     handleCloseDropDown(false);
@@ -29,6 +31,12 @@ const DropDownAccount = ({
     changeDisplayMode(value);
     handleCloseDropDown(false);
   };
+
+  const logOutFromAcoount = async () => {
+    // await DataService.postAuth('users/logout',token);
+    cookies.remove('mockFacebookToken');
+    history.push('/register');
+  }
 
   const option = {
     color: theme.primaryText,
@@ -88,7 +96,7 @@ const DropDownAccount = ({
           icon="fas fa-sign-out-alt"
           backgroundColor={theme.postCommentBackground}
         />
-        <p className="dropDownAccount__pTtile">Log Out</p>
+        <p className="dropDownAccount__pTtile" onClick={logOutFromAcoount}>Log Out</p>
       </div>
       <p className="facebookPolicy">
         Privacy · Terms · Advertising · Ad Choices · Cookies · Facebook © 2020
