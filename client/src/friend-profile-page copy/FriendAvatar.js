@@ -1,17 +1,15 @@
-import React , {useEffect} from "react";
+import React from "react";
 import './FriendProfile.css'
 
-const FriendAvatar = (props) => {
-  useEffect(()=>{
-    console.log('friend profile',props);
+const FriendAvatar = ({data , theme}) => {
+  // useEffect(()=>{
+  //   console.log('friend profile',props);
  
-     })
-  
- 
+  //    })
   
   return (
-    <div  className="friend-profile-container">
-         <img src={`data:image/png;base64,${props.data.data.avatar}`} alt="profile pic"></img>
+    <div  className="friend-profile-container" style={{border:`2px soild ${theme.coverBot}`}}>
+         <img src={`data:image/png;base64,${data.data.avatar}`} alt="profile pic"></img>
     </div>
     
   );

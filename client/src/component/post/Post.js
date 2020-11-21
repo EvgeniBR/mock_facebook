@@ -8,6 +8,8 @@ import PostComment from "../post-comment/PostComment";
 import WriteNewComment from "../write-new-comment/WriteNewComment";
 import DataService from "../../db-connection/DataService";
 import PostStatics from '../post-statics/PostStatics';
+import DropDownOptions from '../dropdown-options/DropDownOptions';
+import DropDownPost from '../dropdown-options/DropDownPost';
 
 const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , userProfileAvatar , currentUserPath}) => {
   //post info
@@ -15,6 +17,9 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
   const [time , setTime] = useState("0000-00-00T00:00:00")
   const [likes , setLikes] = useState([])
   const [commentsArr, setCommentsArr] = useState([]);
+  const [showDropDown , setShowDropDown] = useState(false)
+  const [postVisability , setPostVisability] = useState(true)
+  
 
   //set new like or comment
   
@@ -40,7 +45,7 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
       currentLikePick = likes.find(like =>  like.owner === currentUserPath)
     }
     currentLikePick ? setCurrentPick(currentLikePick.reaction) : setCurrentPick('');
-  }, [likes]);
+  }, [likes , currentUserPath]);
 
   const getData = async () => {
     const postData = await DataService.get(`facebook-post/get-post/${id}`);
@@ -111,39 +116,62 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
     setNewComment(dataFormat);
   };
 
-  return (
-    <div className="Post" style={{backgroundColor: `${theme.postBackground}` , padding:`${theme.postPadding}` , color:`${theme.secondText}`}}>
-      <div className="PostHeaderUser">
-        <CircleIcon srcIcon={userAvatar} />
-        <div className="PostHeaderUser__Info" style={{marginLeft: `${theme.postMargin}`}}>
-          <FaceBookUserName
-            firstName={firstName}
-            lastName={lastName}
-            path={postOwnerPath}
-            fontColor={theme.primaryText}
-          />
-          <PostDate time={time} />
+  const showPostOptions = () => {
+    setShowDropDown(true);
+  }
+
+  const handleCloseDropDown = () => {
+    setShowDropDown(false);
+  }
+
+  const removePostVisavility = () => {
+    setPostVisability(false);
+  }
+
+
+  if(postVisability){
+    return (
+      <div className="Post" style={{backgroundColor: `${theme.postBackground}` , padding:`${theme.postPadding}` , color:`${theme.secondText}`}}>
+        <div className="PostHeaderUser">
+          <CircleIcon srcIcon={userAvatar} />
+          <div className="PostHeaderUser__Info" style={{marginLeft: `${theme.postMargin}`}}>
+            <FaceBookUserName
+              firstName={firstName}
+              lastName={lastName}
+              path={postOwnerPath}
+              fontColor={theme.primaryText}
+            />
+            <PostDate time={time} />
+          </div>
+          {currentUserPath === postOwnerPath && <button onClick={showPostOptions} className="postOptions" style={{color:theme.primaryText}}>...</button>}
         </div>
-      </div>
-      <p>{message}</p>
-      {(commentsArr.length || likes.length) ? <PostStatics comments={commentsArr} likes={likes}/> : <></>}
-      <div className="PostBtnContainer" style={{borderTop: `1px solid ${theme.secondText}` , borderBottom:`1px solid ${theme.secondText}`}}>
-        <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" updateWithNewLike={(like) => updateDBwithNewLikeSelected(like)}/>
-        <PostButton info="Comment" icon="far fa-comment-alt" />
-        <PostButton
-          info="Share"
-          icon="fas fa-share"
-          hoverOption="commingsoon"
+        <p>{message}</p>
+        {(commentsArr.length || likes.length) ? <PostStatics comments={commentsArr} likes={likes}/> : <></>}
+        <div className="PostBtnContainer" style={{borderTop: `1px solid ${theme.secondText}` , borderBottom:`1px solid ${theme.secondText}`}}>
+          <PostButton info="Like" icon="far fa-thumbs-up" emojiPicked={currentPick} hoverOption="like" updateWithNewLike={(like) => updateDBwithNewLikeSelected(like)}/>
+          <PostButton info="Comment" icon="far fa-comment-alt" />
+          <PostButton
+            info="Share"
+            icon="fas fa-share"
+            hoverOption="commingsoon"
+          />
+        </div>
+        {postComments}
+        <WriteNewComment
+          userAvatar={userProfileAvatar}
+          updateNewComment={(e) => updateNewComment(e)}
+          theme={theme}
         />
+        {showDropDown && <DropDownOptions handleDropDownClick={showDropDown} handleCloseDropDown={handleCloseDropDown} background={theme.postBackground} border={theme.dropDownBorder} top="40px" right="15px">
+              <DropDownPost theme={theme} id={id} removePostVisavility={removePostVisavility}/>
+          </DropDownOptions>}
       </div>
-      {postComments}
-      <WriteNewComment
-        userAvatar={userProfileAvatar}
-        updateNewComment={(e) => updateNewComment(e)}
-        theme={theme}
-      />
-    </div>
-  );
+    );
+  }
+  else{
+    <></>
+  }
+ 
 };
 
 export default Post;

@@ -24,7 +24,7 @@ const addFriendRequest = async (profileToUpdate, friendRequestToAdd) => {
   return updateUser;
 };
 
-const removeGetFriendRequest = async (
+const removeSendFriendRequest = async (
   profileToUpdate,
   friendRequestToRemove
 ) => {
@@ -36,20 +36,29 @@ const removeGetFriendRequest = async (
   return updateUser;
 };
 
-const addGetFriendRequest = async (profileToUpdate, friendRequestToRemove) => {
+const addGetFriendRequest = async (profileToUpdate, friendRequestToAdd) => {
   const updateUser = await User.findOneAndUpdate(
     { path: profileToUpdate },
-    { $push: { friendsRequestSend: { owner: friendRequestToRemove } } },
+    { $push: { friendsRequestSend: { owner: friendRequestToAdd } } },
     { new: true }
   );
   return updateUser;
 };
 
-const addToFriendsList = async (profileToUpdate, friendToAdded) => {
-  const updateUser = await User.findOneAndUpdate(
+const addToFriendsList = async (profileToUpdate, anotherProfileToUpdate) => {
+  const updateUser = await User.updateMany(
     { path: profileToUpdate },
-    { $push
-      : { friends: { owner: friendToAdded } } },
+    { $push: { friends: { owner: anotherProfileToUpdate}}},
+    { new: true }
+  );
+  return updateUser;
+};
+
+//remove frind from friend list in friend profile and in user profile.
+const removeFromFriendList = async (profileToUpdate, anotherProfileToUpdate) => {
+  const updateUser = await User.updateMany(
+    { path: {$in: [profileToUpdate , anotherProfileToUpdate]}},
+    { $pull: { friends: { owner: {$in: [profileToUpdate , anotherProfileToUpdate]}}}},
     { new: true }
   );
   return updateUser;
@@ -76,7 +85,6 @@ router.patch("/facebook-profile/send-request", async (req, res) => {
   const profilePath = req.body.profilePath;
   const userPath = req.body.userPath;
   const request = castingTheValue(req.query.request);
-  const friends = castingTheValue(req.query.friends);
 
   //update the profile with request from the user
   try {
@@ -86,15 +94,9 @@ router.patch("/facebook-profile/send-request", async (req, res) => {
     if (!updateUser) {
       res.status(400).send(e);
     }
-
-    if (friends) {
-      const addFriend = await addToFriendsList(profilePath, userPath);
-      res.send(addFriend);
-    }
     else{
       res.send(updateUser);
     }
-    
   } catch (e) {
     res.status(400).send(e);
   }
@@ -104,21 +106,14 @@ router.patch("/facebook-profile/get-request", async (req, res) => {
   const profilePath = req.body.profilePath;
   const userPath = req.body.userPath;
   const request = castingTheValue(req.query.request);
-  const friends = castingTheValue(req.query.friends);
-
 
   //update the user with path the user send request to
   try {
     const updateUser = request
-      ? await removeGetFriendRequest(userPath, profilePath)
+      ? await removeSendFriendRequest(userPath, profilePath)
       : await addGetFriendRequest(userPath, profilePath);
     if (!updateUser) {
       res.status(400).send();
-    }
-
-    if (friends) {
-      const addFriend = await addToFriendsList(userPath , profilePath);
-      res.send(addFriend);
     }
     else{
       res.send(updateUser);
@@ -128,5 +123,53 @@ router.patch("/facebook-profile/get-request", async (req, res) => {
     res.status(400).send(e);
   }
 });
+
+router.patch("/facebook-profile/rejectFriendRequest", async (req, res) => {
+  const profilePath = req.body.profilePath;
+  const userPath = req.body.userPath;
+
+  //remove from the user the friend request and remove from profile sendfriendrequest
+  //add both to friendlist
+  try {
+    await removeFriendRequest(userPath,profilePath);
+    await removeSendFriendRequest(profilePath,userPath);
+    res.send("unfriend")
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+
+router.patch("/facebook-profile/getFriendRequest", async (req, res) => {
+  const profilePath = req.body.profilePath;
+  const userPath = req.body.userPath;
+
+  //remove from the user the friend request and remove from profile sendfriendrequest
+  //add both to friendlist
+  try {
+    await removeFriendRequest(userPath,profilePath);
+    await removeSendFriendRequest(profilePath,userPath);
+    await addToFriendsList(userPath,profilePath);
+    await addToFriendsList(profilePath,userPath);
+    res.send("friends")
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.patch("/facebook-profile/removeFriend", async (req, res) => {
+  const profilePath = req.body.profilePath;
+  const userPath = req.body.userPath;
+
+  //update the user with path the user send request to
+  try {
+    await removeFromFriendList(userPath , profilePath);
+    await removeFromFriendList(profilePath , userPath);
+    res.send("unfriends");
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 
 module.exports = router;

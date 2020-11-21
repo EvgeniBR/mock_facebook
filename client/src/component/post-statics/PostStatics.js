@@ -5,21 +5,24 @@ import './PostStatics.css'
 
 const PostStatics = ({ comments, likes }) => {
 
-    let reactionToShow = [];
     let likeTypes = [];
 
-    // //get list of like types 
-    // if(likes){
-    //   likeTypes = likes.map(like => like.key)
-    // }
-    
-
-    for(const like of likes){
-        if(!reactionToShow.includes(like.reaction)){
-            const emoji = <img key={like.reaction} className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like.reaction).emoji} alt="reaction"/>
-            reactionToShow.push(emoji)
+    //get list of like types 
+    if(likes){
+      const likeList = likes.map(like => like.reaction);
+      for(const like of likeList){
+        if(!likeTypes.includes(like) && like !== "unlike"){
+          likeTypes.push(like);
         }
+      }
     }
+
+    const reactionToShow = likeTypes.map(like => {
+      if(emojiOptions.getEmoji(like)){
+        return <img key={like} className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like).emoji} alt="reaction"/>
+      }
+    })
+    
 
   return (
     <div className="PostStatics">

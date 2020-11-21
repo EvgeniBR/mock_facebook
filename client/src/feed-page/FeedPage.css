@@ -3,6 +3,10 @@
     display: flex;
     justify-content: center;
     position: relative;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 15vw;
+    padding-top: var(--header-height);
 }
 
 .FeedPage_CenterPage{
@@ -12,14 +16,29 @@
 }
 
 .FeedPage_RightPage{
-    position: fixed;
+    /* position: fixed; */
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /* align-items: flex-end; */
     width: 300px;
     right: 20px;
 }
 
 .FeedPage_LeftPage{
-    position: fixed;
+    width: 300px;
+}
+
+.facebookShortcut > div{
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+}
+
+.facebookShortcut p{
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.facebookShortcut i{
+    font-size: 30px;
 }

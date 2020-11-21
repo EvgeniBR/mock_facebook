@@ -8,23 +8,18 @@ import { useHistory } from "react-router-dom";
 import FeedBoxNote from "../component/feed-Box-note/FeedBoxNote";
 import FeedSponsored from "../component/feed-Box-note/FeedSponsored";
 import FeedFriendRequest from "../component/feed-Box-note/FeedFriendRequest";
-import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "../theme";
-import { GlobalStyles } from "../global";
+import FacebookShortcut from './FacebookShortcut';
 
-const FeedPage = ({ currentUserPath }) => {
+const FeedPage = ({ currentUserPath, theme }) => {
   const [writeModePost, setWritePostMode] = useState(false);
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
   const [userPath, setUserPath] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [friendRequests, setFriendRequests] = useState("");
-  const [theme, setTheme] = useState(darkTheme);
 
   const cookies = new Cookies();
   let history = useHistory();
-
-  // TO-DO - change the theme to get the current pick
 
   useEffect(() => {
     const token = cookies.get("mockFacebookToken");
@@ -41,7 +36,6 @@ const FeedPage = ({ currentUserPath }) => {
       setFriendRequests(user.data.friendsRequest);
     }
     getData();
-    // false ? setTheme(lightTheme) : setTheme(darkTheme)
   }, []);
 
   const updateDBPost = async (value) => {
@@ -54,55 +48,54 @@ const FeedPage = ({ currentUserPath }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <div className="FeedPage">
-        <div className="FeedPage_LeftPage"></div>
-        <div className="FeedPage_CenterPage">
-          {writeModePost && (
-            <NewPostField
-              profileAvatar={profilePicture}
-              firstName={userName}
-              lastName={userLastName}
-              userPath={userPath}
-              uploadNewPost={(value) => updateDBPost(value)}
-              theme={theme}
-            />
-          )}
-          <PostContainer
-            writePost={() => setWritePostMode(true)}
+    <div className="FeedPage" style={{backgroundColor:theme.body}}>
+      <div className="FeedPage_LeftPage">
+        <FacebookShortcut color={theme.primaryText}/>
+      </div>
+      <div className="FeedPage_CenterPage">
+        {writeModePost && (
+          <NewPostField
             profileAvatar={profilePicture}
             firstName={userName}
             lastName={userLastName}
             userPath={userPath}
+            uploadNewPost={(value) => updateDBPost(value)}
             theme={theme}
-            currentUserPath={currentUserPath}
           />
-        </div>
-        <div className="FeedPage_RightPage">
-          <FeedBoxNote theme={theme}>
-            <FeedSponsored
-              text="Sponsored"
-              imgSponsored="https://static.wixstatic.com/media/37decd_f811fb5ae1bb45ebbd3f5b9ac735639b~mv2.jpg/v1/crop/x_16,y_0,w_1569,h_1154/fill/w_560,h_412,al_c,q_80,usm_0.66_1.00_0.01/WOHL.webp"
-              sponsoredText="Bootcamp 2021 | Appleseeds Academy"
-              linkTo="www.appleseeds.org.il"
+        )}
+        <PostContainer
+          writePost={() => setWritePostMode(true)}
+          profileAvatar={profilePicture}
+          firstName={userName}
+          lastName={userLastName}
+          userPath={userPath}
+          theme={theme}
+          currentUserPath={currentUserPath}
+        />
+      </div>
+      <div className="FeedPage_RightPage">
+        <FeedBoxNote theme={theme}>
+          <FeedSponsored
+            text="Sponsored"
+            imgSponsored="https://static.wixstatic.com/media/37decd_f811fb5ae1bb45ebbd3f5b9ac735639b~mv2.jpg/v1/crop/x_16,y_0,w_1569,h_1154/fill/w_560,h_412,al_c,q_80,usm_0.66_1.00_0.01/WOHL.webp"
+            sponsoredText="Bootcamp 2021 | Appleseeds Academy"
+            linkTo="www.appleseeds.org.il"
+            theme={theme}
+          />
+        </FeedBoxNote>
+        <FeedBoxNote>
+          {/* show only if there is a freind request */}
+          {!!friendRequests.length && (
+            <FeedFriendRequest
+              text="Friend Requests"
+              friendRequests={friendRequests}
+              currentPath={userPath}
               theme={theme}
             />
-          </FeedBoxNote>
-          <FeedBoxNote>
-            {/* show only if there is a freind request */}
-            {!!friendRequests.length && (
-              <FeedFriendRequest
-                text="Friend Requests"
-                friendRequests={friendRequests}
-                currentPath={userPath}
-                theme={theme}
-              />
-            )}
-          </FeedBoxNote>
-        </div>
+          )}
+        </FeedBoxNote>
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 

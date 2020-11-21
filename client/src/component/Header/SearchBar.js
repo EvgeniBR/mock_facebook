@@ -1,9 +1,9 @@
 import React, { useState ,useEffect } from "react";
 import './Header.css'
-import DataService from '../../db-connection/DataService';
+//import DataService from '../../db-connection/DataService';
 import {  withRouter } from "react-router-dom";
 
-const SearchBar = (props) => {
+const SearchBar = ({backgroundInput , color}) => {
   const [searchResults, setSearchResults] = useState("");
   const [searchTitles, setSearchTitles] = useState([]);
 
@@ -42,6 +42,7 @@ const SearchBar = (props) => {
     <div>
       <div className="search-div">
         <input
+          style={{backgroundColor:backgroundInput , color:color}}
           className="search-input"
           value={searchResults}
           onChange={(e) => onInputChange(e)}

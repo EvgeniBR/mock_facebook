@@ -1,18 +1,15 @@
 .cover-container{
-    width:100vw;
+    margin-top: var(--header-height);
     height:55vh ;
-    background-image: linear-gradient(#CDD0D3 25%,  #272829 75%);
     display: flex;
     justify-content: center;
     position: relative;
-    
+
 }
 
 .cover-container  img{
     height:35vh;
     width: 55vw;
-    
-    
 }
 
 .edit-photo{
@@ -39,17 +36,16 @@
 
 .profile-container{
     position: absolute;
-    width: 10vw;
-    height: 20vh;
-    border:1px solid black;
-    top:50%;
+    width: 150px;
+    height: 150px;
+    top:52%;
     transform: translateY(-50%);
     border-radius: 100%;
 }
 .profile-container img{
-   width:100%;
-   height:100%;
-   border-radius: 100px;
+    width:98%;
+    height:98%;
+    border-radius: 100%;
 }
 .edit-pic{
     color:white;
@@ -72,7 +68,6 @@
     top:75%;
     transform: translateY(-50%);
     border-radius: 100%;
-    color: white;
     font-size: 4rem;
     }
 .underLine{
@@ -83,15 +78,14 @@
     display: flex;
     justify-content: center;
     position: absolute;
-    left:50%;
-    top:55%;
+    left: 50%;
+    bottom: 20px;
     transform: translate(-50%);
     z-index: 2;
    
 }
 .profile-header-container a{
-    color: white;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
     font-size: 1.1rem;
     text-decoration: none;
     transition: all 0.4s;
@@ -104,20 +98,21 @@
     width:5rem
 }
 
-header button{
-min-width: 30px;
-border-radius: 5px;
-background: #3A3B3C;
-color:white;
-transition: all 0.4s;
-cursor: pointer;
+.profile-header-container button{
+    min-width: 30px;
+    border-radius: 5px;
+    transition: all 0.4s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 0 3px;
 }
 .edit-profile-btn{
     min-width: 90px;
 }
 
 header button:hover{
-    
     background: #acaeaf;
-    color:white;
-    }
+}
