@@ -1,6 +1,5 @@
 .friend-cover-container{
     margin-top: var(--header-height);
-    width:100vw;
     height:55vh ;
     display: flex;
     justify-content: center;
@@ -33,7 +32,6 @@
     top:75%;
     transform: translateY(-50%);
     border-radius: 100%;
-    color: white;
     font-size: 4rem;
 }
 .underLine{
@@ -45,7 +43,7 @@
     justify-content: center;
     position: absolute;
     left:50%;
-    top:55%;
+    bottom: 20px;
     transform: translate(-50%);
     z-index: 2;
    
@@ -65,25 +63,22 @@
     width:5rem
 }
 
-header button{
+.friend-profile-header-container button{
     min-width: 30px;
     border-radius: 5px;
-    background: #3A3B3C;
-    color:white;
     transition: all 0.4s;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    margin: 0 3px;
 }
-
 
 .message-friend-btn{
     min-width: 90px;
 }
 
 header button:hover{
-    
     background: #acaeaf;
-    color:white;
-    }
+}

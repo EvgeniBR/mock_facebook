@@ -3,6 +3,7 @@ import "./Profile.css";
 import Avatar from "./Avatar";
 import DataService from "../db-connection/DataService";
 import Cookies from "universal-cookie";
+import ProfileHeader from "./ProfileHeader";
 
 
 const Cover = ({data , theme}) => {
@@ -37,9 +38,10 @@ const Cover = ({data , theme}) => {
         </form>
         
         <Avatar data={data.data} theme={theme}/>
-        <h2 className="profile-name">
+        <h2 className="profile-name" style={{color:theme.primaryText}}>
           {`${data.data.first_name} ${data.data.last_name}`} <hr className="underLine" />
         </h2>
+        <ProfileHeader theme={theme}/>
       </div>
     );
   }

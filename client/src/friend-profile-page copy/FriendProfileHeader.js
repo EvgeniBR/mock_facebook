@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./FriendProfile.css";
 import DataService from '../db-connection/DataService';
 
-const FriendProfileHeader = ({ userPath, profilePath , request}) => {
+const FriendProfileHeader = ({ userPath, profilePath , request , theme}) => {
   const [ profileRequest , setProfileRequest ] = useState('');
 
   useEffect(() => {
@@ -49,6 +49,11 @@ const FriendProfileHeader = ({ userPath, profilePath , request}) => {
     setProfileRequest(changeBtnIcon);
   }
 
+  const btnStyle ={
+    color:theme.primaryText,
+    backgroundColor:theme.postCommentBackground
+  }
+
   const makeFriendRequest = async (e) => {
     try{
       if(e.target.id === "unFriends"){
@@ -70,26 +75,27 @@ const FriendProfileHeader = ({ userPath, profilePath , request}) => {
     }
   };
 
+
   return (
     <header>
       <div className="friend-profile-header-container">
-        <Link to="/:path/">Posts</Link>
-        <Link to="/:path/about">About</Link>
-        <Link to="/:path/friends">Friends</Link>
-        <Link to="/:path/photos">Photos</Link>
-        <Link to="/:path/archive">Archive</Link>
-        <Link to="/:path/more">More</Link>
+        <Link style={{color:theme.secondText}} to="/:path/">Posts</Link>
+        <Link style={{color:theme.secondText}} to="/:path/about">About</Link>
+        <Link style={{color:theme.secondText}} to="/:path/friends">Friends</Link>
+        <Link style={{color:theme.secondText}} to="/:path/photos">Photos</Link>
+        <Link style={{color:theme.secondText}} to="/:path/archive">Archive</Link>
+        <Link style={{color:theme.secondText}} to="/:path/more">More</Link>
         <div className="friend-empty-div"></div>
-        <button className="message-friend-btn">
+        <button className="message-friend-btn" style={btnStyle}>
           <i className="fab fa-facebook-messenger"></i> Message
         </button>
-        <button>
+        <button style={btnStyle}>
           <i className="fas fa-phone-alt"></i>
         </button>
-        <button onClick={(e) => makeFriendRequest(e)}>
+        <button onClick={(e) => makeFriendRequest(e)} style={btnStyle}>
           {profileRequest}
         </button>
-        <button>•••</button>
+        <button style={btnStyle}>•••</button>
       </div>
     </header>
   );
