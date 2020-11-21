@@ -10,12 +10,17 @@ const DropDownOptions = (props) => {
   }
 
   return <div className="dropDown" onClick={handleDropDownClick}>
-    <div className="dropDownOptions" ref={dropDownRef} style={{backgroundColor:`${props.background}` , border:`1px solid ${props.border}`}}>
+    <div className="dropDownOptions" ref={dropDownRef} style={{backgroundColor:`${props.background}` , border:`1px solid ${props.border}` , top:`${props.top}` ,right:`${props.right}`}}>
       {props.children}
     </div>
   </div>
    
 
+};
+
+DropDownOptions.defaultProps  = {
+  top:"55px",
+  right:"0",
 };
 
 export default DropDownOptions;
