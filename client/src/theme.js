@@ -16,6 +16,9 @@ export const lightTheme = {
     seperatorLine:'rgba(64, 64, 64, 1)',
     btnBlueColor:"#0085ff",
     dropDownBorder:'rgba(0, 0, 0, 0.44)',
+    //profile
+    coverTop:"gray",
+    coverBot:"white"
   }
   
   export const darkTheme = {
@@ -34,4 +37,7 @@ export const lightTheme = {
     seperatorLine:'rgb(87, 87, 87)',
     btnBlueColor:"#0085ff",
     dropDownBorder:'rgba(255, 255, 255, 0.25)',
+    //profile
+    coverTop: "white",
+    coverBot: "black",
   }

@@ -1,14 +1,9 @@
-import React ,{useEffect} from "react";
+import React  from "react";
 import './Profile.css'
 import DataService from "../db-connection/DataService";
 import Cookies from 'universal-cookie';
 
-const Avatar = (props) => {
-
-  // useEffect(()=>{
-  //     console.log('avatar',props.data);
-  // })
-
+const Avatar = ({data , theme}) => {
   const cookies = new Cookies();
   const token = cookies.get("mockFacebookToken");
   
@@ -26,8 +21,8 @@ const Avatar = (props) => {
  
   
   return (
-    <div  className="profile-container" >
-         <img src={`data:image/png;base64,${props.data.avatar}`} alt="profile pic"></img>
+    <div  className="profile-container" style={{border:`2px soild ${theme.coverBot}`}}>
+         <img src={`data:image/png;base64,${data.avatar}`} alt="profile pic"></img>
         <form   encType="multipart/form-data" method="post">
       <label htmlFor="profile" className="edit-pic">
         <i className="fas fa-camera fa-2x camera-btn"> </i> 

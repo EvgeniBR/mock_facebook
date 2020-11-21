@@ -66,8 +66,8 @@ const FriendProfile = (props) => {
   };
 
   return (
-    <div>
-      <FriendCover data={props.data} />
+    <div style={{backgroundColor: props.theme.body , minHeight:"100vh" , width:"100%"}}>
+      <FriendCover data={props.data} theme={props.theme}/>
       <br />
       <FriendProfileHeader
         userPath={props.userPath}

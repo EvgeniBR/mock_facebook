@@ -39,23 +39,20 @@ const ProfileRender = ({currentUserPath , theme}) => {
   }, [location.pathname , currentUserPath , token]);
 
 
+  console.log(endUser);
 
-  if (endUser == null) {
-    return <div>Loading</div>;
+  if (endUser === "me") {
+    return (
+      <Profile data={userData} userPath={currentUserPath} theme={theme}/>
+    );
   }
   else if(endUser === "friend") {
     return (
-      <div>
-        <FriendProfile data={userData} userPath={currentUserPath} theme={theme}/>
-      </div>
+      <FriendProfile data={userData} userPath={currentUserPath} theme={theme}/>
     );
   }
   else{
-    return (
-      <div>
-        <Profile data={userData} userPath={currentUserPath} theme={theme}/>
-      </div>
-    );
+    return <div>Loading</div>;
   }
 };
 

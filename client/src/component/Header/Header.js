@@ -39,7 +39,7 @@ const Header = ({userPath,userName,userLastName,userAvatar,theme,changeDisplayMo
   return (
     <header
       className="header"
-      style={{ backgroundColor: theme.postBackground }}
+      style={{ backgroundColor: theme.postBackground , borderBottom:`1px soild ${theme.dropDownBorder}`}}
     >
       <div className="leftSideBtns">
         <Link className="facebookLogoBtn" to="/">
