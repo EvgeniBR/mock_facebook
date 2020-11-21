@@ -20,8 +20,6 @@ const FeedPage = ({ currentUserPath, theme }) => {
   const cookies = new Cookies();
   let history = useHistory();
 
-  // TO-DO - change the theme to get the current pick
-
   useEffect(() => {
     const token = cookies.get("mockFacebookToken");
     if (!token) {
@@ -37,7 +35,6 @@ const FeedPage = ({ currentUserPath, theme }) => {
       setFriendRequests(user.data.friendsRequest);
     }
     getData();
-    // false ? setTheme(lightTheme) : setTheme(darkTheme)
   }, []);
 
   const updateDBPost = async (value) => {

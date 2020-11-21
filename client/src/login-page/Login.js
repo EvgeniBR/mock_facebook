@@ -2,9 +2,17 @@ import React , { useState } from "react";
 import "./Login.css";
 import LoginField from '../component/login-filed/LoginField';
 import SignUp from '../component/signup/SignUp';
+import Cookies from "universal-cookie";
 
 function Login() {
   const [residterMode, setRegisterMode] = useState(false);
+
+  const cookies = new Cookies();
+  cookies.remove('mockFacebookToken');
+  cookies.remove('userName');
+  cookies.remove('userLastName');
+  cookies.remove('userPath');
+  localStorage.removeItem('userAvatar')
 
   const register = (residterMode&&<SignUp/>)
   return (

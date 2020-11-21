@@ -34,7 +34,6 @@ const DropDownAccount = ({
 
   const logOutFromAcoount = async () => {
     // await DataService.postAuth('users/logout',token);
-    cookies.remove('mockFacebookToken');
     history.push('/register');
   }
 

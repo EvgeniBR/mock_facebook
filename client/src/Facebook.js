@@ -19,6 +19,7 @@ const Facebook = () => {
   const token = cookies.get("mockFacebookToken");
   const [theme, setTheme] = useState(lightTheme);
   const [themePick , setThemePick] = useState(false)
+  
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -29,10 +30,29 @@ const Facebook = () => {
         setUserName(user.data.first_name);
         setUserLastName(user.data.last_name);
         setUserAvatar(user.data.avatar);
+        //set to cookies
+        localStorage.setItem('userAvatar',user.data.avatar);
+        cookies.set('userName',user.data.first_name);
+        cookies.set('userLastName',user.data.last_name);
+        cookies.set('userPath',user.data.path);
       }
-      getData();
+      console.log(cookies.get('userAvatar'));
+      if(localStorage.getItem('userAvatar') && cookies.get('userName') && cookies.get('userLastName')) {
+        setUserAvatar(localStorage.getItem('userAvatar'));
+        setUserName(cookies.get('userName'));
+        setUserLastName(cookies.get('userLastName'));
+        setUserPath(cookies.get('userPath'));
+      }
+      else{
+        getData();
+      }
     }
   }, [token, location.pathname]);
+
+  useEffect(() => {
+    setUserAvatar(localStorage.getItem('userAvatar'));
+  }, [localStorage.getItem('userAvatar')]);
+
 
   useEffect(() => {
     themePick ? setTheme(darkTheme) : setTheme(lightTheme)
