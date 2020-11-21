@@ -36,7 +36,6 @@ const Facebook = () => {
         cookies.set('userLastName',user.data.last_name);
         cookies.set('userPath',user.data.path);
       }
-      console.log(cookies.get('userAvatar'));
       if(localStorage.getItem('userAvatar') && cookies.get('userName') && cookies.get('userLastName')) {
         setUserAvatar(localStorage.getItem('userAvatar'));
         setUserName(cookies.get('userName'));

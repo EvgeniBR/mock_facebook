@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import FeedBoxNote from "../component/feed-Box-note/FeedBoxNote";
 import FeedSponsored from "../component/feed-Box-note/FeedSponsored";
 import FeedFriendRequest from "../component/feed-Box-note/FeedFriendRequest";
+import FacebookShortcut from './FacebookShortcut';
 
 const FeedPage = ({ currentUserPath, theme }) => {
   const [writeModePost, setWritePostMode] = useState(false);
@@ -48,7 +49,9 @@ const FeedPage = ({ currentUserPath, theme }) => {
 
   return (
     <div className="FeedPage" style={{backgroundColor:theme.body}}>
-      <div className="FeedPage_LeftPage"></div>
+      <div className="FeedPage_LeftPage">
+        <FacebookShortcut color={theme.primaryText}/>
+      </div>
       <div className="FeedPage_CenterPage">
         {writeModePost && (
           <NewPostField
