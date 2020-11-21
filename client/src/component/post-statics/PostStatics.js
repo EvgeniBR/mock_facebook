@@ -11,14 +11,16 @@ const PostStatics = ({ comments, likes }) => {
     if(likes){
       const likeList = likes.map(like => like.reaction);
       for(const like of likeList){
-        if(!likeTypes.includes(like)){
+        if(!likeTypes.includes(like) && like !== "unlike"){
           likeTypes.push(like);
         }
       }
     }
 
     const reactionToShow = likeTypes.map(like => {
-      return <img key={like} className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like).emoji} alt="reaction"/>
+      if(emojiOptions.getEmoji(like)){
+        return <img key={like} className="PostStaticsLikesEmoji" src={emojiOptions.getEmoji(like).emoji} alt="reaction"/>
+      }
     })
     
 

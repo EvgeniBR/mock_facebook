@@ -1,14 +1,19 @@
 import React from "react";
 import "./CircleDivWithIcon.css";
 
-const CircleDivWithIcon = ({icon , size}) => {
-  return <div className="circleDivWithIcon" style={{width:size , height:size}}>
+const CircleDivWithIcon = ({ icon, size, backgroundColor , color }) => {
+  return (
+    <div
+      className="circleDivWithIcon"
+      style={{ width: size, height: size, backgroundColor: backgroundColor , color:color }}
+    >
       <i className={icon}></i>
-  </div>;
+    </div>
+  );
 };
 
 CircleDivWithIcon.defaultProps = {
-  size:"40px"
-}
+  size: "30px",
+};
 
 export default CircleDivWithIcon;

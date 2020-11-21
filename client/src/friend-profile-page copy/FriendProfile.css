@@ -1,7 +1,6 @@
 .friend-cover-container{
-    width:100vw;
+    margin-top: var(--header-height);
     height:55vh ;
-    background-image: linear-gradient(#CDD0D3 25%,  #272829 75%);
     display: flex;
     justify-content: center;
     position: relative;
@@ -11,22 +10,20 @@
 .friend-cover-container  img{
     height:35vh;
     width: 55vw;
-
-    
 }
 
 .friend-profile-container{
     position: absolute;
-    width: 10vw;
-    height: 20vh;
-    top:50%;
+    width: 150px;
+    height: 150px;
+    top:52%;
     transform: translateY(-50%);
     border-radius: 100%;
+    overflow: hidden;
 }
 .friend-profile-container img{
-    width:100%;
-   height:100%;
-   border-radius: 100px;
+    width:98%;
+    height:98%;
 }
 
 .friend-profile-name{
@@ -35,7 +32,6 @@
     top:75%;
     transform: translateY(-50%);
     border-radius: 100%;
-    color: white;
     font-size: 4rem;
 }
 .underLine{
@@ -47,7 +43,7 @@
     justify-content: center;
     position: absolute;
     left:50%;
-    top:55%;
+    bottom: 20px;
     transform: translate(-50%);
     z-index: 2;
    
@@ -67,25 +63,22 @@
     width:5rem
 }
 
-header button{
+.friend-profile-header-container button{
     min-width: 30px;
     border-radius: 5px;
-    background: #3A3B3C;
-    color:white;
     transition: all 0.4s;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    margin: 0 3px;
 }
-
 
 .message-friend-btn{
     min-width: 90px;
 }
 
 header button:hover{
-    
     background: #acaeaf;
-    color:white;
-    }
+}

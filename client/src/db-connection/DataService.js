@@ -13,6 +13,14 @@ const getAuth = (path, token) => {
   });
 };
 
+const postAuth = (path, token) => {
+  return http.post(`/${path}`, {
+    headers: { Authorization: "Bearer " + token },
+  });
+};
+
+
+
 //create or update new sheet
 const create = (path, data) => {
   return http.post(`/${path}`, data);
@@ -57,4 +65,5 @@ export default {
   createAuth,
   createAuthP,
   getFriendProfile,
+  postAuth,
 }

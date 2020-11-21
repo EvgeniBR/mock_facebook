@@ -151,7 +151,7 @@ router.post('/users/me/avatar',auth , upload.single('avatar') ,async (req, res) 
 router.delete('/users/me/avatar',auth , upload.single('avatar') ,async (req, res) => {
     req.user.avatar = undefined
     await req.user.save()
-   res.send()
+   res.send(req.user)
 })
 router.get('/users/:id/avatar' , async (req , res)=>{
     try{

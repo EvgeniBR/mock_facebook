@@ -3,6 +3,8 @@
     display: flex;
     justify-content: center;
     position: relative;
+    min-height: 100vh;
+    padding-top: var(--header-height);
 }
 
 .FeedPage_CenterPage{

@@ -1,24 +1,41 @@
-import React ,{useEffect} from "react";
+import React , {useState,useEffect}  from "react";
 import './Profile.css'
 import DataService from "../db-connection/DataService";
 import Cookies from 'universal-cookie';
 
-const Avatar = (props) => {
-
-  // useEffect(()=>{
-  //     console.log('avatar',props.data);
-  // })
-
+const Avatar = ({data , theme}) => {
+  const [newAvatar , setNewAvatar ] = useState('')
+  const [profileAvatar , setProfileAvatar] = useState('')
   const cookies = new Cookies();
   const token = cookies.get("mockFacebookToken");
+
+  useEffect(()=>{
+    if(newAvatar){
+      const getNewData =  async () => {
+       const newData = await DataService.getAuth(`users/me`, token);
+       localStorage.removeItem('userAvatar')
+       localStorage.setItem('userAvatar',  newData.data.avatar);
+       setProfileAvatar(localStorage.getItem('userAvatar'))
+       console.log("yo yo yo");
+      }
+      getNewData()
+    }
+  },[newAvatar])
+
+  useEffect(() => {
+    if(data.avatar){
+      setProfileAvatar(data.avatar)
+    }
+  },[data.avatar])
   
   const profileSubmit = async (e) => {
     let profileData = new FormData();
     profileData.append("avatar", e.target.files[0]);
-   e.preventDefault()
+   e.preventDefault(e.target.files[0]);
    if(token){
      try{
        await DataService.createAuthP(`users/me`, profileData , token)
+       setNewAvatar(e.target.files[0])
       }catch{
      }
    }
@@ -26,8 +43,8 @@ const Avatar = (props) => {
  
   
   return (
-    <div  className="profile-container" >
-         <img src={`data:image/png;base64,${props.data.avatar}`} alt="profile pic"></img>
+    <div  className="profile-container" style={{border:`2px soild ${theme.coverBot}`}}>
+         <img src={`data:image/png;base64,${profileAvatar}`} alt="profile pic"></img>
         <form   encType="multipart/form-data" method="post">
       <label htmlFor="profile" className="edit-pic">
         <i className="fas fa-camera fa-2x camera-btn"> </i> 

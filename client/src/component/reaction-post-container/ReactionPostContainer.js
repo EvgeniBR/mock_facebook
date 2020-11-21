@@ -9,13 +9,13 @@ import wow from "../../img/reaction/wow.png";
 import ReactionPost from "../reaction/ReactionPost";
 import "./ReactionPostConatiner.css";
 
-const ReactionPostContainer = ({ changeReaction }) => {
+const ReactionPostContainer =  React.forwardRef(({ changeReaction } , ref) => {
   const updateNewReaction = (value) => {
     changeReaction(value);
   };
 
   return (
-    <div className="ReactionPostContainer">
+    <div className="ReactionPostContainer" ref={ref}>
       <ReactionPost
         key="like"
         reaction={like}
@@ -74,6 +74,6 @@ const ReactionPostContainer = ({ changeReaction }) => {
       />
     </div>
   );
-};
+});
 
 export default ReactionPostContainer;

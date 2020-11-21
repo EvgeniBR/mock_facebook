@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./component/Header/Header";
 import FeedPage from "./feed-page/FeedPage";
@@ -6,38 +6,81 @@ import Login from "./login-page/Login";
 import ProfileRender from "./component/profile-render/ProfileRender";
 import Cookies from "universal-cookie";
 import DataService from "./db-connection/DataService";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./theme";
 
 const Facebook = () => {
   const [userPath, setUserPath] = useState("");
   const [userName, setUserName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
   const cookies = new Cookies();
-  const location = useRef(window.location)
+  const location = useRef(window.location);
   const token = cookies.get("mockFacebookToken");
+  const [theme, setTheme] = useState(lightTheme);
+  const [themePick , setThemePick] = useState(false)
+  
 
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (token) {
       async function getData() {
         const user = await DataService.getAuth("users/me", token);
         setUserPath(user.data.path);
-        setUserName(`${user.data.first_name} ${user.data.last_name}`)
-        setUserAvatar(user.data.avatar)
+        setUserName(user.data.first_name);
+        setUserLastName(user.data.last_name);
+        setUserAvatar(user.data.avatar);
+        //set to cookies
+        localStorage.setItem('userAvatar',user.data.avatar);
+        cookies.set('userName',user.data.first_name);
+        cookies.set('userLastName',user.data.last_name);
+        cookies.set('userPath',user.data.path);
       }
-      getData();
+      console.log(cookies.get('userAvatar'));
+      if(localStorage.getItem('userAvatar') && cookies.get('userName') && cookies.get('userLastName')) {
+        setUserAvatar(localStorage.getItem('userAvatar'));
+        setUserName(cookies.get('userName'));
+        setUserLastName(cookies.get('userLastName'));
+        setUserPath(cookies.get('userPath'));
+      }
+      else{
+        getData();
+      }
     }
   }, [token, location.pathname]);
 
-  const pathLocation = location.pathname;
+  useEffect(() => {
+    setUserAvatar(localStorage.getItem('userAvatar'));
+  }, [localStorage.getItem('userAvatar')]);
 
-  //get the user path fropm the token.
 
-  if (pathLocation === "/register" || !token) {
+  useEffect(() => {
+    themePick ? setTheme(darkTheme) : setTheme(lightTheme)
+  }, [themePick]);
+
+
+
+  const changeDisplayMode = (value) => {
+    setThemePick(value)
+  }
+
+  //get the user path from the token.
+  if (location.pathname === "/register" || !token) {
     return (
       <BrowserRouter>
         <Route exact path="/">
-          <Header userPath={userPath} userName={userName} userAvatar={userAvatar}/>
-          <FeedPage />
+          <ThemeProvider theme={theme}>
+            <Header
+              userPath={userPath}
+              userName={userName}
+              userLastName={userLastName}
+              userAvatar={userAvatar}
+              theme={theme}
+              changeDisplayMode={changeDisplayMode}
+              themePick={themePick}
+            />
+            <FeedPage currentUserPath={userPath} theme={theme} />
+          </ThemeProvider>
         </Route>
         <Route exact path="/register">
           <Login />
@@ -47,15 +90,27 @@ const Facebook = () => {
   }
   return (
     <BrowserRouter>
-      <Header userPath={userPath} userName={userName} userAvatar={userAvatar}/>
+      <Header
+        userPath={userPath}
+        userName={userName}
+        userLastName={userLastName}
+        userAvatar={userAvatar}
+        theme={theme}
+        changeDisplayMode={changeDisplayMode}
+        themePick={themePick}
+      />
       <Route exact path="/">
         {" "}
       </Route>
       <Route exact path="/">
-        <FeedPage currentUserPath={userPath}/>
+        <ThemeProvider theme={theme}>
+          <FeedPage currentUserPath={userPath} theme={theme} />
+        </ThemeProvider>
       </Route>
       <Route path="/:username">
-        <ProfileRender />
+        <ThemeProvider theme={theme}>
+          <ProfileRender currentUserPath={userPath} theme={theme} />
+        </ThemeProvider>
       </Route>
     </BrowserRouter>
   );
