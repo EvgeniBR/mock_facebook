@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 //TO-DO - after friend will added make a lits of path and add it to postToShowPathList
 const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme,currentUserPath}) => {
   const [posts, setPosts] = useState([]);
-  const [newLike, setNewLike] = useState("");
 
   const location = useLocation();
   const firstUpdate = useRef(true);
@@ -62,7 +61,7 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme,c
       <NewPost
         srcAvatar={profileAvatar}
         username={firstName}
-        WriteNewPost={() => writePost()}
+        WriteNewPost={writePost}
         theme={theme}
       />
       {showPosts}

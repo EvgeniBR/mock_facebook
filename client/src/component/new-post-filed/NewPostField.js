@@ -1,11 +1,17 @@
-import React , {useState} from "react";
+import React , {useState , useEffect} from "react";
 import "./NewPostField.css";
 import CircleIcon from "../circle-Img/CircleIcon";
 import FaceBookUserName from "../facebook-username/FaceBookUserName";
 
 
-const NewPostField = ({profileAvatar , firstName , lastName  , userPath , uploadNewPost ,theme }) => {
+const NewPostField = ({profileAvatar , firstName , lastName  , userPath , uploadNewPost ,theme , btnText ,title ,postData}) => {
   const [postMassage , setPostMassege] = useState('');
+
+  useEffect(() => {
+    if(postData){
+      setPostMassege(postData)
+    }
+  },[])
 
   const placeholderMsg = `What's on your mind , ${firstName}?`;
 
@@ -18,10 +24,10 @@ const NewPostField = ({profileAvatar , firstName , lastName  , userPath , upload
     <div className="NewPostField" style={conatinerStyle}>
       <div className="NewPostFieldBox" style={{backgroundColor: `${theme.postBackground}`}}>
         <div className="NewPostFieldBox__header">
-          <h2 style={{color: `${theme.secondText}`}}>Create Post</h2>
+          <h2 style={{color: `${theme.secondText}`}}>{title}</h2>
         </div>
         <div>
-          <div className="NewPostFieldBox__userData" style={{borderTop: `1px solid ${theme.secondText}` , marginLeft:`${theme.postMargin}`}}>
+          <div className="NewPostFieldBox__userData" style={{borderTop: `1px solid ${theme.secondText}`, marginLeft:`${theme.postMargin}`}}>
             <CircleIcon srcIcon={profileAvatar} />
             <FaceBookUserName
               firstName={firstName}
@@ -31,13 +37,19 @@ const NewPostField = ({profileAvatar , firstName , lastName  , userPath , upload
             />
           </div>
           <div className="NewPostFieldBox__main">
-              <textarea placeholder={placeholderMsg} style={{ color: `${theme.primaryText}`}} onChange={(e) => setPostMassege(e.target.value)}></textarea>
-              <button onClick={() => uploadNewPost(postMassage)}>Post</button>
+              <textarea value={postMassage} placeholder={placeholderMsg} style={{ color: `${theme.primaryText}`}} onChange={(e) => setPostMassege(e.target.value)}></textarea>
+              <button onClick={() => uploadNewPost(postMassage)}>{btnText}</button>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+NewPostField.defaultProps = {
+  title: "Create Post",
+  btnText:"Post",
+  postData:""
+}
 
 export default NewPostField;

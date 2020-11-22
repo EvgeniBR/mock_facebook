@@ -1,3 +1,4 @@
+const { LOADIPHLPAPI } = require("dns");
 const express = require("express");
 const { Post, PostComment, PostLike } = require("../models/facebook-post");
 const Uesr = require("../models/user");
@@ -138,6 +139,7 @@ router.patch("/facebook-post/:id", async (req, res) => {
 /////////////////////  user activity - must delete from activity of user and comment users ///////////
 router.delete("/facebook-post/:id", async (req, res) => {
   //get the new massge and update exists post sould return the post
+  console.log(req.params.id);
   try {
     await Post.findOneAndDelete({ _id: req.params.id }).then(
       (newUpdatedPost) => {
