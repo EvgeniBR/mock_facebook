@@ -10,6 +10,7 @@ import DataService from "../../db-connection/DataService";
 import PostStatics from '../post-statics/PostStatics';
 import DropDownOptions from '../dropdown-options/DropDownOptions';
 import DropDownPost from '../dropdown-options/DropDownPost';
+import NewPostField from '../new-post-filed/NewPostField';
 
 const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , userProfileAvatar , currentUserPath}) => {
   //post info
@@ -19,6 +20,7 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
   const [commentsArr, setCommentsArr] = useState([]);
   const [showDropDown , setShowDropDown] = useState(false)
   const [postVisability , setPostVisability] = useState(true)
+  const [editPostMode, setEditPostMode] = useState(false);
   
 
   //set new like or comment
@@ -48,6 +50,9 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
   }, [likes , currentUserPath]);
 
   const getData = async () => {
+    if(!postVisability){
+      return
+    }
     const postData = await DataService.get(`facebook-post/get-post/${id}`);
     setPostInfo(postData.data);
     const postCommentsArr = await DataService.get(`facebook-post/post/${id}`);
@@ -128,10 +133,30 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
     setPostVisability(false);
   }
 
+  const updateDBPost = async (value) => {
+    const data = {
+      message:value
+    }
+    await DataService.patch(`facebook-post/${id}`, data).then((updatedData) =>{
+      setEditPostMode(false)
+      setMassege(updatedData.data.message)
+    }) 
+  }
 
   if(postVisability){
     return (
       <div className="Post" style={{backgroundColor: `${theme.postBackground}` , padding:`${theme.postPadding}` , color:`${theme.secondText}`}}>
+        {editPostMode &&   <NewPostField
+            profileAvatar={userProfileAvatar}
+            firstName={firstName}
+            lastName={lastName}
+            userPath={currentUserPath}
+            uploadNewPost={(value) => updateDBPost(value)}
+            theme={theme}
+            title="Edit post"
+            btnText="Save"
+            postData={message}
+          />}
         <div className="PostHeaderUser">
           <CircleIcon srcIcon={userAvatar} />
           <div className="PostHeaderUser__Info" style={{marginLeft: `${theme.postMargin}`}}>
@@ -163,13 +188,17 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
           theme={theme}
         />
         {showDropDown && <DropDownOptions handleDropDownClick={showDropDown} handleCloseDropDown={handleCloseDropDown} background={theme.postBackground} border={theme.dropDownBorder} top="40px" right="15px">
-              <DropDownPost theme={theme} id={id} removePostVisavility={removePostVisavility}/>
+              <DropDownPost theme={theme} id={id} removePostVisavility={removePostVisavility} updatePost={() => {
+                setShowDropDown(false)
+                setEditPostMode(true)}}/>
           </DropDownOptions>}
       </div>
     );
   }
   else{
-    <></>
+    return(
+        <></>
+    )
   }
  
 };
