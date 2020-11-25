@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React,{useEffect,useState }  from "react";
-=======
-import React from "react";
->>>>>>> d62e05c78a29afe8779a6f0435484fddd11d0f64
+import React ,{useState , useEffect} from "react";
 import FriendCover from "./FriendCover";
 import FriendProfileHeader from "./FriendProfileHeader";
 import PostContainer from "../component/post-container/PostContainer";
@@ -11,17 +7,14 @@ import { lightTheme, darkTheme } from "../theme";
 import { GlobalStyles } from "../global";
 
 const FriendProfile = (props) => {
-<<<<<<< HEAD
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
   const [userPath, setUserPath] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
-  // const [friendRequests, setFriendRequests] = useState("");
+  const [friendRequests, setFriendRequests] = useState("");
   const [theme , setTheme] = useState(darkTheme);
 
   console.log('f' , props);
-=======
->>>>>>> d62e05c78a29afe8779a6f0435484fddd11d0f64
 
   // const checkIfExist = () => {
   //   if (!props.data.data) {
@@ -72,14 +65,13 @@ const FriendProfile = (props) => {
   //   return false;
   // };
 
-<<<<<<< HEAD
   useEffect(() => {
       
       setUserName(props.data.data.first_name);
       setUserLastName(props.data.data.last_name);
       setUserPath(props.data.data.path);
       setProfilePicture(props.data.data.avatar);
-      // setFriendRequests(user.data.friendsRequest);
+      setFriendRequests(props.data.data.friendsRequest);
   
     // false ? setTheme(lightTheme) : setTheme(darkTheme)
   // eslint-disable-next-line
@@ -90,7 +82,7 @@ const FriendProfile = (props) => {
     <GlobalStyles />
       <FriendCover data = {props.data} />
       <br/>
-     <FriendProfileHeader userPath={props.userPath} profilePath={props.data.data.path} request={friendRequest}/>
+     <FriendProfileHeader userPath={props.userPath} profilePath={props.data.data.path} request={friendRequests}/>
      <PostContainer
         // writePost={() => setWritePostMode(true)}
         profileAvatar={profilePicture}
@@ -100,7 +92,6 @@ const FriendProfile = (props) => {
         theme = {theme}
       />
      </ThemeProvider>
-=======
   // //check if user and profile alreadt friends
   // const checkIfAlreadyFriends = () => {
   //   if (checkIfExist()) {
@@ -114,12 +105,11 @@ const FriendProfile = (props) => {
   //   return false;
   // };
 
-  return (
-    <div style={{backgroundColor: props.theme.body , minHeight:"100vh" , width:"100%"}}>
-      <FriendCover data={props.data} theme={props.theme} userPath={props.userPath}/>
-    </div>
->>>>>>> d62e05c78a29afe8779a6f0435484fddd11d0f64
-  );
-};
+  // return (
+  //   <div style={{backgroundColor: props.theme.body , minHeight:"100vh" , width:"100%"}}>
+  //     <FriendCover data={props.data} theme={props.theme} userPath={props.userPath}/>
+  //   </div>
+   );
+ }
 
 export default FriendProfile;
