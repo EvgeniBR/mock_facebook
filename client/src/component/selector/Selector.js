@@ -44,7 +44,7 @@ const Selector = ({ id , handleChange}) => {
   const options = optionSelector(id).map((option, index) => {
     return <option key={index} value={option}>{option}</option>;
   });
-  return <select onChange={(e) => handleChange(e.target.value)} id={id}>{options}</select>;
+  return <select className="selectBtn" onChange={(e) => handleChange(e.target.value)} id={id}>{options}</select>;
 };
 
 export default Selector;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import InputField from "../input-field/InputField";
 import ButtonField from "../button-field/ButtonField";
-import "./LoginField.css";
 import Seperator from "../seperator/Seperator";
 import DataService from "../../db-connection/DataService";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
+import '../../login-page/Login.css'
 
 const LoginField = ({ handleClick }) => {
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ const LoginField = ({ handleClick }) => {
   };
 
   return (
-    <div>
+    <>
       <InputField
         Inputtype="text"
         textOfPlaceholder="Email"
@@ -56,14 +56,15 @@ const LoginField = ({ handleClick }) => {
         btnColor="#504ddb"
         handleClick={checkForMatchUser}
       />
-      <a href="">Forgot Password?</a>
+      <a style={{textAlign:"center"}} href="">Forgot Password?</a>
       <Seperator />
       <ButtonField
         btnText="Create New Account"
         btnColor="#229d20"
+        btnWidth="60%"
         handleClick={() => handleClick()}
       />
-    </div>
+    </>
   );
 };
 

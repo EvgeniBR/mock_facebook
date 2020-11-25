@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./InputField.css";
 
-const InputField = ({ Inputtype, textOfPlaceholder , handleChange}) => {
+const InputField = ({ Inputtype, textOfPlaceholder , handleChange , inputWidth}) => {
   const [inputValue, setInputValue] = useState("");
   return (
     <input
       className="InputField"
+      style={{width:inputWidth}}
       type={Inputtype}
       placeholder={textOfPlaceholder}
       value={inputValue}
