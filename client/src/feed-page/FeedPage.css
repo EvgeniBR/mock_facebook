@@ -41,4 +41,57 @@
 
 .facebookShortcut i{
     font-size: 30px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
+.flag{
+    background: -webkit-linear-gradient(right,rgb(255, 153, 0) 80%, rgb(0, 132, 255)80%);
+}
+
+.covid{
+    background: -webkit-linear-gradient(bottom,rgb(255, 0, 170) 20%, rgb(162, 0, 255));
+}
+
+.friends{
+    background: -webkit-linear-gradient(left,rgb(0, 4, 255) 15%, rgb(0, 255, 213));
+}
+
+.group{
+    background: -webkit-radial-gradient(left,rgb(0, 4, 255) 5%, rgb(0, 255, 213));
+}
+.adCenter{
+    background: -webkit-linear-gradient(left,rgb(0, 4, 255) 35%, rgb(210, 233, 255) 35%);
+}
+
+.manager{
+    background: -webkit-linear-gradient(top,rgb(0, 4, 255) 15%, rgb(15, 24, 141));
+}
+
+.events{
+    background: -webkit-linear-gradient(top,rgb(255, 0, 0) 30%, rgb(209, 209, 209)30%);
+}
+.games{
+    background: -webkit-radial-gradient(circle,rgb(5, 134, 255)20%, rgb(2, 43, 175));
+}
+
+.memories{
+    background: -webkit-radial-gradient(circle,rgb(5, 134, 255)20%, rgb(2, 43, 175));
+}
+
+.jobs{
+    background: -webkit-radial-gradient(circle,rgb(134, 76, 0)20%, rgb(202, 133, 5));
+}
+
+.messenger , .saved , .messenger{
+    background: -webkit-linear-gradient(top,rgb(151, 0, 189) 50% ,rgb(255, 0, 221));
+}
+
+.Weather{
+    background: -webkit-linear-gradient(top,rgb(236, 221, 0),rgb(144, 204, 245)80%);
+}
+
+.video , .marketplace{
+    background: -webkit-radial-gradient(circle,rgb(5, 134, 255)20%, rgb(2, 43, 175));
+}
+

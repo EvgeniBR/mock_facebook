@@ -23,11 +23,34 @@
     padding: 10px;
 }
 
-.SignUp-row{
+.SignUpMainBody{
+    margin: 10px;
+    flex-direction: column;
     display: flex;
+    justify-content: center;
 }
 
-.SignUp-columns{
-    padding-right: 10px;
+.SignUp-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.SignUp-Hader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.exitSignUpBtn{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.GenderRadioBtnSelector label{
     margin-right: 10px;
+    padding: 5px;
 }

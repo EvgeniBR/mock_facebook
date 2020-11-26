@@ -1,18 +1,18 @@
 
 
 export const lightTheme = {
-    body: 'rgba(183, 192, 200, 1)',
+    body: '#e6ecf0',
     text: 'black',
     primaryText:"black",
     secondText:"rgba(64, 64, 64, 1)",
     // posts
     postBackground:'white',
-    postCommentBackground:'rgba(183, 192, 200, 1)',
+    postCommentBackground:'#e6ecf0',
     postPadding:'10px',
     postMargin:'10px',
     postBorderRadius:'20px',
     //feed
-    fieldBackGroundPost:'rgba(183, 192, 200, 1)',
+    fieldBackGroundPost:'#e6ecf0',
     seperatorLine:'rgba(64, 64, 64, 1)',
     btnBlueColor:"#0085ff",
     dropDownBorder:'rgba(0, 0, 0, 0.44)',

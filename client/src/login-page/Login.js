@@ -14,7 +14,11 @@ function Login() {
   cookies.remove('userPath');
   localStorage.removeItem('userAvatar')
 
-  const register = (residterMode&&<SignUp/>)
+  const closeSignUpPopUp = () => {
+    setRegisterMode(false)
+  }
+
+  const register = (residterMode&&<SignUp closeSignUpPopUp={closeSignUpPopUp}/>)
   return (
     <div className="Login">
       {register}

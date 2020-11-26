@@ -3,6 +3,8 @@
     height: var(--field-size);
     color: white;
     font-weight: bold;
-    padding: 0 10px;
+    padding: 0 15px;
     border-radius: 5px;
+    margin: 10px 0;
+    align-self: center;
 }
