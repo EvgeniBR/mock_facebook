@@ -9,15 +9,17 @@ const Profile = ({ data, userPath, theme }) => {
         <Cover data={data} theme={theme}/>
         <br />
         <div className="profile-data">
-          <div className="intro">
+          <div className="intro" style={{backgroundColor:theme.postBackground , color:theme.primaryText}}>
             <ul>
               <h3> Intro </h3>
               <li><i className="fas fa-graduation-cap"></i> Studied at:</li>
               <li><i className="fas fa-home"></i> Lives in:</li>
               <li><i className="fas fa-map-marker-alt"></i> From:</li>
               <li><i className="fas fa-history"></i> Joined at:</li>
-              <li><i className="fas fa-satellite-dish"></i> Followed by</li>
+              <li><i className="fas fa-satellite-dish"></i> Followed by:</li>
             </ul>
+            <button style={{backgroundColor:theme.body, color:theme.primaryText}}>Edit Details</button><br/>
+            <button style={{backgroundColor:theme.body, color:theme.primaryText}}>Add Hobbies</button>
           </div>
           <div className="seperator"></div>
         <PostContainer
