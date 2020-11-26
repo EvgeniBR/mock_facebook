@@ -83,3 +83,17 @@
   font-weight: 700;
   margin-left: 5px;
 }
+
+@media screen and (max-width: calc(650px + 300px + 300px)) {
+  .facebookProfileBtn {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: calc(650px)) {
+  .middleBtns {
+    display: none;
+  }
+
+}

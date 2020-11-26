@@ -40,3 +40,9 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+@media screen and (max-width:650px) {
+    .Post {
+        width: 90vw;
+    }
+}
