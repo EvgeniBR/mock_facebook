@@ -95,14 +95,14 @@
     background: -webkit-radial-gradient(circle,rgb(5, 134, 255)20%, rgb(2, 43, 175));
 }
 
-/* On screens that are 992px or less */
+
 @media screen and (max-width: calc(650px + 300px + 300px)) {
     .FeedPage_LeftPage {
       display: none;
     }
 }
 
-/* On screens that are 992px or less, set the background color to blue */
+
 @media screen and (max-width: calc(650px + 300px)) {
     .FeedPage_RightPage {
       display: none;
