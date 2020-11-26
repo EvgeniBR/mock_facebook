@@ -9,7 +9,7 @@ const castingTheValue = (value) => {
 const removeFriendRequest = async (profileToUpdate, friendRequestToRemove) => {
   const updateUser = await User.findOneAndUpdate(
     { path: profileToUpdate },
-    { $pull: { friendsRequest: { owner: friendRequestToRemove } } },
+    { $pull: { friendsRequest: { "owner": friendRequestToRemove } } },
     { new: true }
   );
   return updateUser;
@@ -18,7 +18,7 @@ const removeFriendRequest = async (profileToUpdate, friendRequestToRemove) => {
 const addFriendRequest = async (profileToUpdate, friendRequestToAdd) => {
   const updateUser = await User.findOneAndUpdate(
     { path: profileToUpdate },
-    { $push: { friendsRequest: { owner: friendRequestToAdd } } },
+    { $push: { friendsRequest: { "owner": friendRequestToAdd } } },
     { new: true }
   );
   return updateUser;
@@ -30,7 +30,7 @@ const removeSendFriendRequest = async (
 ) => {
   const updateUser = await User.findOneAndUpdate(
     { path: profileToUpdate },
-    { $pull: { friendsRequestSend: { owner: friendRequestToRemove } } },
+    { $pull: { friendsRequestSend: { "owner": friendRequestToRemove } } },
     { new: true }
   );
   return updateUser;
@@ -39,7 +39,7 @@ const removeSendFriendRequest = async (
 const addGetFriendRequest = async (profileToUpdate, friendRequestToAdd) => {
   const updateUser = await User.findOneAndUpdate(
     { path: profileToUpdate },
-    { $push: { friendsRequestSend: { owner: friendRequestToAdd } } },
+    { $push: { friendsRequestSend: { "owner": friendRequestToAdd } } },
     { new: true }
   );
   return updateUser;
@@ -48,7 +48,7 @@ const addGetFriendRequest = async (profileToUpdate, friendRequestToAdd) => {
 const addToFriendsList = async (profileToUpdate, anotherProfileToUpdate) => {
   const updateUser = await User.updateMany(
     { path: profileToUpdate },
-    { $push: { friends: { owner: anotherProfileToUpdate}}},
+    { $push: { friends: { "owner": anotherProfileToUpdate}}},
     { new: true }
   );
   return updateUser;
@@ -57,8 +57,8 @@ const addToFriendsList = async (profileToUpdate, anotherProfileToUpdate) => {
 //remove frind from friend list in friend profile and in user profile.
 const removeFromFriendList = async (profileToUpdate, anotherProfileToUpdate) => {
   const updateUser = await User.updateMany(
-    { path: {$in: [profileToUpdate , anotherProfileToUpdate]}},
-    { $pull: { friends: { owner: {$in: [profileToUpdate , anotherProfileToUpdate]}}}},
+    { path: profileToUpdate},
+    { $pull: { friends: { "owner": anotherProfileToUpdate }}},
     { new: true }
   );
   return updateUser;
@@ -108,6 +108,7 @@ router.patch("/facebook-profile/get-request", async (req, res) => {
   const request = castingTheValue(req.query.request);
 
   //update the user with path the user send request to
+  console.log(profilePath , userPath ,request );
   try {
     const updateUser = request
       ? await removeSendFriendRequest(userPath, profilePath)
