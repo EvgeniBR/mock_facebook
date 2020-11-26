@@ -12,7 +12,6 @@
 .FeedPage_CenterPage{
     height: 100%;
     box-sizing: content-box; /* So the width will be 100% + 17px */
-    width: 650px;
 }
 
 .FeedPage_RightPage{
@@ -95,3 +94,16 @@
     background: -webkit-radial-gradient(circle,rgb(5, 134, 255)20%, rgb(2, 43, 175));
 }
 
+
+@media screen and (max-width: calc(650px + 300px + 300px)) {
+    .FeedPage_LeftPage {
+      display: none;
+    }
+}
+
+
+@media screen and (max-width: calc(650px + 300px)) {
+    .FeedPage_RightPage {
+      display: none;
+    }
+}
