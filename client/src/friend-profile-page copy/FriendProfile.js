@@ -24,12 +24,12 @@ const FriendProfile = (props) => {
         <div className="profile-data">
           <div className="intro">
             <ul>
-              <h3> Intro </h3>
-              <li><i className="fas fa-graduation-cap"></i> Studied at:</li>
-              <li><i className="fas fa-home"></i> Lives in:</li>
-              <li><i className="fas fa-map-marker-alt"></i> From:</li>
-              <li><i className="fas fa-history"></i> Joined at:</li>
-              <li><i className="fas fa-satellite-dish"></i> Followed by</li>
+              <h3 style={{color:`${props.theme.primaryText}`}}> Intro </h3>
+              <li style={{color:`${props.theme.primaryText}`}}><i className="fas fa-graduation-cap"></i> Studied at:</li>
+              <li style={{color:`${props.theme.primaryText}`}}><i className="fas fa-home"></i> Lives in:</li>
+              <li style={{color:`${props.theme.primaryText}`}}><i className="fas fa-map-marker-alt"></i> From:</li>
+              <li style={{color:`${props.theme.primaryText}`}}><i className="fas fa-history"></i> Joined at:</li>
+              <li style={{color:`${props.theme.primaryText}`}}><i className="fas fa-satellite-dish"></i> Followed by</li>
             </ul>
           </div>
           <div className="seperator"></div>
