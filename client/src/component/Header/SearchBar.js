@@ -2,10 +2,45 @@ import React, { useState ,useEffect } from "react";
 import './Header.css'
 //import DataService from '../../db-connection/DataService';
 import {  withRouter } from "react-router-dom";
+import CircleDivWithIcon from '../circle-div/CircleDivWithIcon'
+
+
+// Hook
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  return windowSize;
+}
 
 const SearchBar = ({backgroundInput , color}) => {
   const [searchResults, setSearchResults] = useState("");
   const [searchTitles, setSearchTitles] = useState([]);
+  const size = useWindowSize();
 
   useEffect(() => {
     // const searchFacebook = async () => {
@@ -38,17 +73,31 @@ const SearchBar = ({backgroundInput , color}) => {
     setSearchResults(event.target.value);
   };
 
+  const fullSearchBar = () => {
+    return <input
+      style={{backgroundColor:backgroundInput , color:color}}
+      className="search-input"
+      value={searchResults}
+      onChange={(e) => onInputChange(e)}
+      type="text"
+      placeholder="&#xf002; Search Facebook"
+    />
+  }
+
+  const miniSearchBar = () => {
+    return <CircleDivWithIcon
+        icon="fas fa-search"
+        backgroundColor={backgroundInput}
+        color={color}
+        size="40px"
+      />  
+  }
+
+
   return (
     <div>
       <div className="search-div">
-        <input
-          style={{backgroundColor:backgroundInput , color:color}}
-          className="search-input"
-          value={searchResults}
-          onChange={(e) => onInputChange(e)}
-          type="text"
-          placeholder="&#xf002; Search Facebook"
-        />
+        {size.width > 1200 ? fullSearchBar() : miniSearchBar()} 
       </div>
       <div className="search-render-container">
       <div className="search-render-results" >{searchTitles}</div>

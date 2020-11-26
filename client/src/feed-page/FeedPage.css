@@ -12,7 +12,6 @@
 .FeedPage_CenterPage{
     height: 100%;
     box-sizing: content-box; /* So the width will be 100% + 17px */
-    width: 650px;
 }
 
 .FeedPage_RightPage{

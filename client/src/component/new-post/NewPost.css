@@ -10,3 +10,9 @@
     font-size: 15px;
     width: 100%;
 }
+
+@media screen and (max-width:650px) {
+    .NewPost {
+        width: 90vw;
+    }
+}
