@@ -4,13 +4,6 @@ import FriendAvatar from "./FriendAvatar";
 import FriendProfileHeader from "./FriendProfileHeader";
 
 const FriendCover = ({data , theme , userPath}) => {
-  //get cover photo from user to img tag
-
-  // useEffect(()=>{
-  //   console.log('friend',data.data);
- 
-  //    })
-
   const checkIfExist = () => {
     if (!data.data) {
       return false;

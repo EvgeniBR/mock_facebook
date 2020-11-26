@@ -82,3 +82,23 @@
 header button:hover{
     background: #acaeaf;
 }
+
+.profile-data {
+/* display:grid;
+    grid-template-columns:2fr 2fr;
+    gap:1rem;
+    padding: 2rem; */
+    display: flex;
+    justify-content: center;
+}
+
+.seperator {
+    width: 100px;
+}
+.intro ul {
+    list-style-type: none;
+    padding: 0.4rem;
+}
+.intro ul li {
+    padding: 0.8rem 0;
+}
