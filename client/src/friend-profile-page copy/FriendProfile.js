@@ -29,7 +29,7 @@ const FriendProfile = (props) => {
     <div>
         <FriendCover data = {props.data} theme={props.theme}/>
         <br/>
-        <FriendProfileHeader userPath={props.userPath} profilePath={props.data.data.path} request={friendRequests} theme={props.theme}/>
+        
         <PostContainer
           // writePost={() => setWritePostMode(true)}
           profileAvatar={profilePicture}

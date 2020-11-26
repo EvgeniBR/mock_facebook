@@ -55,6 +55,7 @@ const FriendProfileHeader = ({ userPath, profilePath , request , theme}) => {
   }
 
   const makeFriendRequest = async (e) => {
+    console.log(e.target.id);
     try{
       if(e.target.id === "unFriends"){
         await dealWithFriendRequest(false,userPath,profilePath,<i id="friendRequestSend" className="fas fa-user-times"></i>);
