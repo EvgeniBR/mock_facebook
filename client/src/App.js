@@ -4,8 +4,8 @@ import "./App.css"
 
 function App() {
   return (
-    <div className="facebook">
-        <Facebook/>
+    <div className="facebook">  
+      <Facebook/> 
     </div>
   );
 }
