@@ -61,7 +61,7 @@ router.get("/facebook-post/profile/:owner", async (req, res) => {
   const owner = req.params.owner;
 
   try {
-    const usersPost = await Post.find({ owner: owner });
+    const usersPost = await Post.find({ owner: owner }).sort({"createdAt":-1});
     const getUserInfo = usersPost.map(async (post) => {
       return {
         myPost: post,
@@ -90,7 +90,7 @@ router.get("/facebook-post/feed/:owner", async (req, res) => {
   selecteMessage.push(owner);
 
   try {
-    const usersPost = await Post.find({ owner: { $in: [...selecteMessage] } });
+    const usersPost = await Post.find({ owner: { $in: [...selecteMessage]}}).sort({"createdAt":-1});
     const getUserInfo = usersPost.map(async (post) => {
       return {
         myPost: post,
