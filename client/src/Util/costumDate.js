@@ -31,6 +31,9 @@ const calcTimePassMinute = (timeNow , timePostPublish) =>{
   if(timeNow < timePostPublish){
     return 60 - timePostPublish + timeNow;
   }
+  else if(timeNow === timePostPublish){
+    return '1'
+  }
   else{
     return timeNow - timePostPublish;
   }

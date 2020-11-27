@@ -7,12 +7,7 @@ import Cookies from "universal-cookie";
 function Login() {
   const [residterMode, setRegisterMode] = useState(false);
 
-  const cookies = new Cookies();
-  cookies.remove('mockFacebookToken');
-  cookies.remove('userName');
-  cookies.remove('userLastName');
-  cookies.remove('userPath');
-  localStorage.removeItem('userAvatar')
+
 
   const closeSignUpPopUp = () => {
     setRegisterMode(false)

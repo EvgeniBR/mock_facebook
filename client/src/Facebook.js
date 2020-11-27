@@ -20,33 +20,31 @@ const Facebook = () => {
   const [theme, setTheme] = useState(lightTheme);
   const [themePick , setThemePick] = useState(false)
   
+  const getUserData = async () => {
+    setUserPath(cookies.get('userPath'));
+    setUserName(cookies.get('userName'));
+    setUserLastName(cookies.get('userLastName'));
+    setUserAvatar(localStorage.getItem('userAvatar'));
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (token) {
-      async function getData() {
+    if(!token){
+      return
+    }
+    async function getData() {
         const user = await DataService.getAuth("users/me", token);
-        setUserPath(user.data.path);
-        setUserName(user.data.first_name);
-        setUserLastName(user.data.last_name);
-        setUserAvatar(user.data.avatar);
         //set to cookies
         localStorage.setItem('userAvatar',user.data.avatar);
         cookies.set('userName',user.data.first_name);
         cookies.set('userLastName',user.data.last_name);
         cookies.set('userPath',user.data.path);
-      }
-      if(localStorage.getItem('userAvatar') && cookies.get('userName') && cookies.get('userLastName')) {
-        setUserAvatar(localStorage.getItem('userAvatar'));
-        setUserName(cookies.get('userName'));
-        setUserLastName(cookies.get('userLastName'));
-        setUserPath(cookies.get('userPath'));
-      }
-      else{
-        getData();
-      }
     }
-  }, [token, location.pathname]);
+    if(!(localStorage.getItem('userAvatar') && cookies.get('userName') && cookies.get('userLastName'))) {
+      getData()
+    }   
+    getUserData()
+  }, [token, cookies , localStorage]);
 
   useEffect(() => {
     setUserAvatar(localStorage.getItem('userAvatar'));
