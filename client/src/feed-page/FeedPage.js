@@ -49,10 +49,6 @@ const FeedPage = ({ currentUserPath, theme }) => {
 
   return (
     <div className="FeedPage" style={{backgroundColor:theme.body}}>
-      <div className="FeedPage_LeftPage">
-        <FacebookShortcut color={theme.primaryText}/>
-      </div>
-      <div className="FeedPage_CenterPage">
         {writeModePost && (
           <NewPostField
             profileAvatar={profilePicture}
@@ -63,6 +59,11 @@ const FeedPage = ({ currentUserPath, theme }) => {
             theme={theme}
           />
         )}
+      <div className="FeedPage_LeftPage">
+        <FacebookShortcut color={theme.primaryText}/>
+      </div>
+      <div className="FeedPage_CenterPage">
+
         <PostContainer
           writePost={() => setWritePostMode(true)}
           profileAvatar={profilePicture}

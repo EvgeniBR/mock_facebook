@@ -33,6 +33,11 @@ const DropDownAccount = ({
   };
 
   const logOutFromAcoount = async () => {
+    cookies.remove('mockFacebookToken');
+    cookies.remove('userName');
+    cookies.remove('userLastName');
+    cookies.remove('userPath');
+    localStorage.removeItem('userAvatar')
     // await DataService.postAuth('users/logout',token);
     history.push('/register');
   }

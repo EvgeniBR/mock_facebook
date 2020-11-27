@@ -18,7 +18,7 @@ const removeFriendRequest = async (profileToUpdate, friendRequestToRemove) => {
 const addFriendRequest = async (profileToUpdate, friendRequestToAdd) => {
   const updateUser = await User.findOneAndUpdate(
     { path: profileToUpdate },
-    { $push: { friendsRequest: { "owner": friendRequestToAdd } } },
+    { $push:{ friendsRequest: { "owner": friendRequestToAdd }} , $push:{"activity":friendRequestToAdd}},
     { new: true }
   );
   return updateUser;
