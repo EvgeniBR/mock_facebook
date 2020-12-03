@@ -3,6 +3,7 @@ import CircleIcon from "../circle-Img/CircleIcon";
 import DataService from "../../db-connection/DataService";
 import ButtonField from "../button-field/ButtonField";
 import "./FeedBoxNote.css";
+import {approveFriendRequest, requestFriendRequest} from '../../Util/serverConnect';
 
 const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
   const [userAvatar, setUserAvatar] = useState("");
@@ -31,12 +32,7 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
   const handleConfirmRequest = async () => {
     //remove the request and push each profile to friend list
     try {
-      await DataService.patch(
-        `facebook-profile/getFriendRequest`,{
-          userPath: currentPath,
-          profilePath: userAskProfilePath,
-        }
-      );
+      await approveFriendRequest(currentPath,userAskProfilePath)
       setApprove(true);
     } catch {
       console.log("something wrong try again later");
@@ -46,10 +42,7 @@ const FeedFriendRequest = ({ text, friendRequests, currentPath, theme }) => {
   const handleReqectRequest = async () => {
     //remove the request
     try {
-      await DataService.patch(`facebook-profile/rejectFriendRequest`, {
-        userPath: currentPath,
-        profilePath: userAskProfilePath,
-      });
+      await requestFriendRequest(currentPath,userAskProfilePath)
       setRefuse(true);
     } catch {
       console.log("something wrong try again later");

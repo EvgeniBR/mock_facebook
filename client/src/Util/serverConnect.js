@@ -28,15 +28,41 @@ export async function getPostData(postID) {
 
 export async function postNewPostComment(postID , commentData) {
     await DataService.patch(`facebook-comment/${postID}`, commentData);
-    return
 }
 
 export async function postNewPostLike(postID , newLike , likeOwner) {
     await DataService.patch(`facebook-post/${postID}/${newLike}`, likeOwner)
-    return
 }
 
 export async function updateExistPost(postID , msgValue) {
     const updatedData = await DataService.patch(`facebook-post/${postID}`, msgValue)
     return updatedData
+}
+
+//friend frquests 
+export async function dealWithFriendRequest(requestType, currentUser , profile) {
+    await DataService.patch(`facebook-profile/send-request?request=${requestType}`,
+    {
+     userPath: currentUser,
+     profilePath: profile,
+   });
+   await DataService.patch(`facebook-profile/get-request?request=${requestType}`, 
+   {
+     userPath: currentUser,
+     profilePath: profile,
+   });
+}
+
+export async function approveFriendRequest(userPath , profileToUpdate) {
+    await DataService.patch(`facebook-profile/getFriendRequest`, {
+        userPath: userPath,
+        profilePath: profileToUpdate,
+    })
+}
+
+export async function requestFriendRequest(userPath , profileToUpdate) {
+    await DataService.patch(`facebook-profile/rejectFriendRequest`, {
+        userPath: userPath,
+        profilePath: profileToUpdate,
+    })
 }
