@@ -6,11 +6,11 @@ import PostDate from "../date/PostDate";
 import PostButton from "../post-button/PostButton";
 import PostComment from "../post-comment/PostComment";
 import WriteNewComment from "../write-new-comment/WriteNewComment";
-import DataService from "../../db-connection/DataService";
 import PostStatics from '../post-statics/PostStatics';
 import DropDownOptions from '../dropdown-options/DropDownOptions';
 import DropDownPost from '../dropdown-options/DropDownPost';
 import NewPostField from '../new-post-filed/NewPostField';
+import {getPostData, postNewPostComment, postNewPostLike ,updateExistPost } from '../../Util/serverConnect';
 
 const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , userProfileAvatar , currentUserPath}) => {
   //post info
@@ -53,10 +53,9 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
     if(!postVisability){
       return
     }
-    const postData = await DataService.get(`facebook-post/get-post/${id}`);
-    setPostInfo(postData.data);
-    const postCommentsArr = await DataService.get(`facebook-post/post/${id}`);
-    setCommentsArr(postCommentsArr.data);
+    const postFullData = await getPostData(id)
+    setPostInfo(postFullData.postData.data);
+    setCommentsArr(postFullData.postComments.data);
   };
 
   useEffect(() => {
@@ -65,9 +64,8 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
 
   useEffect(() => {
     if (newComment) {
-      console.log(newComment);
       const setData = async () => {
-        await DataService.patch(`facebook-comment/${id}`, newComment);
+        await postNewPostComment(id,newComment)
         setNewComment('');
         await getData();
       };
@@ -82,8 +80,9 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
         owner:currentUserPath
       }
       const setData = async () => {
-        await DataService.patch(`facebook-post/${id}/${newLike}`, data).then(() => getData());
+        await postNewPostLike(id,newLike,data)
         setNewLike("");
+        await getData();
       };
       setData();
     }
@@ -137,10 +136,10 @@ const Post = ({ id, firstName, lastName, postOwnerPath, userAvatar , theme , use
     const data = {
       message:value
     }
-    await DataService.patch(`facebook-post/${id}`, data).then((updatedData) =>{
-      setEditPostMode(false)
-      setMassege(updatedData.data.message)
-    }) 
+    const updatedData = await updateExistPost(id,data)
+    setEditPostMode(false)
+    setMassege(updatedData.data.message)
+    
   }
 
   if(postVisability){
