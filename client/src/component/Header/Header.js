@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useHistory } from "react-router-dom";
 import "./Header.css";
 import SearchBar from "./SearchBar";
 import HeaderDropDown from "./HeaderDropDown";
 import CircleIcon from "../circle-Img/CircleIcon";
-import { useHistory } from "react-router-dom";
 
 const Header = ({userPath,userName,userLastName,userAvatar,theme,changeDisplayMode,themePick}) => {
   const [accountDropDown, setAccountDropDown] = useState(false);

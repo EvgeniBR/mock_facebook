@@ -10,7 +10,7 @@ import Cookies from 'universal-cookie';
 import { useHistory } from "react-router-dom";
 
 
-const SignUp = ({closeSignUpPopUp}) => {
+const SignUp = ({closeSignUpPopUp,changeLocation}) => {
   //birthsday
   const [day , setDay] = useState(-1);
   const [month , setMonth] = useState('');
@@ -22,7 +22,6 @@ const SignUp = ({closeSignUpPopUp}) => {
   const [password , setPassword] = useState('');
   const [gender , setGender] = useState('');
 
-  
   const cookies = new Cookies();
   let history = useHistory();
 
@@ -60,7 +59,7 @@ const SignUp = ({closeSignUpPopUp}) => {
         const user = await DataService.create('users', data);
         console.log(user.data.token);
         cookies.set('mockFacebookToken', user.data.token , coociesAccess);
-        history.push('/');
+        changeLocation('/')
       }
       catch{
         console.log("something wrong");

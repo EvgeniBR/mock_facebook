@@ -7,7 +7,7 @@ import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
 import '../../login-page/Login.css'
 
-const LoginField = ({ handleClick }) => {
+const LoginField = ({ handleClick ,changeLocation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
@@ -35,7 +35,7 @@ const LoginField = ({ handleClick }) => {
     const validate = await DataService.create("users/login", data);
     setToken(validate.data.token);
     cookies.set("mockFacebookToken", validate.data.token, coociesAccess);
-    
+    changeLocation('/')
   };
 
   return (
