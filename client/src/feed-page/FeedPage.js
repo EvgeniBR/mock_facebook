@@ -3,12 +3,12 @@ import "./FeedPage.css";
 import PostContainer from "../component/post-container/PostContainer";
 import NewPostField from "../component/new-post-filed/NewPostField";
 import Cookies from "universal-cookie";
-import DataService from "../db-connection/DataService";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import FeedBoxNote from "../component/feed-Box-note/FeedBoxNote";
 import FeedSponsored from "../component/feed-Box-note/FeedSponsored";
 import FeedFriendRequest from "../component/feed-Box-note/FeedFriendRequest";
 import FacebookShortcut from './FacebookShortcut';
+import {getUserData , createNewPost} from '../Util/serverConnect';
 
 const FeedPage = ({ currentUserPath, theme }) => {
   const [writeModePost, setWritePostMode] = useState(false);
@@ -19,16 +19,15 @@ const FeedPage = ({ currentUserPath, theme }) => {
   const [friendRequests, setFriendRequests] = useState("");
 
   const cookies = new Cookies();
-  let history = useHistory();
+  const token = cookies.get("mockFacebookToken");
+
 
   useEffect(() => {
-    const token = cookies.get("mockFacebookToken");
-    if (!token) {
-      //the user not have token so automove to register page
-      history.push("/register");
+    if(!token){
+      return
     }
     async function getData() {
-      const user = await DataService.getAuth("users/me", token);
+      const user = await getUserData(token)
       setUserName(user.data.first_name);
       setUserLastName(user.data.last_name);
       setUserPath(user.data.path);
@@ -43,9 +42,14 @@ const FeedPage = ({ currentUserPath, theme }) => {
       owner: userPath,
       message: value,
     };
-    await DataService.create("facebook-post", data);
+    await createNewPost(data)
     setWritePostMode(false);
   };
+
+  if (!token) {
+    //the user not have token so automove to register page
+    return <Redirect to="/register" />
+  }
 
   return (
     <div className="FeedPage" style={{backgroundColor:theme.body}}>

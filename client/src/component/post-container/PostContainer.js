@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Post from "../post/Post";
 import NewPost from "../new-post/NewPost";
-import DataService from "../../db-connection/DataService";
 import { useLocation } from "react-router-dom";
+import { getUserFeedProfile , getUserProfile} from '../../Util/serverConnect';
 
 //TO-DO - after friend will added make a lits of path and add it to postToShowPathList
 const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme,currentUserPath}) => {
@@ -13,16 +13,7 @@ const PostContainer = ({ profileAvatar, writePost, firstName, userPath , theme,c
 
   async function getData() {
     let postToShow;
-
-    //const user = await DataService.get('users/me',token);
-    const currentPath = location.pathname;
-    if (currentPath === "/") {
-      //on feed se we need to take the user path and from friend list
-      postToShow = await DataService.get(`facebook-post/feed/${userPath}`);
-    } else {
-      //get profile user post
-      postToShow = await DataService.get(`facebook-post/profile/${userPath}`);
-    }
+    location.pathname === '/' ? postToShow = await getUserFeedProfile(userPath) :  postToShow = await getUserProfile(userPath) 
     setPosts(postToShow.data);
   }
 

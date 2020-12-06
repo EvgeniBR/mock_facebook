@@ -7,10 +7,9 @@ import Selector from "../selector/Selector";
 import ButtonField from "../button-field/ButtonField";
 import DataService from '../../db-connection/DataService';
 import Cookies from 'universal-cookie';
-import { useHistory } from "react-router-dom";
 
 
-const SignUp = ({closeSignUpPopUp}) => {
+const SignUp = ({closeSignUpPopUp,changeLocation}) => {
   //birthsday
   const [day , setDay] = useState(-1);
   const [month , setMonth] = useState('');
@@ -22,10 +21,7 @@ const SignUp = ({closeSignUpPopUp}) => {
   const [password , setPassword] = useState('');
   const [gender , setGender] = useState('');
 
-  
   const cookies = new Cookies();
-  let history = useHistory();
-
   const coociesAccess = {
     path : '/',
     sameSite: 'strict',
@@ -58,9 +54,8 @@ const SignUp = ({closeSignUpPopUp}) => {
     if(!checkIfEmpty()){
       try{
         const user = await DataService.create('users', data);
-        console.log(user.data.token);
         cookies.set('mockFacebookToken', user.data.token , coociesAccess);
-        history.push('/');
+        changeLocation('/')
       }
       catch{
         console.log("something wrong");

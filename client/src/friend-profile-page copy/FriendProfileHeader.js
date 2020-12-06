@@ -2,6 +2,7 @@ import React , {useState , useEffect} from "react";
 import { Link } from "react-router-dom";
 import "./FriendProfile.css";
 import DataService from '../db-connection/DataService';
+import {dealWithFriendRequest, approveFriendRequest, requestFriendRequest} from '../Util/serverConnect';
 
 const FriendProfileHeader = ({ userPath, profilePath , request , theme}) => {
   const [ profileRequest , setProfileRequest ] = useState('');
@@ -15,60 +16,29 @@ const FriendProfileHeader = ({ userPath, profilePath , request , theme}) => {
     }
   }, [request]);
 
-  const dealWithFriendRequest = async (requestType, currentUserPath , profilePath , changeBtnIcon) => {
-      await DataService.patch(`facebook-profile/send-request?request=${requestType}`,
-       {
-        userPath: currentUserPath,
-        profilePath: profilePath,
-      });
-      await DataService.patch(`facebook-profile/get-request?request=${requestType}`, 
-      {
-        userPath: currentUserPath,
-        profilePath: profilePath,
-      });
-      setProfileRequest(changeBtnIcon);
-  }
-
-  const dealWithExistFriendRequest = async (currentUserPath , profilePath , changeBtnIcon) => {
-    await DataService.patch(`facebook-profile/getFriendRequest`,
-      {
-        userPath: currentUserPath,
-        profilePath: profilePath,
-      }
-    );
-    setProfileRequest(changeBtnIcon);
-  }
-
-  const removeExistFriend = async (currentUserPath , profilePath , changeBtnIcon) => {
-    await DataService.patch(`facebook-profile/removeFriend`,
-      {
-        userPath: currentUserPath,
-        profilePath: profilePath,
-      }
-    );
-    setProfileRequest(changeBtnIcon);
-  }
-
   const btnStyle ={
     color:theme.primaryText,
     backgroundColor:theme.postCommentBackground
   }
 
   const makeFriendRequest = async (e) => {
-    console.log(e.target.id);
     try{
       if(e.target.id === "unFriends"){
-        await dealWithFriendRequest(false,userPath,profilePath,<i id="friendRequestSend" className="fas fa-user-times"></i>);
+        await dealWithFriendRequest(false,userPath,profilePath);
+        setProfileRequest(<i id="friendRequestSend" className="fas fa-user-times"></i>);
       }
       else if(e.target.id === "friendRequestSend"){
-        await dealWithFriendRequest(true,userPath,profilePath,<i id="unFriends" className="fas fa-user-plus"></i>);
+        await dealWithFriendRequest(true,userPath,profilePath,);
+        setProfileRequest(<i id="unFriends" className="fas fa-user-plus"></i>);
       }
       //TO-DO approve or decline - for now - only approve
       else if(e.target.id === "friendRequestGet"){
-        await dealWithExistFriendRequest(userPath,profilePath,<i id="friends" className="fas fa-user-friends"></i>)
+        await approveFriendRequest(userPath,profilePath);
+        setProfileRequest(<i id="friends" className="fas fa-user-friends"></i>);
       }
       else{
-        await removeExistFriend(userPath,profilePath,<i id="unFriends" className="fas fa-user-plus"></i>)
+        await requestFriendRequest(userPath,profilePath);
+        setProfileRequest(<i id="unFriends" className="fas fa-user-plus"></i>);
       }
     }
     catch{
