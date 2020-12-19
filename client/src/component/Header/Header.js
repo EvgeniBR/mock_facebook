@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link ,useHistory } from "react-router-dom";
-import "./Header.css";
 import SearchBar from "./SearchBar";
 import HeaderDropDown from "./HeaderDropDown";
 import CircleIcon from "../circle-Img/CircleIcon";

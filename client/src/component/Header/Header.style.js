@@ -42,6 +42,9 @@ export const Container = styled.div`
           border-radius: 10px;
         }
       }
+    @media (max-width: calc(650px)) {
+      display: none;
+    }
   }
 `;
 
@@ -80,6 +83,9 @@ export const FacebookProfileBtn = styled.div`
     border-radius: 25%;
     &:hover{
         background-color: ${props => props.theme.postCommentBackground};
+    }
+    @media (max-width: calc(650px + 300px + 300px)) {
+      display: none;
     }
 `;
 

@@ -3,7 +3,6 @@ import DropDownOptions from "../dropdown-options/DropDownOptions";
 import DropDownAccount from "../dropdown-options/DropDownAccount";
 import CircleDivWithIcon from '../circle-div/CircleDivWithIcon';
 import * as StyleHeader from "./Header.style";
-import "./Header.css";
 
 const HeaderDropDown = ({handleClick,btnName,id,userName,userAvatar,showDropDown,userPath,changeDisplayMode ,themePick}) => {
   const handleDropDownClick = () => {
