@@ -1,4 +1,4 @@
-.header {
+/* .header {
   height: var(--header-height);
   display: flex;
   justify-content: space-between;
@@ -8,15 +8,15 @@
   left: 0;
   z-index: 5;
   width: 100%;
-}
+} */
 
-.header .facebookLogoBtn img {
+/* .header .facebookLogoBtn img {
   height: 40px;
   cursor: pointer;
   padding : 0 0.3rem; 
-}
+} */
 
-.rightSideBtns {
+/* .rightSideBtns {
   display: flex;
 }
 
@@ -24,8 +24,8 @@
   display: flex;
   margin : 0 0.3rem;
   padding : 0 0.3rem; 
-}
-.search-div input {
+} */
+/* .search-div input {
   margin : 0 0.3rem;
   height: 40px;
   width: 270px;
@@ -34,14 +34,9 @@
   font-family: FontAwesome;
   cursor: pointer;
 }
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #A7AAAE;
-    opacity: 1; /* Firefox */
-    font-size: 1rem;
-    text-align: center;
-  }
+ */
 
-.middleBtns{
+/* .middleBtns{
   display: flex;
 }
 
@@ -63,9 +58,9 @@
 }
 .middleBtns a:hover{
   background: rgb(97, 97, 97);
-}
+} */
 
-.divButtonContainer .right-btn{
+/* .divButtonContainer .right-btn{
   border: none;
   background-color: rgba(0,0,0,0);
   margin: 0 5px;
@@ -77,12 +72,12 @@
   cursor: pointer;
   border-radius: 20px;
   padding: 3px;
-}
+} */
 
-.facebookProfileBtn > p{
+/* .facebookProfileBtn > p{
   font-weight: 700;
   margin-left: 5px;
-}
+} */
 
 @media screen and (max-width: calc(650px + 300px + 300px)) {
   .facebookProfileBtn {

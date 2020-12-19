@@ -4,10 +4,10 @@ import "./Header.css";
 import SearchBar from "./SearchBar";
 import HeaderDropDown from "./HeaderDropDown";
 import CircleIcon from "../circle-Img/CircleIcon";
+import * as StyleHeader from "./Header.style";
 
-const Header = ({userPath,userName,userLastName,userAvatar,theme,changeDisplayMode,themePick}) => {
+const Header = ({userPath,userName,userLastName,userAvatar,changeDisplayMode,themePick}) => {
   const [accountDropDown, setAccountDropDown] = useState(false);
-  const [userBtnHoverColor, setUserBtnHoverColor] = useState("rgba(0,0,0,0)");
   let history = useHistory();
 
   const goToUserProfile = () => {
@@ -27,78 +27,56 @@ const Header = ({userPath,userName,userLastName,userAvatar,theme,changeDisplayMo
     setAccountDropDown(value);
   };
 
-  const btnTheme = {
-    color: theme.primaryText,
-  };
-
-  const userBtnStyle = {
-    backgroundColor: userBtnHoverColor,
-  };
-
   return (
-    <header
-      className="header"
-      style={{ backgroundColor: theme.postBackground , borderBottom:`1px soild ${theme.dropDownBorder}`}}
-    >
+    <StyleHeader.Container>
       <div className="leftSideBtns">
-        <Link className="facebookLogoBtn" to="/">
+        <Link to="/">
           <img
             className="mainLogo"
             src="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512"
             alt="logo"
-          ></img>{" "}
+          ></img>
         </Link>
-        <SearchBar
-          backgroundInput={theme.postCommentBackground}
-          color={theme.primaryText}
-        />
+        <SearchBar/>
       </div>
       <div className="middleBtns">
-        <Link className="headerBtn" style={btnTheme} to="/">
+        <Link className="headerBtn" to="/">
           <i className="fas fa-home fa"></i>
         </Link>
-        <Link className="headerBtn" style={btnTheme} to="/watch">
+        <Link className="headerBtn" to="/watch">
           <i className="fab fa-youtube fa"></i>
         </Link>
-        <Link className="headerBtn" style={btnTheme} to="/marketPlace">
+        <Link className="headerBtn" to="/marketPlace">
           <i className="fas fa-store fa"></i>
         </Link>
-        <Link className="headerBtn" style={btnTheme} to="/groups">
+        <Link className="headerBtn" to="/groups">
           <i className="fas fa-users fa"></i>
         </Link>
-        <Link className="headerBtn" style={btnTheme} to="/gaming">
+        <Link className="headerBtn" to="/gaming">
           <i className="fas fa-gamepad fa"></i>
         </Link>
       </div>
       <div className="rightSideBtns" >
-        <div className="facebookProfileBtn" style={userBtnStyle}
-        onMouseEnter={() => {setUserBtnHoverColor(theme.postCommentBackground)}}
-        onMouseLeave={() => {setUserBtnHoverColor("rgba(0,0,0,0)")}}
-        onClick={goToUserProfile}
-        >
+        <StyleHeader.FacebookProfileBtn onClick={goToUserProfile}>
           <CircleIcon srcIcon={userAvatar} size="35px" />
-          <p style={{color:theme.primaryText}}>{userName}</p>
-        </div>
+          <p>{userName}</p>
+        </StyleHeader.FacebookProfileBtn>
         <HeaderDropDown
-          theme={theme}
           id="create"
           btnName="fas fa-plus"
           handleClick={onCreateClick}
         />
         <HeaderDropDown
-          theme={theme}
           id="messenger"
           btnName="fab fa-facebook-messenger "
           handleClick={onMassangerClick}
         />
         <HeaderDropDown
-          theme={theme}
           id="notefications"
           btnName="fas fa-bell"
           handleClick={onNotificationsClick}
         />
         <HeaderDropDown
-          theme={theme}
           id="account"
           btnName="fas fa-sort-down"
           userName={`${userName} ${userLastName}`}
@@ -110,7 +88,7 @@ const Header = ({userPath,userName,userLastName,userAvatar,theme,changeDisplayMo
           themePick={themePick}
         />
       </div>
-    </header>
+    </StyleHeader.Container>
   );
 };
 

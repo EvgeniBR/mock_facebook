@@ -4,12 +4,12 @@ import CircleIcon from "../circle-Img/CircleIcon";
 import CircleDivWithIcon from "../circle-div/CircleDivWithIcon";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
+import * as DropDown from "./DropDownOptions.style";
 
 const DropDownAccount = ({
   userPath,
   userAvatar,
   userName,
-  theme,
   handleCloseDropDown,
   changeDisplayMode,
   themePick
@@ -42,18 +42,12 @@ const DropDownAccount = ({
     history.push('/register');
   }
 
-  const option = {
-    color: theme.primaryText,
-    padding: "10px",
-  };
-
   const displayPreference = () => {
     return (
       <div className="displayPreference">
         <div className="dropDownAccount__mainOption">
           <CircleDivWithIcon
             icon="fas fa-moon"
-            backgroundColor={theme.postCommentBackground}
           />
           <p className="dropDownAccount__pTtile">Dark Mode</p>
         </div>
@@ -72,14 +66,13 @@ const DropDownAccount = ({
   };
 
   return (
-    <div style={option}>
+    <DropDown.Container>
       <div
         className="dropDownAccount__header"
-        style={{ borderBottom: `1px solid ${theme.dropDownBorder}` }}
         onClick={handleMoveToProfile}
       >
         <CircleIcon srcIcon={userAvatar} size="60px" />
-        <div style={{ marginLeft: theme.postMargin }}>
+        <div className="DropDownAccount__title">
           <p className="dropDownAccount__pTtile">{userName}</p>
           <p>See your Profile</p>
         </div>
@@ -90,7 +83,6 @@ const DropDownAccount = ({
       >
         <CircleDivWithIcon
           icon="fas fa-moon"
-          backgroundColor={theme.postCommentBackground}
         />
         <p className="dropDownAccount__pTtile">Display Preferences</p>
       </div>
@@ -98,14 +90,13 @@ const DropDownAccount = ({
       <div className="dropDownAccount__mainOption">
         <CircleDivWithIcon
           icon="fas fa-sign-out-alt"
-          backgroundColor={theme.postCommentBackground}
         />
         <p className="dropDownAccount__pTtile" onClick={logOutFromAcoount}>Log Out</p>
       </div>
       <p className="facebookPolicy">
         Privacy · Terms · Advertising · Ad Choices · Cookies · Facebook © 2020
       </p>
-    </div>
+    </DropDown.Container>
   );
 };
 
