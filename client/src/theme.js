@@ -1,10 +1,14 @@
 
 
 export const lightTheme = {
+    //general
     body: '#e6ecf0',
     text: 'black',
     primaryText:"black",
     secondText:"rgba(64, 64, 64, 1)",
+    fieldSize:'30px',
+    headerHigth:'55px',
+    headerHoverColor: '#BCBCBC',
     // posts
     postBackground:'white',
     postCommentBackground:'#e6ecf0',
@@ -22,10 +26,13 @@ export const lightTheme = {
   }
   
   export const darkTheme = {
+    fieldSize:'30px',
+    headerHigth:'55px',
     body: '#222222',
     text: '#404040',
     primaryText:"#ededed",
     secondText:"#dbdbdb",
+    headerHoverColor: '#D1D1D1',
     // posts
     postBackground:'#292929',
     postCommentBackground:'#686868',

@@ -1,8 +1,8 @@
 import React, { useState ,useEffect } from "react";
-import './Header.css'
 //import DataService from '../../db-connection/DataService';
 import {  withRouter } from "react-router-dom";
 import CircleDivWithIcon from '../circle-div/CircleDivWithIcon'
+import * as StyleHeader from "./Header.style";
 
 
 // Hook
@@ -74,9 +74,7 @@ const SearchBar = ({backgroundInput , color}) => {
   };
 
   const fullSearchBar = () => {
-    return <input
-      style={{backgroundColor:backgroundInput , color:color}}
-      className="search-input"
+    return <StyleHeader.Search
       value={searchResults}
       onChange={(e) => onInputChange(e)}
       type="text"
@@ -93,16 +91,13 @@ const SearchBar = ({backgroundInput , color}) => {
       />  
   }
 
-
   return (
-    <div>
-      <div className="search-div">
+    <>
+      <div>
         {size.width > 1200 ? fullSearchBar() : miniSearchBar()} 
       </div>
-      <div className="search-render-container">
-      <div className="search-render-results" >{searchTitles}</div>
-      </div>
-    </div>
+      <div>{searchTitles}</div>
+    </>
   );
 };
 

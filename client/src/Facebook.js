@@ -68,47 +68,44 @@ const Facebook = () => {
   if (location.pathname === "/register" || !token) {
     return (
       <BrowserRouter>
-        <Route exact path="/">
-          <ThemeProvider theme={theme}>
-            <Header
-              userPath={userPath}
-              userName={userName}
-              userLastName={userLastName}
-              userAvatar={userAvatar}
-              theme={theme}
-              changeDisplayMode={changeDisplayMode}
-              themePick={themePick}
-            />
-            <FeedPage currentUserPath={userPath} theme={theme} />
-          </ThemeProvider>
-        </Route>
-        <Route exact path="/register">
-          <Login changeLocation={changeLocation} />
-        </Route>
+        <ThemeProvider theme={theme}>
+          <Route exact path="/">
+              <Header
+                userPath={userPath}
+                userName={userName}
+                userLastName={userLastName}
+                userAvatar={userAvatar}
+                changeDisplayMode={changeDisplayMode}
+                themePick={themePick}
+              />
+              <FeedPage currentUserPath={userPath} theme={theme} />
+            </Route>
+            <Route exact path="/register">
+              <Login changeLocation={changeLocation} />
+            </Route>
+        </ThemeProvider>
       </BrowserRouter>
     );
   }
+
   return (
     <BrowserRouter>
-      <Header
-        userPath={userPath}
-        userName={userName}
-        userLastName={userLastName}
-        userAvatar={userAvatar}
-        theme={theme}
-        changeDisplayMode={changeDisplayMode}
-        themePick={themePick}
-      />
-      <Route exact path="/">
-        <ThemeProvider theme={theme}>
-          <FeedPage currentUserPath={userPath} theme={theme} />
-        </ThemeProvider>
-      </Route>
-      <Route path="/:username">
-        <ThemeProvider theme={theme}>
-          <ProfileRender currentUserPath={userPath} theme={theme} />
-        </ThemeProvider>
-      </Route>
+            <ThemeProvider theme={theme}>
+              <Header
+                userPath={userPath}
+                userName={userName}
+                userLastName={userLastName}
+                userAvatar={userAvatar}
+                changeDisplayMode={changeDisplayMode}
+                themePick={themePick}
+              />
+            <Route exact path="/">
+                <FeedPage currentUserPath={userPath} theme={theme} />
+            </Route>
+            <Route path="/:username">
+                <ProfileRender currentUserPath={userPath} theme={theme} />
+            </Route>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };

@@ -4,6 +4,7 @@ import CircleDivWithIcon from "../circle-div/CircleDivWithIcon";
 import DataService from '../../db-connection/DataService';
 
 const DropDownPost = ({ theme  , id , removePostVisavility , updatePost}) => {
+  
   const option = {
     color: theme.primaryText,
     padding: "10px",
