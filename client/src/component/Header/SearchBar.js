@@ -97,9 +97,7 @@ const SearchBar = ({backgroundInput , color}) => {
       <div>
         {size.width > 1200 ? fullSearchBar() : miniSearchBar()} 
       </div>
-      <div className="search-render-container">
-        <div className="search-render-results" >{searchTitles}</div>
-      </div>
+      <div>{searchTitles}</div>
     </>
   );
 };

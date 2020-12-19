@@ -38,7 +38,8 @@ export const Container = styled.div`
         align-items: center;
         font-size: 25px;
         &:hover{
-          background: rgb(97, 97, 97);
+          background: ${props => props.theme.headerHoverColor};
+          border-radius: 10px;
         }
       }
   }
@@ -57,7 +58,7 @@ export const Search = styled.input`
   border:none;
   border-radius: 25px;
   font-family: FontAwesome;
-  background-color: ${props => props.theme.backgroundInput};
+  background-color: ${props => props.theme.postCommentBackground};
   color: ${props => props.theme.color};
   .mainLogo{
     cursor: pointer;
@@ -67,12 +68,16 @@ export const Search = styled.input`
     color: #A7AAAE;
     opacity: 1; /* Firefox */
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
+    padding-left: 20px
     }
 `;
 
 export const FacebookProfileBtn = styled.div`
     background-color: rgba(0,0,0,0);
+    display: flex;
+    align-items: center;
+    border-radius: 25%;
     &:hover{
         background-color: ${props => props.theme.postCommentBackground};
     }
@@ -82,6 +87,12 @@ export const RigthBtn = styled.button`
   border: none;
   background-color: rgba(0,0,0,0);
   margin: 0 5px;
+  border-radius: 50%;
+  background-color: ${props => props.theme.postCommentBackground};
+  cursor: pointer;
+  &:hover{
+        background-color: ${props => props.theme.headerHoverColor};
+  }
 `;
 
 
